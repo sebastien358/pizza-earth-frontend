@@ -1,0 +1,278 @@
+// ---------- 10. FOOTER ----------
+
+$color-primary: #FF5A00;
+$color-primary-dark: #b84712;
+$color-primary-darker: #9C2A00;
+$color-cream: #FFF5E6;
+$color-cream-light: #FFF8EC;
+$color-white: #FFFFFF;
+$color-text: #2B1200;
+$color-text-light: #6B4A2F;
+$color-star: #F5A623;
+
+$bg-footer: #3B1E0F;
+
+$font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+$container: 1100px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+
+// ---------- 2. MIXINS ----------
+
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@mixin btn($bg: $color-primary, $color: $color-white) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $bg;
+  color: $color;
+  border: none;
+  border-radius: 30px;
+  padding: 13px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.20s ease;
+  &:hover {
+    transform: translateX(2px);
+  }
+}
+
+@mixin card {
+  background: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  padding: 20px;
+}
+
+@mixin section-title {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: $color-text;
+  text-transform: uppercase;
+}
+
+@mixin respond($bp) {
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+// ---------- 2. MIXINS ----------
+
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.footer {
+  background: $bg-footer;
+  color: $color-white;
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1.2fr 0.7fr 0.9fr 1.1fr;
+    gap: 24px;
+    padding: 60px 0 60px 0;
+    @include respond(md) { grid-template-columns: 1fr 1fr; }
+    @include respond(sm) { grid-template-columns: 1fr; }
+  }
+
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__logo {
+    border-radius: 50%;
+    background-color: $color-primary;
+    padding: 10px;
+  }
+
+  &__logo .img {
+    @include flex-center(10px);
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 0.9;
+    color: $color-white;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'Fredoka', sans-serif;
+    color: #FFF5E6;
+    opacity: 0.85;
+  }
+
+  &__title span {
+    font-weight: bold;
+    font-size: 24px;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  &__title--title span:nth-child(2) {
+    color: $color-primary;
+  }
+
+  &__description--subtitle {
+    font-size: 11px;
+    color: $color-text-light;
+    letter-spacing: 1px;
+  }
+
+  &__eco {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+    border-radius: 999px;
+    padding: 6px 12px;
+    gap: 6px;
+  }
+
+  &__eco .logo {
+    color: green;
+  }
+
+  &__eco p {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  h4 {
+    font-size: 17px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: $color-white;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    list-style: none;
+    font-size: 14px;
+    color: #FFF5E6;
+    opacity: 0.85;
+    font-weight: 700;
+  }
+
+  &__contact li {
+    display: flex;
+    gap: 7px;
+  }
+
+  &__contact li:last-child {
+    max-width: 200px;
+    line-height: 1.7;
+  }
+
+  &__contact svg {
+    color: $color-star;
+    position: relative;
+    bottom: 3px;
+  }
+
+  &__newsletter {
+    input {
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 30px;
+      margin: 12px 0 12px 0;
+      font-size: 15px;
+      color: $color-white;
+      outline: none;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid $color-text-light;
+      font-weight: bold;
+    }
+    input::placeholder {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    input:focus {
+      border: 1px solid $color-primary;
+    }
+    p {
+      list-style: none;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #FFF5E6;
+      opacity: 0.85;
+      font-weight: 700;
+    }
+
+    button {
+        @include btn; width: 100%; justify-content: center;
+        font-weight: 800;
+      }
+    }
+
+  &__bottom {
+    @include container;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 26px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding: 14px 0;
+    font-weight: 600;
+    color: $color-cream-light;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,185 @@
+// ---------- 4. HEADER ----------
+
+$bg-white: white;
+
+$color-primary: #FF5A00;
+$color-primary-dark: #b84712;
+$color-primary-darker: #9C2A00;
+$color-cream: #FFF5E6;
+$color-cream-light: #FFF8EC;
+$color-white: #FFFFFF;
+$color-text: #2B1200;
+$color-text-light: #6B4A2F;
+$color-star: #F5A623;
+
+$font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+$container: 1100px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+
+// ---------- 2. MIXINS ----------
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@mixin btn($bg: $color-primary, $color: $color-white) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $bg;
+  color: $color;
+  border: none;
+  border-radius: 30px;
+  padding: 13px 22px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.20s ease;
+  &:hover {
+    transform: translateX(2px);
+  }
+}
+
+@mixin card {
+  background: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  padding: 20px;
+}
+
+@mixin section-title {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: $color-text;
+  text-transform: uppercase;
+}
+
+@mixin respond($bp) {
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+
+// ---------- 2. MIXINS ----------
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+
+.header {
+  background: $color-cream;
+  border-radius: 0 0 $radius-lg $radius-lg;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  &__inner {
+    @include container;
+    @include flex-between;
+    padding: 0;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  &__logo {
+    border-radius: 50%;
+    background-color: $color-primary;
+    padding: 10px;
+  }
+
+  &__logo .img {
+    @include flex-center(10px);
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 0.9;
+    color: $color-white;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  &__description span {
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  &__description--title span:nth-child(2) {
+    color: $color-primary;
+  }
+
+  &__description--subtitle {
+    font-size: 11px;
+    color: $color-text-light;
+    letter-spacing: 1px;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 26px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 250ms ease;
+
+    a:hover { color: $color-primary }
+
+    @include respond(md) { display: none; }
+  }
+
+  &__cta {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    @include btn;
+  }
+}

@@ -1,69 +1,258 @@
+"use client"
+
+import styles from "./page.module.scss";
 import Image from "next/image";
-import styles from "./page.module.css";
+
+import PizzaHome from '@/assets/images/pizza_hero_logo.png'
+import Link from "next/link";
+import {UtensilsCrossed, Truck, ShoppingBag, Leaf, Check, ArrowRight, MapPin} from 'lucide-react';
+
+import Truf from '@/assets/images/pizza_truffe_final.png'
+import Marguerita from '@/assets/images/pizza_margherita_final.png'
+import Pepperoni from '@/assets/images/pizza_pepperoni_final.png'
+import Veggie from '@/assets/images/pizza_veggie_final.png'
+import Boisson from '@/assets/images/verre_paille_glacons.png'
+import Pizzas from '@/assets/images/deux_petites_pizzas_maquette.png'
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      <main>
+          {/* Hero */}
+          <section className={styles['hero']}>
+              <div className={styles['hero__inner']}>
+                  <div className={styles['']}>
+                      <div className={styles['hero__badge']}>🍃 Fraîches • Croustillantes • Durables</div>
+                      <h1 className={styles['hero__title']}>Des Pizzas Qui Aiment <span
+                          className={styles['hero__title--earth']}>La Terre !</span></h1>
+                      <p className={styles['hero__subtitle']}>Croustillantes, Savoureuses, Délicieuses !</p>
+                      <p className={styles['hero__description']}>Des ingrédients frais et locaux, une pâte croustillante
+                          et un emballage qui respecte la planète.</p>
+                      <div className={styles['hero__buttons']}>
+                          <Link className={styles['hero__btn--explored']} href="#menu">Explorer →</Link>
+                          <Link className={styles['hero__btn--history']} href="#men">Notre histoire</Link>
+                      </div>
+                      <div className={styles['hero__infos']}>
+                          <div>
+                              <p className={styles['hero__infos--title']}>4,9/5</p>
+                              <p className={styles['hero__infos--subtitle']}>500+ avis</p>
+                          </div>
+                          <div>
+                              <p className={styles['hero__infos--title']}>30 min</p>
+                              <p className={styles['hero__infos--subtitle']}>Livraison express</p>
+                          </div>
+                          <div>
+                              <p className={styles['hero__infos--title']}>100%</p>
+                              <p className={styles['hero__infos--subtitle']}>Ingrédients frais</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div className={styles['hero__image']}>
+                      <span className={styles['hero__image--yum']}>YUM!</span>
+                      <Image className={styles['hero__image--img']} src={PizzaHome} alt={"dd"} width={800} height={800}
+                             priority quality={100} />
+                      <div className={styles['hero__eco']}>
+                      <span className={styles['hero__eco--icon']}>
+                          <Leaf size={20}/>
+                      </span>
+                          <div>
+                              <p className={styles['hero__eco--title']}>Emballage écologique</p>
+                              <p className={styles['hero__eco--text']}>Bon pour vous, bon pour la Terre</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div className={styles['hero__ticker']}>
+                  PIZZA FRAÎCHE • INGRÉDIENTS LOCAUX • PÂTE CROUSTILLANTE • EMBALLAGE ÉCOLOGIQUE
+              </div>
+          </section>
+          {/* Popular */}
+          <section className={styles['popular']}>
+              <div className={styles['popular__inner']}>
+                  <p className={styles['popular__eyebrow']}>NOS BEST-SELLERS</p>
+                  <div className={styles['popular__left']}>
+                      <h2 className={styles['popular__title']}>Articles Populaires</h2>
+                      <p className={styles['popular__subtitle']}>Les préférées de nos clients, préparées minute et cuites à la perfection.</p>
+                  </div>
+                  <div className={styles['popular__row']}>
+                      <div className={styles['popular__grid']}>
+                          <article className={styles['popular__card']}>
+                              <div className={styles['popular__card__image']}>
+                                  <Image src={Marguerita} alt="Margherita" width={400} height={400} priority quality={100} />
+                              </div>
+                              <div className={styles['popular__card__description']}>
+                                  <h3 className={styles['popular__card__description--title']}>Margherita</h3>
+                                  <p className={styles['popular__card__description--subtitle']}>Tomate, mozzarella fondante & basilic frais.</p>
+                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
+                                      <span>Choisir</span>
+                                      <span><ArrowRight size={16} /></span>
+                                  </Link>
+                              </div>
+                          </article>
+                          <article className={styles['popular__card']}>
+                              <div className={styles['popular__card__image']}>
+                                  <Image src={Pepperoni} alt="Pepperoni" width={400} height={400} priority quality={100} />
+                              </div>
+                              <div className={styles['popular__card__description']}>
+                                  <h3 className={styles['popular__card__description--title']}>Pepperoni</h3>
+                                  <p className={styles['popular__card__description--subtitle']}>Pepperoni croustillant & mozzarella généreuse.</p>
+                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
+                                      <span>Choisir</span>
+                                      <span><ArrowRight size={16} /></span>
+                                  </Link>
+                              </div>
+                          </article>
+                          <article className={styles['popular__card']}>
+                              <div className={styles['popular__card__image']}>
+                                  <Image src={Veggie} alt="Jardin Végétarien" width={400} height={400} priority quality={100} />
+                              </div>
+                              <div className={styles['popular__card__description']}>
+                                  <h3 className={styles['popular__card__description--title']}>Jardin Végétarien</h3>
+                                  <p className={styles['popular__card__description--subtitle']}>Légumes du marché, couleurs & croquant.</p>
+                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
+                                      <span>Choisir</span>
+                                      <span><ArrowRight size={16} /></span>
+                                  </Link>
+                              </div>
+                          </article>
+                          <article className={styles['popular__card']}>
+                              <div className={styles['popular__card__image']}>
+                                  <Image src={Truf} alt="Champignon Truffe" width={400} height={400} priority quality={100} />
+                              </div>
+                              <div className={styles['popular__card__description']}>
+                                  <h3 className={styles['popular__card__description--title']}>Champignon Truffe</h3>
+                                  <p className={styles['popular__card__description--subtitle']}>Champignons dorés & parfum délicat de truffe.</p>
+                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
+                                      <span>Choisir</span>
+                                      <span><ArrowRight size={16} /></span>
+                                  </Link>
+                              </div>
+                          </article>
+                      </div>
+                      {/* Popular Limited */}
+                      <div className={styles['popular-limited']}>
+                          <div>
+                              <p className={styles['popular-limited__eyebrow']}>OFFRE LIMITÉE</p>
+                              <div className={styles['popular-limited__title']}>
+                                  <span>Jusqu’à</span><br />
+                                  <span>-10%</span>
+                              </div>
+                              <p className={styles['popular-limited__subtitle']}>
+                                  Offre limitée sur toutes les pizzas et boissons. Commandez maintenant et économisez gros sur vos favoris !
+                              </p>
+                              <button className={styles['popular-limited__button']}>
+                                  <span>Commander</span>
+                                  <span><ArrowRight size={16} /></span>
+                              </button>
+                          </div>
+                          <div className={styles['popular-limited__address']}>
+                              <div className={styles['popular-limited__images']}>
+                                  <Image src={Boisson} alt={"zz"} height={100} width={100} priority quality={100} />
+                                  <Image src={Pizzas} alt={"ss"} height={150} width={200} priority quality={100}/>
+                              </div>
+                              <div className={styles['popular-limited__limited']}>
+                                  <MapPin size={14} />
+                                  <span> 123 Green St, Los Angeles • À emporter & livraison</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          {/* About */}
+          <section className={styles['about']}></section>
+          {/* How */}
+          <section className={styles['how']}>
+              <div className={styles['how__inner']}>
+                  <p className={styles['how__eyebrow']}>Simple & rapide</p>
+                  <h2 className={styles['how__title']}>Comment Ça Marche</h2>
+                  <p className={styles['how__subtitle']}>3 étapes simples pour déguster votre pizza en un rien de temps</p>
+                  <div className={styles['how__grid']}>
+                      <article className={styles['how-card']}>
+                          <div className={styles['how-card__number']}>01</div>
+                          <div className={styles['how-card__logo']}>
+                              <UtensilsCrossed className={styles['logo']} size={26} strokeWidth={2} />
+                          </div>
+                          <h3 className={styles['how-card__title']}>Choisissez Vos Pizzas</h3>
+                          <p className={styles['how-card__text']}>Parcourez notre menu et choisissez vos pizzas préférées avec des garnitures personnalisées.</p>
+                      </article>
+                      <article className={styles['how-card']}>
+                          <div className={styles['how-card__number']}>02</div>
+                          <div className={styles['how-card__logo']}>
+                              <Truck size={26} className={styles['logo']} strokeWidth={2} />
+                          </div>
+                          <h3 className={styles['how-card__title']}>Suivez Votre Commande</h3>
+                          <p className={styles['how-card__text']}>Suivez votre commande en direct, de la cuisine jusqu’à votre porte en temps réel.</p>
+                      </article>
+                      <article className={styles['how-card']}>
+                          <div className={styles['how-card__number']}>03</div>
+                          <div className={styles['how-card__logo']}>
+                              <ShoppingBag size={26} className={styles['logo']} strokeWidth={2} />
+                          </div>
+                          <h3 className={styles['how-card__title']}>Récupérez Votre Commande</h3>
+                          <p className={styles['how-card__text']}>Récupérez votre pizza chaude, livrée ou à emporter, prête à déguster.</p>
+                      </article>
+                  </div>
+              </div>
+          </section>
+          {/* Reviews */}
+          <section className={styles['reviews']}>
+              <div className={styles['reviews__inner']}>
+                  <p className={styles['reviews__eyebrow']}>Témoignages</p>
+                  <h2 className={styles['reviews__title']}>CE QUE DISENT NOS CLIENTS</h2>
+                  <p className={styles['reviews__subtitle']}>Adoré par les amateurs de pizza partout</p>
+                  <div className={styles['reviews__grid']}>
+                      <article className={styles['review-card']}>
+                          <p className={styles['review-card__stars']}>★★★★</p>
+                          <p className={styles['review-card__text']}>"J'adore l'emballage écologique et les saveurs sont
+                              incroyables. Le Jardin Végétarien est frais et délicieux !"</p>
+                          <div className={styles['review-card__author']}>
+                              <div className={styles['review-card__avatar']}>J</div>
+                              <div className={styles['review-card__author__name']}>
+                                  <small>James K.</small>
+                                  <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
+                              </div>
+                          </div>
+                      </article>
+                      <article className={styles['review-card']}>
+                          <p className={styles['review-card__stars']}>★★★★</p>
+                          <p className={styles['review-card__text']}>"J'adore l'emballage écologique et les saveurs sont
+                              incroyables. Le Jardin Végétarien est frais et délicieux !"</p>
+                          <div className={styles['review-card__author']}>
+                              <div className={styles['review-card__avatar']}>J</div>
+                              <div className={styles['review-card__author__name']}>
+                                  <small>James K.</small>
+                                  <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
+                              </div>
+                          </div>
+                      </article>
+                      <article className={styles['review-card']}>
+                          <p className={styles['review-card__stars']}>★★★★</p>
+                          <p className={styles['review-card__text']}>"J'adore l'emballage écologique et les saveurs sont
+                              incroyables. Le Jardin Végétarien est frais et délicieux !"</p>
+                          <div className={styles['review-card__author']}>
+                              <div className={styles['review-card__avatar']}>J</div>
+                              <div className={styles['review-card__author__name']}>
+                                  <small>James K.</small>
+                                  <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
+                              </div>
+                          </div>
+                      </article>
+                  </div>
+              </div>
+              {/* CTA */}
+              <section className={styles['cta']}>
+                  <div className={styles['cta__inner']}>
+                      <div>
+                          <h3 className={styles['cta__title']}>Une petite faim ? La Terre vous dit merci.</h3>
+                          <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -50% sur les pizzas et boissons.</p>
+                      </div>
+                      <button className={styles['cta__button']}>
+                          Commander maintenant
+                          <ShoppingBag size={18} />
+                      </button>
+                  </div>
+              </section>
+          </section>
       </main>
-    </div>
   );
 }

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import PizzaHome from '@/assets/images/pizza_hero_logo.png'
 import Link from "next/link";
-import {UtensilsCrossed, Truck, ShoppingBag, Leaf, Check, ArrowRight, MapPin} from 'lucide-react';
+import {UtensilsCrossed, Truck, ShoppingBag, Leaf, Check, ArrowRight, MapPin, Package} from 'lucide-react';
 
 import Truf from '@/assets/images/pizza_truffe_final.png'
 import Marguerita from '@/assets/images/pizza_margherita_final.png'
@@ -13,6 +13,7 @@ import Pepperoni from '@/assets/images/pizza_pepperoni_final.png'
 import Veggie from '@/assets/images/pizza_veggie_final.png'
 import Boisson from '@/assets/images/verre_paille_glacons.png'
 import Pizzas from '@/assets/images/deux_petites_pizzas_maquette.png'
+import Pizza from '@/assets/images/pizza_hero_logo.png'
 
 export default function Home() {
   return (
@@ -48,11 +49,10 @@ export default function Home() {
                   </div>
                   <div className={styles['hero__image']}>
                       <span className={styles['hero__image--yum']}>YUM!</span>
-                      <Image className={styles['hero__image--img']} src={PizzaHome} alt={"dd"} width={800} height={800}
-                             priority quality={100} />
+                      <Image className={styles['hero__image--img']} src={PizzaHome} alt={"dd"} width={800} height={800} priority quality={100} />
                       <div className={styles['hero__eco']}>
                       <span className={styles['hero__eco--icon']}>
-                          <Leaf size={20}/>
+                          <Package size={23} />
                       </span>
                           <div>
                               <p className={styles['hero__eco--title']}>Emballage écologique</p>
@@ -159,7 +159,38 @@ export default function Home() {
               </div>
           </section>
           {/* About */}
-          <section className={styles['about']}></section>
+          <section className={styles['about']}>
+              <div className={styles['about__inner']}>
+                  <div className={styles['about__image']}>
+                      <Image className={styles['img']} src={Pizza} alt={""} height={600} width={600} priority quality={100} />
+                      <div className={styles['about__infos']}>
+                          <span>Depuis 2024</span>
+                          <span>Passion & planète</span>
+                      </div>
+                  </div>
+                  <div className={styles['about__content']}>
+                      <p className={styles['about__eyebrow']}>QUI SOMMES-NOUS</p>
+                      <h2 className={styles['about__title']}>Fait avec passion pour la planète et vos papilles</h2>
+                      <p className={styles['about__subtitle']}>
+                          Chez <span>PIZZA EARTH</span>, nous croyons qu’une bonne pizza doit être savoureuse, durable et préparée avec amour. Nous sélectionnons des ingrédients frais et locaux, utilisons un emballage écologique et cuisons chaque pizza à la perfection pour une pizza croustillante - en prenant soin de la planète et de vos papilles.
+                      </p>
+                      <div className={styles['about__row']}>
+                          <div className={styles['about__logo']}>
+                              <Leaf className={styles['logo-eco']} size={22}/>
+                              <span> Emballage écologique</span>
+                          </div>
+                          <div className={styles['about__logo']}>
+                              <Package className={styles['logo-fresh']} size={22} />
+                              <span>100% Ingrédients frais</span>
+                          </div>
+                      </div>
+                      <button className={styles['about__button']}>
+                          <span>Découvrir Notre Histoire</span>
+                          <Check size={13} strokeWidth={3} />
+                      </button>
+                  </div>
+              </div>
+          </section>
           {/* How */}
           <section className={styles['how']}>
               <div className={styles['how__inner']}>

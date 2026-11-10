@@ -1,0 +1,164 @@
+// ---------- Variables ----------
+$orange: #ff5a00;
+$orange-dark: #e04e00;
+$cream: #fff4e3;
+$brown: #3b1f10;
+$yellow: #ffd43b;
+$white: #fff;
+$error: #c62828;
+
+$radius: 20px;
+$radius-sm: 12px;
+$radius-pill: 999px;
+$shadow: 0 6px 20px rgba($brown, 0.12);
+$bp-md: 900px;
+
+@mixin md { @media (max-width: $bp-md) { @content; } }
+
+
+//:focus-visible { outline: 3px solid $yellow; outline-offset: 3px; }
+
+// ---------- Boutons ----------
+.btn {
+  width: 100%;
+  padding: 0.85rem 1.4rem;
+  border: 0;
+  border-radius: $radius-pill;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &--primary {
+    background: $orange;
+    color: $white;
+    &:hover { background: $orange-dark; }
+  }
+}
+
+// ---------- Layout ----------
+.register {
+  font-family: 'Fredoka', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  min-height: 100vh;
+
+  @include md { grid-template-columns: 1fr; }
+
+  // Panneau orange
+  &__side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2.5rem;
+    background: $orange;
+    color: $white;
+
+    @include md { padding: 1.5rem; gap: 1.25rem; }
+  }
+
+  &__pitch {
+    h1 {
+      margin: 0 0 1.25rem;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      line-height: 1.1;
+      span { color: $yellow; }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    li::before { content: "✓ "; color: $yellow; font-weight: 700; }
+
+    @include md { ul { display: none; } }
+  }
+
+  &__note {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    @include md { display: none; }
+  }
+
+  // Zone formulaire
+  &__main {
+    display: grid;
+    place-items: center;
+    padding: 2rem 1rem;
+  }
+}
+
+.logo {
+  align-self: flex-start;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: $white;
+  text-decoration: none;
+  span { color: $brown; }
+  &:hover { color: $white; }
+}
+
+// ---------- Carte formulaire ----------
+.card {
+  width: min(480px, 100%);
+  padding: 2rem;
+  background: $white;
+  border-radius: $radius;
+  box-shadow: $shadow;
+
+  h2 { margin: 0; font-size: 1.8rem; }
+
+  &__sub { margin: 0.25rem 0 1.5rem; opacity: 0.75; }
+
+  &__alt { margin: 1.25rem 0 0; text-align: center; font-size: 0.95rem; a { font-weight: 600; } }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 480px) { grid-template-columns: 1fr; gap: 0; }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  label { margin-bottom: 0.3rem; font-weight: 500; }
+
+  small { margin-top: 0.25rem; font-size: 0.8rem; opacity: 0.7; font-weight: 400; }
+
+  input {
+    padding: 0.7rem 0.9rem;
+    border: 2px solid rgba($brown, 0.15);
+    border-radius: $radius-sm;
+    background: $cream;
+    font: inherit;
+    color: $brown;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+
+    &::placeholder { color: rgba($brown, 0.4); }
+    &:focus { outline: none; border-color: $orange; background: $white; }
+    &:user-invalid { border-color: $error; }
+  }
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.5rem 0 1.25rem;
+  font-size: 0.9rem;
+
+  input { margin-top: 0.3rem; accent-color: $orange; width: 1.1rem; height: 1.1rem; }
+}

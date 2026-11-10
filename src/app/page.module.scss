@@ -1,6 +1,6 @@
 // ==================================================
 // PIZZA EARTH - SCSS
-// Compile avec : sass pizza-earth.scss pizza-earth.css
+// Compile avec : sass pizzas-earth.scss pizzas-earth.css
 // ==================================================
 
 // ---------- 1. VARIABLES ----------
@@ -107,7 +107,7 @@ $breakpoint-sm: 600px;
   padding: 40px 0 30px;
   overflow: hidden;
 
-  margin-top: 75px;
+  //margin-top: 75px;
   &__badge {
     display: inline-flex;
     align-items: center;

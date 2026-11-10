@@ -4,7 +4,6 @@ import style from './Emplacement.module.scss'
 import {ShoppingBag} from "lucide-react";
 
 export default function Emplacement() {
-
     return (
         <main className={style['page']}>
             <section className={style['page-hero']}>

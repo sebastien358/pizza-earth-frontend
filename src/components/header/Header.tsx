@@ -1,15 +1,21 @@
 "use client"
 
 import styles from './Header.module.scss'
+
 import {LogIn, Pizza, ShoppingCart} from "lucide-react";
-import Link from "next/link";
 import NavLink from "@/components/nav-link/NavLink";
+import Link from "next/link";
+
+import Pizza1 from '@/assets/images/pizza_pepperoni_final.png'
+import Pizza2 from '@/assets/images/pizza_veggie_final.png'
+import Image from "next/image";
 
 export default function Header() {
 
     return (
         <header className={styles['header']}>
             <div className={styles['header__inner']}>
+
                 <a className={styles['header__brand']} href="#">
                     <div className={styles['header__logo']} >
                         <Pizza className={styles['img']} size={22} />
@@ -23,12 +29,12 @@ export default function Header() {
                         </p>
                     </div>
                 </a>
+
                 <nav className={styles['header__nav']}>
                     <NavLink href="/" dropdown>Menu</NavLink>
-                    <Link href="#pizzas">Pizzas</Link>
+                    <NavLink href="/pizzas" dropdown>Pizzas</NavLink>
                     <NavLink href="/emplacement" dropdown>Emplacements</NavLink>
                     <Link href="#apropos">À propos</Link>
-
 
                     <div className={styles['auth']}>
                         <LogIn className={styles['logo-login']} strokeWidth={3} size={17}/>
@@ -39,24 +45,22 @@ export default function Header() {
                     </div>
 
                     <div className={styles['shopping-cart']}>
-                        <a href="/panier" className="cart__trigger">
-                            <Link href={"#"}><ShoppingCart size={17}/></Link>
-                            <span className="cart__badge">2</span>
+                        <a href="/panier" className={styles['shopping-cart__trigger']}>
+                            <Link href={"#"}><ShoppingCart size={17} /></Link>
+                            <span className={styles['shopping-cart__badge']}>2</span>
                         </a>
-
                         <div className={styles['shopping-cart__menu']}>
                             <ul className={styles['shopping-cart__list']}>
                                 <li className={styles['shopping-cart__item']}>
-                                    <img src="/pepperoni.jpg" alt="Pepperoni"/>
+                                    <Image src={Pizza1} alt={"Pepperoni"} height={50} width={50} />
                                     <div className={styles['shopping-cart__item__info']}>
                                         <span className={styles['shopping-cart__item__name']}>Pepperoni</span>
                                         <span className={styles['shopping-cart__item__qty']}>x1</span>
                                     </div>
                                     <span className={styles['shopping-cart__item__price']}>12,90 €</span>
                                 </li>
-
                                 <li className={styles['shopping-cart__item__item']}>
-                                    <img src="/margherita.jpg" alt="Margherita"/>
+                                    <Image src={Pizza2} alt={"Margherita"} height={50} width={50} />
                                     <div className={styles['shopping-cart__item__info']}>
                                         <span className={styles['shopping-cart__item__name']}>Margherita</span>
                                         <span className={styles['shopping-cart__item__qty']}>x2</span>
@@ -64,17 +68,15 @@ export default function Header() {
                                     <span className={styles['shopping-cart__item__price']}>21,00 €</span>
                                 </li>
                             </ul>
-
                             <div className={styles['shopping-cart__item__total']}>
                                 <span>Total</span>
                                 <strong>33,90 €</strong>
                             </div>
-
-                            <a href="/commande" className={styles['shopping-cart__item__cta']}>Commander →</a>
+                            <a href="/commande" className={styles['shopping-cart__item__cta']}>
+                                Commander →
+                            </a>
                         </div>
                     </div>
-
-
                 </nav>
                 <Link className={styles['header__cta']} href="#commander">
                     Commander

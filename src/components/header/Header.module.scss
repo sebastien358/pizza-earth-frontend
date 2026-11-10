@@ -113,8 +113,11 @@ $breakpoint-sm: 600px;
   padding: 14px 0;
   z-index: 10;
   border-radius: 0;
-  position: fixed;
-  top: 0;
+
+  height: 75px;
+
+  //position: fixed;
+  //top: 0;
   width: 100%;
 
   &__inner {
@@ -225,12 +228,14 @@ $breakpoint-sm: 600px;
     box-shadow: 0 10px 25px rgba(0,0,0,.12);
     padding: 8px;
     gap: 6px;
-    transition: opacity 0.15s visibility 0.15s;
+    transition: opacity 0.15s, visibility 0.15s;
     display: flex;
     flex-direction: column;
 
     opacity: 0;
     visibility: hidden;
+
+    z-index: 1;
 
     &::before {
       content: "";
@@ -254,11 +259,11 @@ $breakpoint-sm: 600px;
       &:hover { background: #FFF0D9; color: $color-primary; }
     }
   }
-}
 
-.auth:hover .auth__menu {
-  visibility: visible;
-  opacity: 1;
+  &:hover &__menu {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 // ---------- MENU SHOPPING CART ----------
@@ -268,6 +273,25 @@ $breakpoint-sm: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &__trigger {
+    position: relative;
+  }
+
+  &__badge {
+    position: absolute;
+    color: $color-white;
+    font-size: 10px;
+    background-color: $color-primary;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    bottom: 13px;
+    left: 11px;
+  }
 
   &__menu {
     position: absolute;
@@ -282,6 +306,8 @@ $breakpoint-sm: 600px;
     opacity: 0;
     visibility: hidden;
     transition: opacity .15s, visibility .15s;
+
+    z-index: 1;
 
     &::before {
       content: "";
@@ -330,7 +356,6 @@ $breakpoint-sm: 600px;
       gap: 10px;
       padding: 6px;
       border-radius: 10px;
-
       background-color: $color-cream;
 
       img {
@@ -392,9 +417,6 @@ $breakpoint-sm: 600px;
     }
   }
 }
-
-
-
 
 
 

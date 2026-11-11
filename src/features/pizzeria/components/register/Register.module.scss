@@ -6,6 +6,7 @@ $brown: #3b1f10;
 $yellow: #ffd43b;
 $white: #fff;
 $error: #c62828;
+$success: #008000FF;
 
 $radius: 20px;
 $radius-sm: 12px;
@@ -15,11 +16,11 @@ $bp-md: 900px;
 
 @mixin md { @media (max-width: $bp-md) { @content; } }
 
-
 //:focus-visible { outline: 3px solid $yellow; outline-offset: 3px; }
 
 // ---------- Boutons ----------
 .btn {
+  margin-top: 10px;
   width: 100%;
   padding: 0.85rem 1.4rem;
   border: 0;
@@ -93,6 +94,12 @@ $bp-md: 900px;
     place-items: center;
     padding: 2rem 1rem;
   }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
 }
 
 .logo {
@@ -131,7 +138,7 @@ $bp-md: 900px;
 .field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
 
   label { margin-bottom: 0.3rem; font-weight: 500; }
 
@@ -157,8 +164,19 @@ $bp-md: 900px;
   display: flex;
   align-items: flex-start;
   gap: 0.6rem;
-  margin: 0.5rem 0 1.25rem;
   font-size: 0.9rem;
 
   input { margin-top: 0.3rem; accent-color: $orange; width: 1.1rem; height: 1.1rem; }
+}
+
+.success-message {
+  color: $success;
+  text-align: center;
+  font-size: 16px;
+}
+
+.error-message {
+  color: $error;
+  text-align: center;
+  font-size: 16px;
 }

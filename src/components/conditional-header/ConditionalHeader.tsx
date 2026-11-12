@@ -8,8 +8,9 @@ export default function ConditionalHeader({ className }: { className: string }) 
 
     const isRegister = pathname.startsWith('/register')
     const isLogin = pathname.startsWith('/login')
+    const isAdmin = pathname.startsWith('/admin')
 
-    if (isRegister || isLogin) {
+    if (isRegister || isLogin || isAdmin) {
         return null
     }
 

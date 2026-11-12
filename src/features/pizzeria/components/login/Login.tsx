@@ -39,7 +39,7 @@ export default function Login() {
     function handleSuccess() {
         setTimeout(() => {
             resetSuccessMessage()
-            router.push('/login')
+            router.push('/')
             reset()
         }, DELAY_TIMEOUT)
     }

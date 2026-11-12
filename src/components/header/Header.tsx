@@ -9,8 +9,11 @@ import Link from "next/link";
 import Pizza1 from '@/assets/images/pizza_pepperoni_final.png'
 import Pizza2 from '@/assets/images/pizza_veggie_final.png'
 import Image from "next/image";
+import {useAuthStore} from "@/store/auth.store";
 
 export default function Header() {
+
+    const { isAdmin, isUser, token , logout} = useAuthStore()
 
     return (
         <header className={styles['header']}>
@@ -39,8 +42,35 @@ export default function Header() {
                     <div className={styles['auth']}>
                         <LogIn className={styles['logo-login']} strokeWidth={3} size={17}/>
                         <nav className={`${styles['auth__menu']}`}>
-                            <Link href="/login">Se connecter</Link>
-                            <Link href="/register">S'inscrire</Link>
+                            {isAdmin ? (
+                                <>
+                                    <Link href="/admin/products/form">Commandes</Link>
+                                    <Link
+                                        onClick={() => logout()}
+                                        className={styles['logout']}
+                                        href="/login"
+                                    >
+                                        Se Déconnecter
+                                    </Link>
+                                </>
+
+                            ) : isUser ? (
+                                <>
+                                    <Link href="/#">Commandes</Link>
+                                    <Link
+                                        onClick={() => logout()}
+                                        className={styles['logout']}
+                                        href="/login"
+                                    >
+                                        Se Déconnecter
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Link href="/login">Se connecter</Link>
+                                    <Link href="/register">S'inscrire</Link>
+                                </>
+                            )}
                         </nav>
                     </div>
 
@@ -73,12 +103,12 @@ export default function Header() {
                                 <strong>33,90 €</strong>
                             </div>
                             <a href="/commande" className={styles['shopping-cart__item__cta']}>
-                                Commander →
+                                Payer →
                             </a>
                         </div>
                     </div>
                 </nav>
-                <Link className={styles['header__cta']} href="#commander">
+                <Link className={styles['header__cta']} href="/pizzas">
                     Commander
                 </Link>
             </div>

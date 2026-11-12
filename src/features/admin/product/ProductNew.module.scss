@@ -1,0 +1,190 @@
+$orange: #ff5a00;
+$orange-dark: #e04e00;
+$cream: #fff4e3;
+$brown: #3b1f10;
+$yellow: #ffd43b;
+$white: #fff;
+$error: #c62828;
+$success: #008000FF;
+
+$radius: 20px;
+$radius-sm: 12px;
+$radius-pill: 999px;
+$shadow: 0 6px 20px rgba($brown, 0.12);
+$bp-md: 900px;
+
+@mixin inputForm($height: 40px) {
+  padding: 0 0.9rem;
+  border: 2px solid rgba($brown, 0.15);
+  border-radius: $radius-sm;
+  background: $cream;
+  font: inherit;
+  color: $brown;
+  transition: border-color 0.2s, background 0.2s;
+  height: $height
+}
+
+@mixin md { @media (max-width: $bp-md) { @content; } }
+
+// ---------- Boutons ----------
+.btn {
+  width: 100%;
+  padding: 0.85rem 1.4rem;
+  border: 0;
+  border-radius: $radius-pill;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &--primary {
+    background: $orange;
+    color: $white;
+    &:hover { background: $orange-dark; }
+  }
+}
+
+// ---------- Layout ----------
+.product {
+  font-family: 'Fredoka', sans-serif;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  @include md { grid-template-columns: 1fr; }
+
+  // Zone formulaire
+  &__main {
+    display: grid;
+    place-items: center;
+    padding: 2rem 1rem;
+    width: 100%;
+    max-width: 500px;
+
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+// ---------- Carte formulaire ----------
+.card {
+  width: min(440px, 100%);
+  padding: 2rem;
+  background: $white;
+  border-radius: $radius;
+  box-shadow: $shadow;
+
+  h2 { margin: 0; font-size: 1.7rem; text-align: center }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+
+  label { margin-bottom: 0.3rem; font-weight: 500; }
+
+  textarea {
+    height: 250px;
+  }
+
+  textarea {
+    @include inputForm($height: 100px);
+    resize: none;
+
+    &:focus { outline: none; border-color: $orange; background: $white; }
+    &:user-invalid { border-color: $error; }
+  }
+
+  input,
+  select {
+    @include inputForm($height: 50px);
+
+    &::placeholder { color: rgba($brown, 0.4); }
+    &:focus { outline: none; border-color: $orange; background: $white; }
+    &:user-invalid { border-color: $error; }
+  }
+}
+
+.file {
+  &__label {
+    position: relative;
+    padding: 0 0.9rem;
+    border: 2px solid rgba($brown, 0.15);
+    border-radius: $radius-sm;
+    background: $cream;
+    font: inherit;
+    color: $brown;
+    font-size: 11px;
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 48px;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__label .filename {
+    font: inherit;
+    color: $brown;
+    font-size: 10px;
+  }
+
+  &__label .no-filename {
+    font: inherit;
+    color: $brown;
+    font-size: 16px;
+  }
+
+  &__label:focus-within { outline: none; border-color: $orange; background: $white; }
+
+  &__input {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}
+
+.success-message {
+  color: $success;
+  text-align: center;
+  font-size: 16px;
+}
+
+.error-message {
+  color: $error;
+  text-align: center;
+  font-size: 16px;
+}
+
+// ---------- Loader ----------
+.loader {
+  --color-1: #ff5a00;
+  --size: 1px;
+  width: calc(26 * var(--size));
+  height: calc(26 * var(--size));
+  border: calc(3 * var(--size)) solid var(--color-1);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+  margin: 10px auto 0 auto;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

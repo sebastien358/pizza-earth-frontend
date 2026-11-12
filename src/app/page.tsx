@@ -29,7 +29,7 @@ export default function Home() {
                       <p className={styles['hero__description']}>Des ingrédients frais et locaux, une pâte croustillante
                           et un emballage qui respecte la planète.</p>
                       <div className={styles['hero__buttons']}>
-                          <Link className={styles['hero__btn--explored']} href="#menu">Explorer →</Link>
+                          <Link className={styles['hero__btn--explored']} href="/pizzas">Explorer →</Link>
                           <Link className={styles['hero__btn--history']} href="#men">Notre histoire</Link>
                       </div>
                       <div className={styles['hero__infos']}>
@@ -140,14 +140,14 @@ export default function Home() {
                                   Offre limitée sur toutes les pizzas et boissons. Commandez maintenant et économisez gros sur vos favoris !
                               </p>
                               <button className={styles['popular-limited__button']}>
-                                  <span>Commander</span>
+                                  <Link href={"/pizzas"}>Commander</Link>
                                   <span><ArrowRight size={16} /></span>
                               </button>
                           </div>
                           <div className={styles['popular-limited__address']}>
                               <div className={styles['popular-limited__images']}>
                                   <Image src={Boisson} alt={"zz"} height={100} width={100} priority quality={100} />
-                                  <Image src={Pizzas} alt={"ss"} height={150} width={200} priority quality={100}/>
+                                  <Image src={Pizzas} alt={"ss"} height={100} width={100} priority quality={100} />
                               </div>
                               <div className={styles['popular-limited__limited']}>
                                   <MapPin size={14} />
@@ -278,7 +278,7 @@ export default function Home() {
                           <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -50% sur les pizzas et boissons.</p>
                       </div>
                       <button className={styles['cta__button']}>
-                          Commander maintenant
+                          <Link href={"/pizzas"}>Commander maintenant</Link>
                           <ShoppingBag size={18} />
                       </button>
                   </div>

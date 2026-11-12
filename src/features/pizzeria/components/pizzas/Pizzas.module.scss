@@ -1,0 +1,312 @@
+// ---------- Variables (palette du site) ----------
+
+$orange: #ff5a00;
+$orange-dark: #e04e00;
+$strip: #b84a14;
+$cream: #fff4e3;
+$brown: #3b1f10;
+$yellow: #ffc72c;
+$white: #fff;
+$grey: #f1f2f6;
+
+// Tes variables, comme pour la modal
+
+$radius: 20px;  $radius-sm: 16px;
+$radius-pill: 999px;
+$shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
+
+@mixin lg { @media (max-width: 1100px) { @content; } }
+@mixin md { @media (max-width: 760px) { @content; } }
+
+// ---------- Bouton ----------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: 0;
+  border-radius: $radius-pill;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+
+  &--primary { background: $orange; color: $white; &:hover { background: $orange-dark; } }
+}
+
+.container { width: min(1100px); margin-inline: auto; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+
+  &__mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: $orange; }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+
+    strong { font-size: 1.25rem; font-weight: 700; }
+    em { font-style: normal; color: $orange; }
+    small { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+  }
+
+  &--light { color: $white; }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-left: auto;
+
+  a { font-size: 0.92rem; font-weight: 500; text-decoration: none; transition: color 0.2s; &:hover, &[aria-current="page"] { color: $orange; } }
+
+  .icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; &:hover { background: rgba($brown, 0.07); } }
+
+  @include lg { a:not(.icon) { display: none; } }
+}
+
+// ---------- Hero ----------
+.hero {
+  font-family: 'Fredoka', sans-serif;
+  position: relative;
+  overflow: hidden;
+  padding: 3.5rem 0 4rem;
+  background: $orange;
+  color: $white;
+
+  .container { position: relative; z-index: 1; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 1.25rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: $radius-pill;
+    background: rgba($white, 0.2);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 8vw, 4.8rem);
+    font-weight: 700;
+    line-height: 1.05;
+    span { color: $yellow; }
+  }
+
+  &__text { max-width: 46ch; margin: 1rem 0 0; font-size: 1rem; opacity: 0.95; }
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  strong { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
+  small { font-size: 0.7rem; opacity: 0.9; }
+}
+
+.strip {
+  padding: 0.55rem 1rem;
+  background: $strip;
+  color: $white;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+// ---------- En-tête de section (comme l’accueil) ----------
+.catalog { font-family: 'Fredoka', sans-serif; padding: 4rem 0 5rem; }
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1.75rem;
+
+  &__eyebrow { margin: 0 0 0.35rem; color: $orange; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1; }
+  &__text { max-width: 32ch; margin: 0; font-size: 0.92rem; opacity: 0.75; }
+
+  @include md { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
+
+// ---------- Filtres ----------
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+
+.chip {
+  padding: 0.5rem 1.15rem;
+  border: 0;
+  border-radius: $radius-pill;
+  background: $white;
+  box-shadow: 0 1px 2px rgba($brown, 0.08);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover { color: $orange; }
+  &.is-active { background: $brown; color: $white; }
+}
+
+// ---------- Grille ----------
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include lg { grid-template-columns: repeat(2, 1fr); }
+  @include md { grid-template-columns: 1fr; }
+}
+
+.empty { padding: 3rem 0; text-align: center; opacity: 0.7; }
+
+// ---------- Carte (même composant que "Articles populaires") ----------
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.55rem;
+  border-radius: $radius;
+  background: $white;
+  box-shadow: $shadow;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  width: 100%;
+
+  &:hover { transform: translateY(-4px); box-shadow: 0 2px 6px rgba($brown, 0.06), 0 16px 34px rgba($brown, 0.14); }
+
+  &__media {
+    position: relative;
+
+    aspect-ratio: 4 / 3.4;
+    overflow: hidden;
+    border-radius: $radius-sm;
+    background: $cream;
+
+    img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+
+    .info {
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: black;
+      opacity: 0.75;
+      color: #fff;
+      font-weight: 700;
+      top: 10px;
+      left: 10px;
+      position: absolute;
+      width: 55px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &:hover &__media img { transform: scale(1.05); }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0.9rem 0.6rem 0.6rem;
+
+    h3 { margin: 0 0 0 0; font-size: 1.1rem; font-weight: 600; }
+    p { margin: 0.25rem 0; min-height: 2.9em; font-size: 0.85rem; opacity: 0.75; }
+  }
+
+  &__foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .price { font-size: 1.15rem; font-weight: 700; }
+
+  .separator { margin: 0.7rem 0 1rem 0; border-bottom: 1px solid $grey; width: 100%; }
+}
+
+.choose {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: $orange;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  &:hover { color: $orange-dark; svg { transform: translateX(3px); } }
+  svg { transition: transform 0.2s; }
+}
+
+
+// ---------- Button Load ----------
+.lazy-load {
+  font-family: 'Fredoka', sans-serif;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .btn-load {
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: $orange;
+    color: $white;
+    border: none;
+    font-weight: 900;
+    font-size: 11px;
+    padding: 11px;
+    transition: all 200ms ease;
+    &:hover { background-color: $orange-dark; transform: translateY(-2px); }
+  }
+}
+
+// ---------- Bandeau CTA ----------
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 4.5rem;
+  padding: 2.25rem 2.5rem;
+  border-radius: $radius;
+  background: $brown;
+  color: $white;
+
+  h2 { margin: 0; font-size: clamp(1.3rem, 3vw, 1.75rem); font-weight: 600; }
+  p { margin: 0.3rem 0 0; font-size: 0.92rem; opacity: 0.8; }
+
+  @include md { padding: 1.75rem 1.5rem; }
+}
+
+// ---------- Newsletter ----------
+.newsletter {
+  display: grid;
+  gap: 0.6rem;
+
+  input {
+    padding: 0.7rem 1rem;
+    border: 1px solid rgba($white, 0.15);
+    border-radius: $radius-pill;
+    background: rgba($white, 0.08);
+    font: inherit;
+    color: $white;
+    &::placeholder { color: rgba($white, 0.5); }
+    &:focus { outline: none; border-color: $orange; }
+  }
+
+  .btn { justify-content: center; }
+}

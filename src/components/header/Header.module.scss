@@ -258,6 +258,20 @@ $breakpoint-sm: 600px;
 
       &:hover { background: #FFF0D9; color: $color-primary; }
     }
+
+    .logout {
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      color: $color-white;
+      border: 1px solid $color-primary;
+      background: $color-primary;
+      display: inline-flex;
+      width: 100%;
+      font-weight: 600;
+
+      &:hover {background: lighten($color-primary, 10); color: $color-white;}
+    }
   }
 
   &:hover &__menu {

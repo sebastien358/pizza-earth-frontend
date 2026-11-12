@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosLogin, axiosRegister} from "@/shared/services/auth.service";
+import {axiosLogin, axiosMe, axiosRegister} from "@/shared/services/auth.service";
 
 export interface LoginFormData {
     email: string
@@ -17,13 +17,29 @@ export interface RegisterFormData {
     terms: boolean
 }
 
+export interface UserData {
+    firstname: string
+    lastname: string
+    email: string
+    phone: string
+    password: string
+    confirm: string
+    terms: boolean
+    roles: string[]
+}
+
 export interface AuthState {
-    user: null
+    user: UserData | null
+    token: string | null
     successMessage: string | null
     errorMessage: string | null
 
     login: (data: LoginFormData) => Promise<void>
+    infoMe: () => Promise<void>
     registration: (data: RegisterFormData) => Promise<void>
+    isAdmin: () => boolean
+    isUser: () => boolean
+    logout: () => void
     resetSuccessMessage: () => void
     resetErrorMessage: () => void
 }
@@ -31,13 +47,15 @@ export interface AuthState {
 export const useAuthStore =  create<AuthState>()(
     persist((set, get) => ({
         user: null,
+        token: null,
         successMessage: null,
         errorMessage: null,
 
         login: async (data: LoginFormData) => {
             try {
-                await axiosLogin(data)
-                set({ successMessage: 'Vous êtes connecté ✨', errorMessage: null })
+                const {token} = await axiosLogin(data)
+                set({ token: token, successMessage: 'Vous êtes connecté ✨', errorMessage: null })
+                await get().infoMe()
             } catch (err: any) {
                 const apiError = err.response.status
                 if (apiError === 401) {
@@ -45,6 +63,16 @@ export const useAuthStore =  create<AuthState>()(
                 } else {
                     set({ errorMessage: 'Une erreur est survenue'})
                 }
+                throw err
+            }
+        },
+
+        infoMe: async () => {
+            try {
+                const data = await axiosMe()
+                set({ user: data })
+            } catch (err: any) {
+                console.error(err)
                 throw err
             }
         },
@@ -59,11 +87,17 @@ export const useAuthStore =  create<AuthState>()(
             }
         },
 
+        isAdmin: () => get().user?.roles.includes('ROLE_ADMIN') ?? false,
+
+        isUser: () => get().user?.roles.includes('ROLE_USER') ?? false,
+
+        logout: () => set({ token: null, user: null }),
+
         resetSuccessMessage: () => set({ successMessage: null }),
 
-        resetErrorMessage: () => set({ errorMessage: null })
+        resetErrorMessage: () => set({ errorMessage: null }),
 
     }), {
-        name: 'auth-state'
+        name: 'auth-state',
     })
 )

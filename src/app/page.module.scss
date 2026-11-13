@@ -376,7 +376,14 @@ $breakpoint-sm: 600px;
       color: $color-text-light;
     }
 
-    &--choose {
+    &__choice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__choice--choose {
       color: $color-primary;
       font-size: 14px;
       font-weight: 700;
@@ -385,7 +392,7 @@ $breakpoint-sm: 600px;
       gap: 3px;
     }
 
-    &--choose svg {
+    &__choice--choose svg {
       display: inline-block;
       position: relative;
       top: 2px;

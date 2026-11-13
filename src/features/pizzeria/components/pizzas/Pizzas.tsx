@@ -62,7 +62,6 @@ export default function Pizzas() {
 
             <section className={styles['catalog']}>
                 <div className={styles['container']}>
-
                     <header className={styles['section-head']}>
                         <div>
                             <p className={styles['section-head__eyebrow']}>Notre carte</p>
@@ -71,7 +70,6 @@ export default function Pizzas() {
                         <p className={styles['section-head__text']}>Une seule taille, 33 cm. Préparées minute et cuites à la
                             perfection.</p>
                     </header>
-
                     <div className={styles['filters']} role="group" aria-label="Filtrer les pizzas">
                         <button
                             onClick={() => onClickCategoryId(null)}
@@ -88,7 +86,6 @@ export default function Pizzas() {
                                 {c.name}
                             </button>
                         )}
-
                     </div>
 
                     <ul className={styles['grid']} id="grid">
@@ -107,7 +104,7 @@ export default function Pizzas() {
                                             </div>
                                         </div>
                                         <div className={styles['card__body']}>
-                                            <h3>{p.category.name}</h3>
+                                            <h3>{p.name}</h3>
                                             <p>{p.description}</p>
                                             <div className={styles['separator']}></div>
                                             <div className={styles['card__foot']}>
@@ -126,11 +123,9 @@ export default function Pizzas() {
                     </ul>
 
                     <p className={styles['empty']} id="empty" hidden>Aucune pizza dans cette catégorie pour le moment.</p>
-
                     <div className={styles['lazy-load']}>
                         <button className={styles['btn-load']}>Plus de pizzas…</button>
                     </div>
-
                     <aside className={styles['cta']}>
                         <div>
                             <h2>Une petite faim ? La Terre vous dit merci.</h2>

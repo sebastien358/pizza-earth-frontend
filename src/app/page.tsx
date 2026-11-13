@@ -7,15 +7,23 @@ import PizzaHome from '@/assets/images/pizza_hero_logo.png'
 import Link from "next/link";
 import {UtensilsCrossed, Truck, ShoppingBag, Leaf, Check, ArrowRight, MapPin, Package} from 'lucide-react';
 
-import Truf from '@/assets/images/pizza_truffe_final.png'
 import Marguerita from '@/assets/images/pizza_margherita_final.png'
-import Pepperoni from '@/assets/images/pizza_pepperoni_final.png'
-import Veggie from '@/assets/images/pizza_veggie_final.png'
 import Boisson from '@/assets/images/verre_paille_glacons.png'
 import Pizzas from '@/assets/images/deux_petites_pizzas_maquette.png'
 import Pizza from '@/assets/images/pizza_hero_logo.png'
+import {useProductStore} from "@/store/product.store";
+import {useEffect} from "react";
 
 export default function Home() {
+
+    const { productHomeList, productsHome, isLoading } = useProductStore()
+
+    useEffect(() => {
+        productHomeList()
+    }, [productHomeList]);
+
+    console.log(productsHome)
+
   return (
       <main>
           {/* Hero */}
@@ -75,58 +83,29 @@ export default function Home() {
                   </div>
                   <div className={styles['popular__row']}>
                       <div className={styles['popular__grid']}>
-                          <article className={styles['popular__card']}>
-                              <div className={styles['popular__card__image']}>
-                                  <Image src={Marguerita} alt="Margherita" width={400} height={400} priority quality={100} />
-                              </div>
-                              <div className={styles['popular__card__description']}>
-                                  <h3 className={styles['popular__card__description--title']}>Margherita</h3>
-                                  <p className={styles['popular__card__description--subtitle']}>Tomate, mozzarella fondante & basilic frais.</p>
-                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
-                                      <span>Choisir</span>
-                                      <span><ArrowRight size={16} /></span>
-                                  </Link>
-                              </div>
-                          </article>
-                          <article className={styles['popular__card']}>
-                              <div className={styles['popular__card__image']}>
-                                  <Image src={Pepperoni} alt="Pepperoni" width={400} height={400} priority quality={100} />
-                              </div>
-                              <div className={styles['popular__card__description']}>
-                                  <h3 className={styles['popular__card__description--title']}>Pepperoni</h3>
-                                  <p className={styles['popular__card__description--subtitle']}>Pepperoni croustillant & mozzarella généreuse.</p>
-                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
-                                      <span>Choisir</span>
-                                      <span><ArrowRight size={16} /></span>
-                                  </Link>
-                              </div>
-                          </article>
-                          <article className={styles['popular__card']}>
-                              <div className={styles['popular__card__image']}>
-                                  <Image src={Veggie} alt="Jardin Végétarien" width={400} height={400} priority quality={100} />
-                              </div>
-                              <div className={styles['popular__card__description']}>
-                                  <h3 className={styles['popular__card__description--title']}>Jardin Végétarien</h3>
-                                  <p className={styles['popular__card__description--subtitle']}>Légumes du marché, couleurs & croquant.</p>
-                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
-                                      <span>Choisir</span>
-                                      <span><ArrowRight size={16} /></span>
-                                  </Link>
-                              </div>
-                          </article>
-                          <article className={styles['popular__card']}>
-                              <div className={styles['popular__card__image']}>
-                                  <Image src={Truf} alt="Champignon Truffe" width={400} height={400} priority quality={100} />
-                              </div>
-                              <div className={styles['popular__card__description']}>
-                                  <h3 className={styles['popular__card__description--title']}>Champignon Truffe</h3>
-                                  <p className={styles['popular__card__description--subtitle']}>Champignons dorés & parfum délicat de truffe.</p>
-                                  <Link className={styles['popular__card__description--choose']} href={"#"}>
-                                      <span>Choisir</span>
-                                      <span><ArrowRight size={16} /></span>
-                                  </Link>
-                              </div>
-                          </article>
+                          {productsHome.length > 0 && (
+                              <>
+                                  {productsHome?.map((p: any) =>
+                                      <article key={p.id} className={styles['popular__card']}>
+                                          <div className={styles['popular__card__image']}>
+                                              <Image src={p?.pictures[0]?.url} alt="Margherita" width={400} height={400} priority quality={100} />
+                                          </div>
+                                          <div className={styles['popular__card__description']}>
+                                              <h3 className={styles['popular__card__description--title']}>{p.name}</h3>
+                                              <p className={styles['popular__card__description--subtitle']}>{p.description}</p>
+
+                                              <div className={styles['popular__card__description__choice']}>
+                                                  <p>{p.price}€</p>
+                                                  <Link className={styles['popular__card__description__choice--choose']} href={"#"}>
+                                                      <span>Choisir</span>
+                                                      <span><ArrowRight size={16} /></span>
+                                                  </Link>
+                                              </div>
+                                          </div>
+                                      </article>
+                                  )}
+                              </>
+                          )}
                       </div>
                       {/* Popular Limited */}
                       <div className={styles['popular-limited']}>

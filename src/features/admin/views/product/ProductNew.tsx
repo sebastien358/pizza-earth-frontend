@@ -8,12 +8,13 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from 'zod'
 import {useCategoryStore} from "@/store/category.store";
 import {ProductFormData, useProductAdminStore} from "@/store/admin/productAdmin.store";
+import {useRouter} from "next/navigation";
 
 const DELAY_TIMEOUT = 2000
 
 const schema = z.object({
-    name: z.string().min(8, { message: '10 caractères minimum' }).max(100, { message: '50 caractères max' }),
-    description: z.string().min(8, { message: '50 caractères minimum' }).max(100, { message: '150 caractères max' }),
+    name: z.string().min(5, { message: '5 caractères minimum' }).max(500, { message: '50 caractères max' }),
+    description: z.string().min(5, { message: '5 caractères minimum' }).max(100, { message: '100 caractères max' }),
     price: z.coerce.number().min(1, { message: 'Le prix est requis' }),
     picture: z.instanceof(File, {
         message: "Veuillez choisir une image",
@@ -22,6 +23,8 @@ const schema = z.object({
 });
 
 export default function ProductNew() {
+
+    const router = useRouter()
 
     {/* Store Product */}
 
@@ -68,6 +71,7 @@ export default function ProductNew() {
     function handleSuccess() {
         setTimeout(() => {
             resetSuccessMessage()
+            router.push('/admin/products')
             reset()
         }, DELAY_TIMEOUT)
     }

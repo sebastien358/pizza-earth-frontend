@@ -1,6 +1,11 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosProductNew, axiosProductsList} from "@/shared/services/admin/productAdmin.service";
+import {
+    axiosDeleteProduct,
+    axiosProductNew,
+    axiosProductsList,
+    axiosPublishedProduct
+} from "@/shared/services/admin/productAdmin.service";
 
 export interface ProductFormData {
     name: string
@@ -11,6 +16,7 @@ export interface ProductFormData {
         name: string
     }
     picture: File | null
+    isVisible: boolean
 }
 
 export interface ProductData {
@@ -31,6 +37,8 @@ export interface ProductState {
 
     productsList: () => Promise<void>
     productNew: (data: ProductFormData) => Promise<void>
+    publishedProduct: (id: number) => Promise<void>
+    deleteProduct: (id: number) => Promise<void>
     setFilename: (filename: string | null) => void
     resetSuccessMessage: () => void
     resetErrorMessage: () => void
@@ -77,6 +85,28 @@ export const useProductAdminStore = create<ProductState>()(
             } catch (err: any) {
                 set({ errorMessage: 'La pizza n\'a pas pu être ajoutée' })
                 throw err
+            }
+        },
+
+        deleteProduct: async (id: number) => {
+            try {
+                await axiosDeleteProduct(id)
+                await get().productsList()
+            } catch (err: any) {
+                console.error(err)
+                throw err
+            }
+        },
+
+        publishedProduct: async (id: number) => {
+            try {
+                const data = await axiosPublishedProduct(id);
+                set((state) => ({
+                    products: state.products.map((p) => p.id === id ? {...p, isVisible: data.isVisible} : p)
+                }))
+            } catch (err: any) {
+                console.error(err);
+                throw err;
             }
         },
 

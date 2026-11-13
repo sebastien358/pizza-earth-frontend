@@ -1,16 +1,43 @@
 "use client"
 
 import styles from './Pizzas.module.scss'
+
 import Image from "next/image";
-import Pepperoni from "@/assets/images/pizza_pepperoni_final.png"
-import Veggie from "@/assets/images/pizza_veggie_final.png"
-import Margherita from "@/assets/images/pizza_margherita_final.png"
-import Truffe from "@/assets/images/pizza_truffe_final.png"
-import Classique from "@/assets/images/jardin-vegetarien.jpg"
 import {ArrowRight} from "lucide-react";
 import Link from "next/link";
+import {useProductStore} from "@/store/product.store";
+import {useEffect, useMemo} from "react";
+import {useCategoryStore} from "@/store/category.store";
 
 export default function Pizzas() {
+
+    {/* Store Category */}
+
+    const { categoryList, categories, setCategoryId, categoryId } = useCategoryStore()
+
+    useEffect(() => {
+        categoryList()
+    }, [categoryList]);
+
+    {/* Store Product */}
+
+    const { productList, products, isLoading } = useProductStore()
+
+    useEffect(() => {
+        productList()
+    }, [productList]);
+
+    {/* Filtered Products */}
+
+    function onClickCategoryId(id: number | null) {
+        setCategoryId(id)
+    }
+
+    const filtered = useMemo(() => {
+        if (categoryId === null) return products;
+        return products.filter((p) => p.category.id === categoryId)
+    }, [products, categoryId])
+
     return (
         <main>
             <section className={styles['hero']}>
@@ -46,156 +73,56 @@ export default function Pizzas() {
                     </header>
 
                     <div className={styles['filters']} role="group" aria-label="Filtrer les pizzas">
-                        <button className={`${styles['chip']} ${styles['is-active']}`} data-filter="all">Toutes</button>
-                        <button className={styles['chip']} data-filter="classique">Classiques</button>
-                        <button className={styles['chip']} data-filter="vegetarienne">Végétariennes</button>
-                        <button className={styles['chip']} data-filter="gourmande">Gourmandes</button>
-                        <button className={styles['chip']} data-filter="piquante">Piquantes</button>
+                        <button
+                            onClick={() => onClickCategoryId(null)}
+                            className={`${styles['chip']} ${categoryId === null ? styles['is-active'] : ''}`}
+                        >
+                           Tous
+                        </button>
+                        {categories.map((c: any) =>
+                            <button
+                                key={c.id}
+                                onClick={() => onClickCategoryId(c.id)}
+                                 className={`${styles['chip']} ${c.id === categoryId ? styles['is-active'] : ''}`}
+                            >
+                                {c.name}
+                            </button>
+                        )}
+
                     </div>
 
                     <ul className={styles['grid']} id="grid">
-
-                        <li className={styles['card']} data-cat="classique">
-                            <div className={styles['card__media']}>
-                                <Image src={Classique} alt={"Pizza Margherita"} height={400} width={500} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
+                        {isLoading ? (
+                            <div className={styles['loader-container']}>
+                                <span className={styles['loader']}></span>
                             </div>
-                            <div className={styles['card__body']}>
-                                <h3>Pepperoni</h3>
-                                <p>Pepperoni croustillant &amp; mozzarella généreuse.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>12,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
+                        ) : !isLoading && products.length > 0 ? (
+                            <>
+                                {filtered?.map((p: any) =>
+                                    <li key={p.id} className={styles['card']} data-cat="classique">
+                                        <div className={styles['card__media']}>
+                                            <Image src={p?.pictures[0]?.url} alt={"Pizza Margherita"} height={400} width={500} quality={100} />
+                                            <div className={styles['info']}>
+                                                <span>33 cm</span>
+                                            </div>
+                                        </div>
+                                        <div className={styles['card__body']}>
+                                            <h3>{p.category.name}</h3>
+                                            <p>{p.description}</p>
+                                            <div className={styles['separator']}></div>
+                                            <div className={styles['card__foot']}>
+                                                <span className={styles['price']}>{p.price} €</span>
+                                                <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
+                                            </div>
+                                        </div>
+                                    </li>
+                                )}
+                            </>
+                        ) : (
+                            <div className={styles.empty}>
+                                <p>Aucune pizza dans cette catégorie pour le moment.</p>
                             </div>
-                        </li>
-
-                        <li className={styles['card']} data-cat="piquante">
-                            <div className={styles['card__media']}>
-                                <Image src={Pepperoni} alt={"Pizza Pepperoni"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Margherita</h3>
-                                <p>Tomate, mozzarella fondante &amp; basilic frais.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>14,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li className={styles['card']} data-cat="vegetarienne">
-                            <div className={styles['card__media']}>
-                                <Image src={Veggie} alt={"Pizza Jardin Végétarien"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Jardin Végétarien</h3>
-                                <p>Légumes du marché, couleurs &amp; croquant.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>13,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                  </div>
-                            </div>
-                        </li>
-
-                        <li className={styles['card']} data-cat="gourmande">
-                            <div className={styles['card__media']}>
-                                <Image src={Truffe} alt={"Pizza Champignon Truffe"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Champignon Truffe</h3>
-                                <p>Champignons dorés &amp; parfum délicat de truffe.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>16,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li className={styles['card']} data-cat="classique">
-                            <div className={styles['card__media']}>
-                                <Image src={Margherita} alt={"Pizza Margherita"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Pepperoni</h3>
-                                <p>Pepperoni croustillant &amp; mozzarella généreuse.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>12,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li className={styles['card']} data-cat="piquante">
-                            <div className={styles['card__media']}>
-                                <Image src={Pepperoni} alt={"Pizza Pepperoni"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Margherita</h3>
-                                <p>Tomate, mozzarella fondante &amp; basilic frais.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>14,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={styles['card']} data-cat="vegetarienne">
-                            <div className={styles['card__media']}>
-                                <Image src={Veggie} alt={"Pizza Jardin Végétarien"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Jardin Végétarien</h3>
-                                <p>Légumes du marché, couleurs &amp; croquant.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>13,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
-                            </div>
-                        </li>
-                        <li className={styles['card']} data-cat="gourmande">
-                            <div className={styles['card__media']}>
-                                <Image src={Truffe} alt={"Pizza Champignon Truffe"} height={300} width={400} quality={100} />
-                                <div className={styles['info']}>
-                                    <span>33 cm</span>
-                                </div>
-                            </div>
-                            <div className={styles['card__body']}>
-                                <h3>Champignon Truffe</h3>
-                                <p>Champignons dorés &amp; parfum délicat de truffe.</p>
-                                <div className={styles['separator']}></div>
-                                <div className={styles['card__foot']}>
-                                    <span className={styles['price']}>16,90 €</span>
-                                    <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
-                                </div>
-                            </div>
-                        </li>
+                        )}
                     </ul>
 
                     <p className={styles['empty']} id="empty" hidden>Aucune pizza dans cette catégorie pour le moment.</p>

@@ -1,4 +1,4 @@
-import Commands from "@/features/admin/commands/Commands";
+import Commands from "@/features/admin/views/commands/Commands";
 
 export default function Page() {
     return <Commands />

@@ -10,14 +10,17 @@ export interface CategoryData {
 export interface CategoryState {
     categories: CategoryState[]
     isLoading: boolean
+    categoryId: number | null
 
     categoryList: () => Promise<void>
+    setCategoryId: (categoryId: number | null) => void
 }
 
 export const useCategoryStore = create<CategoryState>()(
     persist((set, get) => ({
         categories: [],
         isLoading: false,
+        categoryId: null,
 
         categoryList: async () => {
             try {
@@ -29,7 +32,9 @@ export const useCategoryStore = create<CategoryState>()(
                 console.error(err)
                 throw err
             }
-        }
+        },
+
+        setCategoryId: (categoryId: number | null) => set({ categoryId })
 
     }), {
         name: 'category-state',

@@ -42,7 +42,7 @@ export default function Header() {
                     <div className={styles['auth']}>
                         <LogIn className={styles['logo-login']} strokeWidth={3} size={17}/>
                         <nav className={`${styles['auth__menu']}`}>
-                            {isAdmin ? (
+                            {isAdmin() ? (
                                 <>
                                     <Link href="/admin/products/form">Commandes</Link>
                                     <Link
@@ -54,7 +54,7 @@ export default function Header() {
                                     </Link>
                                 </>
 
-                            ) : isUser ? (
+                            ) : isUser() ? (
                                 <>
                                     <Link href="/#">Commandes</Link>
                                     <Link
@@ -75,10 +75,10 @@ export default function Header() {
                     </div>
 
                     <div className={styles['shopping-cart']}>
-                        <a href="/panier" className={styles['shopping-cart__trigger']}>
+                        <div className={styles['shopping-cart__trigger']}>
                             <Link href={"#"}><ShoppingCart size={17} /></Link>
                             <span className={styles['shopping-cart__badge']}>2</span>
-                        </a>
+                        </div>
                         <div className={styles['shopping-cart__menu']}>
                             <ul className={styles['shopping-cart__list']}>
                                 <li className={styles['shopping-cart__item']}>
@@ -102,9 +102,9 @@ export default function Header() {
                                 <span>Total</span>
                                 <strong>33,90 €</strong>
                             </div>
-                            <a href="/commande" className={styles['shopping-cart__item__cta']}>
+                            <Link href="/commande" className={styles['shopping-cart__item__cta']}>
                                 Payer →
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </nav>

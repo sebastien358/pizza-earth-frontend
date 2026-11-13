@@ -47,22 +47,23 @@ $bp-md: 900px;
 // ---------- Layout ----------
 .product {
   font-family: 'Fredoka', sans-serif;
-
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+
+  min-height: 100vh;
 
   @include md { grid-template-columns: 1fr; }
 
   // Zone formulaire
+
   &__main {
     display: grid;
     place-items: center;
     padding: 2rem 1rem;
     width: 100%;
     max-width: 500px;
-
   }
 
   &__form {
@@ -91,6 +92,9 @@ $bp-md: 900px;
 
   textarea {
     height: 250px;
+    &::placeholder {
+      color: rgba($brown, 0.4);
+    }
   }
 
   textarea {
@@ -99,6 +103,10 @@ $bp-md: 900px;
 
     &:focus { outline: none; border-color: $orange; background: $white; }
     &:user-invalid { border-color: $error; }
+  }
+
+  select {
+    color: rgba($brown, 0.4) !important;
   }
 
   input,
@@ -131,13 +139,13 @@ $bp-md: 900px;
 
   &__label .filename {
     font: inherit;
-    color: $brown;
     font-size: 10px;
+    color: rgba($brown, 0.4);
   }
 
   &__label .no-filename {
     font: inherit;
-    color: $brown;
+    color: rgba($brown, 0.4);
     font-size: 16px;
   }
 
@@ -176,7 +184,7 @@ $bp-md: 900px;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 
-  margin: 10px auto 0 auto;
+  //margin: 10px auto 0 auto;
 }
 
 @keyframes rotation {

@@ -1,12 +1,15 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosProductNew} from "@/shared/services/admin/productAdmin.service";
+import {axiosProductNew, axiosProductsList} from "@/shared/services/admin/productAdmin.service";
 
 export interface ProductFormData {
     name: string
     price: number
     description: string
-    category: string
+    category: {
+        id: number
+        name: string
+    }
     picture: File | null
 }
 
@@ -26,6 +29,7 @@ export interface ProductState {
     successMessage: string | null
     errorMessage: string | null
 
+    productsList: () => Promise<void>
     productNew: (data: ProductFormData) => Promise<void>
     setFilename: (filename: string | null) => void
     resetSuccessMessage: () => void
@@ -39,6 +43,18 @@ export const useProductAdminStore = create<ProductState>()(
         filename: null,
         successMessage: null,
         errorMessage: null,
+
+        productsList: async () => {
+            try {
+                set({ isLoading: true })
+                const data = await axiosProductsList()
+                set({ products: data, isLoading: false })
+            } catch (err: any) {
+                set({ isLoading: false})
+                console.error(err)
+                throw err
+            }
+        },
 
         productNew: async (data: ProductFormData) => {
             try {

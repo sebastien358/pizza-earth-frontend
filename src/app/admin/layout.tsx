@@ -4,6 +4,7 @@ import styles from './layout.module.scss'
 import React, { useEffect } from "react";
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
+import Sidebar from "@/features/admin/components/Sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const { token, isAdmin } = useAuthStore()
@@ -20,6 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return (
         <main className={styles['admin-layout']}>
+            <Sidebar />
             <div className={styles['admin-layout__content']}>
                 {children}
             </div>

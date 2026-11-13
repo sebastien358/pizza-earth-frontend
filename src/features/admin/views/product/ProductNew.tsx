@@ -82,16 +82,16 @@ export default function ProductNew() {
         <main className={styles['product']}>
             <section className={styles['product__main']}>
                 <div className={styles['card']}>
-                    <h2>Ajout Produit</h2>
+                    <h2>Ajout Pizza</h2>
                     <form onSubmit={handleSubmit(onSubmit)} action="/admin/products/form" method="post" noValidate className={styles['product__form']}>
                         <div className={styles['field']}>
                             <label htmlFor="nom">Nom</label>
-                            <input {...register('name')} id="email" name="name" type="text" autoComplete="name"/>
+                            <input {...register('name')} id="email" name="name" type="text" autoComplete="name" />
                             {errors && <small>{errors?.name?.message}</small>}
                         </div>
                         <div className={styles['field']}>
                             <label htmlFor="price">Prix</label>
-                            <input {...register('price')} id="price" name="price" type="number" autoComplete="price" />
+                            <input {...register('price')} id="price" name="price" type="number" autoComplete="price" placeholder={"0€"} />
                             {errors && <small>{errors.price?.message}</small>}
                         </div>
                         <div className={styles['field']}>
@@ -142,7 +142,7 @@ export default function ProductNew() {
 
                         <button type="submit" className={`${styles['btn']} ${styles['btn--primary']}`}
                                 disabled={isSubmitting}>
-                            {isSubmitting ? 'Chargement…' : 'Add Product'}
+                            {isSubmitting ? 'Chargement…' : 'Add Pizza'}
                         </button>
                     </form>
                 </div>

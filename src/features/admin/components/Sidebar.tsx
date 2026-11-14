@@ -2,14 +2,28 @@
 
 import styles from './Sidebar.module.scss'
 import NavLink from "@/components/nav-link/NavLink";
-
-const adminLinks = [
-    { name: 'Accueil', path: '/' },
-    { name: 'Ajout Pizza', path: '/admin/products/form' },
-    { name: 'Les Pizzas', path: '/admin/products' }
-]
+import {usePathname} from "next/navigation";
+import {useProductAdminStore} from "@/store/admin/productAdmin.store";
 
 export default function Sidebar() {
+
+    const { resetProduct, countProducts } = useProductAdminStore()
+
+    const adminLinks = [
+        { name: 'Accueil', path: '/' },
+        { name: 'Commandes', path: '/admin/commands' },
+        { name: 'Pizzas', path: '/admin/products' },
+        { name: 'Ajout Pizza', path: '/admin/products/form' }
+    ]
+
+    const adminPageConfig = {
+        '/admin/commands': { reset: null, count: 0 },
+        '/admin/products': { reset: resetProduct, count: countProducts }
+    }
+
+    const pathname = usePathname()
+    const isActive = adminPageConfig[pathname]
+
     return (
         <main className={styles['admin-sidebar']}>
             <div className={styles['admin-sidebar__container']}>
@@ -19,6 +33,7 @@ export default function Sidebar() {
                         <NavLink
                             key={link.path}
                             href={link.path}
+                            dropdownSidebar
                         >
                             {link.name}
                         </NavLink>
@@ -26,14 +41,17 @@ export default function Sidebar() {
                 </div>
             </div>
 
-            <div className={styles['reset-contact']}>
-                <p>Total : </p>
-                <button
-                    className={`${styles['btn']} ${styles['btn-reset']}`}
-                >
-                    Réinitialiser
-                </button>
-            </div>
+            {isActive && (
+                <div className={styles['reset-contact']}>
+                    <p>Total : {isActive.count}</p>
+                    <button
+                        onClick={isActive.reset}
+                        className={`${styles['btn']} ${styles['btn-reset']}`}
+                    >
+                        Réinitialiser
+                    </button>
+                </div>
+            )}
         </main>
     )
 }

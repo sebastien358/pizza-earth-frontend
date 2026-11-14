@@ -44,7 +44,7 @@ export default function Header() {
                         <nav className={`${styles['auth__menu']}`}>
                             {isAdmin() ? (
                                 <>
-                                    <Link href="/admin/products/form">Commandes</Link>
+                                    <Link href="/admin/commands">Commandes</Link>
                                     <Link
                                         onClick={() => logout()}
                                         className={styles['logout']}

@@ -4,8 +4,8 @@
 
 .admin-sidebar {
   font-family: 'Fredoka', sans-serif;
-  width: 230px;
-  background: #0f0f12;
+  min-width: 240px;
+  //background: #0f0f12;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-right: 1px solid #333;
   padding: 25px 15px 10px 15px;
@@ -14,6 +14,10 @@
   justify-content: space-between;
   gap: 1rem;
   transition: all 0.3s ease;
+
+  background: #2A1A0E;
+
+
 
   height: 100vh;
 
@@ -31,7 +35,7 @@
     flex-direction: column;
     gap: 0.5rem;
     a {
-      color: #aaa;
+      color: #E8DCC8;
       text-decoration: none;
       padding: 0.7rem 0.8rem;
       border-radius: 6px;
@@ -39,11 +43,13 @@
       font-size: 13px;
       &:hover {
         color: #fff;
-        background: rgba(255, 255, 255, 0.05);
+        background: #4A2C1A; // marron clair, bien visible sur ton #2A1A0E
+        border-left: 3px solid #FF6A00;
         transform: translateX(2px);
       }
       &.active {
-        background: rgba(76, 175, 80, 0.2);
+        border-left: 3px solid #FF6A00;
+        background: rgba(76, 175, 80, 0.18);
         color: #fff;
         font-weight: 600;
       }
@@ -53,7 +59,8 @@
     display: flex;
     flex-direction: column;
     p, span {
-      font-size: 12px;
+      color: #E8DCC8;
+      font-size: 16px;
       margin-bottom: 6px;
     }
   }
@@ -67,7 +74,7 @@
   &-reset {
     background: #ff4d4d;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     padding: 10px;
     transition: all 600ms ease;
     border-radius: 3px;

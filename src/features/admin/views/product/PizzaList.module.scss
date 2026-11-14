@@ -190,6 +190,7 @@ $red: #D00;
     display: flex;
     gap: 8px;
     margin-top: 12px;
+    font-size: 14px;
   }
 
   .edit {
@@ -200,6 +201,7 @@ $red: #D00;
     border-radius: 8px;
     padding: 8px;
     cursor: pointer;
+    text-align: center;
 
     &:hover {
       background: $brown;

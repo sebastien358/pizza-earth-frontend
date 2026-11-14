@@ -1,9 +1,9 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
 import {
-    axiosDeleteProduct,
+    axiosDeleteProduct, axiosProductDetails,
     axiosProductNew,
-    axiosProductsList,
+    axiosProductsList, axiosProductsSearch,
     axiosPublishedProduct
 } from "@/shared/services/admin/productAdmin.service";
 
@@ -30,24 +30,33 @@ export interface ProductData {
 
 export interface ProductState {
     products: ProductData[]
+    currentProduct: ProductData | null
+    countProducts: number
     isLoading: boolean
+    term?: string
     filename: string | null
     successMessage: string | null
     errorMessage: string | null
 
     productsList: () => Promise<void>
+    productDetails: (id: string) => Promise<void>
+    productSearch: (term: string | null) => Promise<void>
     productNew: (data: ProductFormData) => Promise<void>
     publishedProduct: (id: number) => Promise<void>
     deleteProduct: (id: number) => Promise<void>
     setFilename: (filename: string | null) => void
     resetSuccessMessage: () => void
     resetErrorMessage: () => void
+    resetProduct: () => void
 }
 
 export const useProductAdminStore = create<ProductState>()(
     persist((set, get) => ({
         products: [],
+        currentProduct: null,
+        countProducts: 0,
         isLoading: false,
+        term: "",
         filename: null,
         successMessage: null,
         errorMessage: null,
@@ -56,9 +65,38 @@ export const useProductAdminStore = create<ProductState>()(
             try {
                 set({ isLoading: true })
                 const data = await axiosProductsList()
-                set({ products: data, isLoading: false })
+                set({ products: data.products, countProducts: data.count, isLoading: false })
             } catch (err: any) {
                 set({ isLoading: false})
+                console.error(err)
+                throw err
+            }
+        },
+
+        productDetails: async (id: string) => {
+            try {
+                set({ isLoading: true })
+                const data = await axiosProductDetails(id)
+                set({ currentProduct: data, isLoading: false })
+            } catch (err: any) {
+                set({ isLoading: false })
+                console.error(err)
+                throw err
+            }
+        },
+
+        productSearch: async (term: string | null) => {
+            const trimmed = term?.toLowerCase().trim() ?? ""
+            try {
+                if (!trimmed) {
+                    set({ isLoading: false, term: "" })
+                    await get().productsList()
+                }
+                set({ term: trimmed, isLoading: true })
+                const data = await axiosProductsSearch(get().term)
+
+                set({ products: data.products, isLoading: false })
+            } catch (err: any) {
                 console.error(err)
                 throw err
             }
@@ -114,7 +152,12 @@ export const useProductAdminStore = create<ProductState>()(
 
         resetSuccessMessage: () => set({ successMessage: null, filename: null }),
 
-        resetErrorMessage: () => set({ errorMessage: null })
+        resetErrorMessage: () => set({ errorMessage: null }),
+
+        resetProduct: async () => {
+            set({ term: "" })
+            await get().productsList()
+        }
 
     }), {
         name: 'products-admin-state',

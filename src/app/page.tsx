@@ -7,7 +7,6 @@ import PizzaHome from '@/assets/images/pizza_hero_logo.png'
 import Link from "next/link";
 import {UtensilsCrossed, Truck, ShoppingBag, Leaf, Check, ArrowRight, MapPin, Package} from 'lucide-react';
 
-import Marguerita from '@/assets/images/pizza_margherita_final.png'
 import Boisson from '@/assets/images/verre_paille_glacons.png'
 import Pizzas from '@/assets/images/deux_petites_pizzas_maquette.png'
 import Pizza from '@/assets/images/pizza_hero_logo.png'
@@ -16,13 +15,11 @@ import {useEffect} from "react";
 
 export default function Home() {
 
-    const { productHomeList, productsHome, isLoading } = useProductStore()
+    const { productHomeList, productsHome } = useProductStore()
 
     useEffect(() => {
         productHomeList()
     }, [productHomeList]);
-
-    console.log(productsHome)
 
   return (
       <main>

@@ -7,6 +7,7 @@ import {useEffect, useMemo} from "react";
 import {useCategoryStore} from "@/store/category.store";
 import Link from "next/link";
 import Image from "next/image";
+import InputSearch from "@/components/input-search/InputSearch";
 
 export default function ProductList() {
 
@@ -20,7 +21,7 @@ export default function ProductList() {
 
     {/* Store Product */}
 
-    const { productsList, publishedProduct, deleteProduct, products, isLoading } = useProductAdminStore()
+    const { productsList, productSearch, term, publishedProduct, deleteProduct, products, isLoading } = useProductAdminStore()
 
     useEffect(() => {
         productsList()
@@ -58,9 +59,8 @@ export default function ProductList() {
     }
 
     return (
-        <div className={styles.layout}>
+        <main className={styles.layout}>
             <div className={styles.main}>
-
                 <div className={styles.header}>
                     <div>
                         <h1>Les Pizzas</h1>
@@ -69,10 +69,15 @@ export default function ProductList() {
                     <Link href={"/admin/products/form"} className={styles.addBtn}>+ Ajout Pizza</Link>
                 </div>
 
-                <input
-                    className={styles.search}
-                    placeholder="Rechercher une pizza..."
+                {/* Input Search */}
+
+                <InputSearch
+                    productSearch={productSearch}
+                    term={term}
+                    placeholder={"Rechercher une pizza…"}
                 />
+
+                {/* Category */}
 
                 <div className={styles.filters}>
                     <button
@@ -92,6 +97,8 @@ export default function ProductList() {
                         </button>
                     ))}
                 </div>
+
+                {/* Pizzas */}
 
                 <div className={styles.grid}>
                     {isLoading ? (
@@ -131,7 +138,12 @@ export default function ProductList() {
                                         <h3>{p.name}</h3>
                                         <p>{p.description}</p>
                                         <div className={styles.actions}>
-                                            <button className={styles.edit}>Modifier</button>
+                                            <Link
+                                                href={`/admin/products/form/${p.id}`}
+                                                className={styles.edit}
+                                            >
+                                                Modifier
+                                            </Link>
                                             <button
                                                 onClick={() => deletePizza(p.id)}
                                                 className={styles.delete}
@@ -150,6 +162,6 @@ export default function ProductList() {
                     )}
                 </div>
             </div>
-        </div>
+        </main>
     );
 }

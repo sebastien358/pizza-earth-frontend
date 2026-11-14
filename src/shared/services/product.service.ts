@@ -15,9 +15,11 @@ export async function axiosProductsHomeList() {
     }
 }
 
-export async function axiosProductsList() {
+export async function axiosProductsList(offset: number, limit: number) {
     try {
-        const response = await axios.get(`${BASE_URL}/api/products/list`)
+        const response = await axios.get(`${BASE_URL}/api/products/list`, {
+            params: { offset, limit }
+        })
         if (response.status >= 200 && response.status < 300) {
             return response.data
         }
@@ -27,3 +29,5 @@ export async function axiosProductsList() {
         throw err
     }
 }
+
+

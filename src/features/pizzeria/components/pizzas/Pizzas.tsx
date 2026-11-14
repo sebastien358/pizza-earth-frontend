@@ -21,7 +21,7 @@ export default function Pizzas() {
 
     {/* Store Product */}
 
-    const { productList, products, isLoading } = useProductStore()
+    const { productList, productLazyLoad, products, isLoading, hasMore } = useProductStore()
 
     useEffect(() => {
         productList()
@@ -93,12 +93,14 @@ export default function Pizzas() {
                             <div className={styles['loader-container']}>
                                 <span className={styles['loader']}></span>
                             </div>
-                        ) : !isLoading && products.length > 0 ? (
+                        ) : !isLoading && filtered.length > 0 ? (
                             <>
                                 {filtered?.map((p: any) =>
                                     <li key={p.id} className={styles['card']} data-cat="classique">
                                         <div className={styles['card__media']}>
-                                            <Image src={p?.pictures[0]?.url} alt={"Pizza Margherita"} height={400} width={500} quality={100} />
+                                            {p?.pictures?.length > 0 && (
+                                                <Image src={p.pictures?.[0]?.url} alt={p.name} height={400} width={500} quality={100} />
+                                            )}
                                             <div className={styles['info']}>
                                                 <span>33 cm</span>
                                             </div>
@@ -121,11 +123,11 @@ export default function Pizzas() {
                             </div>
                         )}
                     </ul>
-
-                    <p className={styles['empty']} id="empty" hidden>Aucune pizza dans cette catégorie pour le moment.</p>
-                    <div className={styles['lazy-load']}>
-                        <button className={styles['btn-load']}>Plus de pizzas…</button>
-                    </div>
+                    {filtered.length > 0 && hasMore && (
+                        <div onClick={() => productLazyLoad()} className={styles['lazy-load']}>
+                            <button className={styles['btn-load']}>Plus de pizzas…</button>
+                        </div>
+                    )}
                     <aside className={styles['cta']}>
                         <div>
                             <h2>Une petite faim ? La Terre vous dit merci.</h2>

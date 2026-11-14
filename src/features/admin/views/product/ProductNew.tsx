@@ -112,7 +112,7 @@ export default function ProductNew() {
                             ) : !isLoading && categories && (
                                 <>
                                     <label htmlFor="category">Catégorie &nbsp;</label>
-                                    <select {...register('category')} name="category" id="pet-select" defaultValue={""}>
+                                    <select {...register('category')} name="category" id="category" defaultValue={""}>
                                         <option value="" disabled>Choisissez une catégorie</option>
                                         {categories.map((c: any) =>
                                             <option key={c.id} value={c.id}>{c.name}</option>

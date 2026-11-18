@@ -1053,6 +1053,11 @@ $breakpoint-sm: 600px;
   &__inner {
     @include container;
     padding: 80px 0;
+
+    @include respond(lg) { padding: 70px 20px; }
+    @include respond(md) { padding: 50px 16px; }
+    @include respond(sm) { padding: 40px 16px; }
+
   }
 
   &__eyebrow {
@@ -1073,6 +1078,10 @@ $breakpoint-sm: 600px;
     letter-spacing: 2px;
     font-size: 40px;
     color: $color-white;
+
+    @include respond(lg) { font-size: 36px; }
+    @include respond(md) { font-size: 32px; }
+    @include respond(sm) { font-size: 28px; }
   }
 
   &__subtitle {
@@ -1081,6 +1090,12 @@ $breakpoint-sm: 600px;
     margin: 20px 0 45px;
     color: $color-cream;
     font-size: 17px;
+
+    @include respond(md) {
+      font-size: 15px;
+      margin: 15px 0 30px;
+      padding: 0 10px;
+    }
   }
 
   &__grid {
@@ -1088,7 +1103,13 @@ $breakpoint-sm: 600px;
     grid-template-columns: repeat(3, 1fr);
     gap: 17px;
 
-    @include respond(md) { grid-template-columns: 1fr; }
+    @include respond(lg) { gap: 15px; }
+    @include respond(md) {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+      gap: 16px;
+    }
   }
 
   .cta {
@@ -1103,6 +1124,14 @@ $breakpoint-sm: 600px;
       justify-content: space-between;
       padding: 45px 40px;
       border-radius: 30px;
+
+      @include respond(lg) { padding: 35px 30px; }
+      @include respond(md) {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 30px 20px;
+      }
     }
 
     &__title {
@@ -1110,6 +1139,9 @@ $breakpoint-sm: 600px;
       font-size: 34px;
       font-weight: 600;
       margin-bottom: 13px;
+
+      @include respond(md) { font-size: 28px; }
+      @include respond(sm) { font-size: 24px; }
     }
 
     &__text {
@@ -1127,6 +1159,8 @@ $breakpoint-sm: 600px;
       color: white;
 
       @include btn($padding: 18px 32px);
+
+      @include respond(sm) { width: 100%; justify-content: center; }
     }
   }
 }
@@ -1135,12 +1169,17 @@ $breakpoint-sm: 600px;
   @include card;
   text-align: center;
 
+  @include respond(md) { padding: 24px 20px; }
+  @include respond(sm) { padding: 20px 16px; }
+
   &__number {
     text-align: end;
     font-size: 36px;
     font-weight: bold;
     color: rgba(255, 90, 0, 0.18);
     letter-spacing: 2px;
+
+    @include respond(sm) { font-size: 30px; }
   }
 
   &__logo {
@@ -1166,6 +1205,8 @@ $breakpoint-sm: 600px;
     font-size: 20px;
     letter-spacing: 1px;
     color: $color-text;
+
+    @include respond(sm) { font-size: 18px; }
   }
 
   &__text {
@@ -1173,6 +1214,8 @@ $breakpoint-sm: 600px;
     margin: 12px 0 0 0;
     line-height: 26px;
     color: $color-text-light;
+
+    @include respond(sm) { font-size: 15px; line-height: 1.6; }
   }
 }
 

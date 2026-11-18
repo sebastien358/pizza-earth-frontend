@@ -100,13 +100,13 @@ export default function ProductList() {
 
                 {/* Pizzas */}
 
-                <div className={styles.grid}>
+                <div>
                     {isLoading ? (
                         <div className={styles['loader-container']}>
                             <span className={styles['loader']}></span>
                         </div>
                     ) : !isLoading && filtered.length > 0 ? (
-                        <>
+                        <div className={styles.grid}>
                             {filtered.map((p: any) => (
                                 <div key={p.id} className={styles.card}>
                                     <div className={styles.img}>
@@ -154,7 +154,7 @@ export default function ProductList() {
                                     </div>
                                 </div>
                             ))}
-                        </>
+                        </div>
                     ) : (
                         <div className={styles.empty}>
                             <p>Aucune pizza dans cette catégorie pour le moment.</p>

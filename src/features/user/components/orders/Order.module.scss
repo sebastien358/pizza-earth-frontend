@@ -1,7 +1,9 @@
 .order {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+
+
+
 
   &__steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
   &__step { background: #2B1A12; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; }

@@ -13,6 +13,14 @@ $red: #D00;
 .main {
   flex: 1;
   padding: 24px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 }
 
 .header {
@@ -89,12 +97,29 @@ $red: #D00;
 
     &:hover { border-color: $brown; }
   }
-}
 
+
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
+
+  @media (max-width: 1600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .card {
@@ -103,22 +128,26 @@ $red: #D00;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
   .img {
-    height: 280px;
+    transition: transform 0.35s ease;
     background: linear-gradient(135deg, #FFE8D6, #FFC9A3);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 90px;
     position: relative;
-
     background: #FFE3C0;
     padding: 0;
 
     img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
+      height: auto;
+      width: 320px;
+      mix-blend-mode: multiply;
+      display: block;
+      object-position: center;
+      aspect-ratio: 1.7 / 1.3;
     }
   }
 
@@ -224,6 +253,14 @@ $red: #D00;
   }
 }
 
+.card:hover {
+  transform: scale(1.02);
+
+  .img {
+    transform: scale(1.04);
+  }
+}
+
 .empty {
   grid-column: 1 / -1;
   background: #fff;
@@ -238,31 +275,11 @@ $red: #D00;
   }
 }
 
-@media (max-width: 1600px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
-
-@media (max-width: 991px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-}
-
-
-
 
 .publish {
   position: absolute;
@@ -309,8 +326,6 @@ $red: #D00;
     &::after { left: 16px; }
   }
 }
-
-
 
 // ---------- Loader ----------
 .loader-container {

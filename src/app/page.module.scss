@@ -396,6 +396,10 @@ $breakpoint-sm: 600px;
   &__inner {
     @include container;
     padding: 80px 0;
+
+    @include respond(lg) { padding: 50px 20px; }
+    @include respond(md) { padding: 50px 16px 70px 16px; }
+    @include respond(sm) { padding: 40px 16px 60px 16px; }
   }
 
   &__eyebrow {
@@ -405,12 +409,21 @@ $breakpoint-sm: 600px;
     font-size: 13px;
     margin-bottom: 15px;
     letter-spacing: 2px;
+
+    @include respond(md) { text-align: center; }
   }
 
   &__left {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
+    @include respond(md) {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
   }
 
   &__title {
@@ -420,6 +433,9 @@ $breakpoint-sm: 600px;
     letter-spacing: 2px;
     font-size: 42px;
     color: $color-white;
+
+    @include respond(md) { font-size: 32px; text-align: center; }
+    @include respond(sm) { font-size: 28px; }
   }
 
   &__subtitle {
@@ -427,6 +443,13 @@ $breakpoint-sm: 600px;
     color: $color-cream;
     font-size: 17px;
     max-width: 400px;
+
+    @include respond(md) {
+      max-width: none;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 15px;
+    }
   }
 
   &__row {
@@ -435,12 +458,25 @@ $breakpoint-sm: 600px;
     grid-template-columns: 1.45fr 0.45fr;
     gap: 25px;
     align-items: flex-start;
+
+    @include respond(lg) {
+      gap: 16px;
+    }
+
+    @include respond(md) {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
   }
 
   &__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
+
+    @include respond(sm) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__card {
@@ -529,6 +565,13 @@ $breakpoint-sm: 600px;
   padding: 25px;
   width: 100%;
 
+  @include respond(md) {
+    gap: 24px;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+  }
+
   &__eyebrow {
     color: #FFD93D;
     font-weight: bold;
@@ -550,6 +593,8 @@ $breakpoint-sm: 600px;
     letter-spacing: 2px;
     font-size: 50px;
     color: $color-white;
+
+    @include respond(sm) { font-size: 36px; }
   }
 
   &__title span:last-child {
@@ -563,12 +608,22 @@ $breakpoint-sm: 600px;
     font-size: 15px;
     max-width: 400px;
     line-height: 1.8;
+
+    @include respond(md) {
+      margin: 20px auto 0;
+      text-align: center;
+    }
   }
 
   &__button {
     @include btn($padding: 15px 20px, $fontSize: 14px);
     margin-top: 20px;
     font-weight: 900;
+
+    @include respond(sm) {
+      width: 100%;
+      justify-content: center;
+    }
   }
 
   &__button svg {
@@ -588,6 +643,8 @@ $breakpoint-sm: 600px;
     align-items: flex-end;
     justify-content: flex-end;
     gap: 0;
+
+    @include respond(md) { justify-content: center; }
   }
 
   &__images img:first-child {
@@ -596,7 +653,15 @@ $breakpoint-sm: 600px;
     height: 90px;
     object-fit: cover;
     position: relative;
-    right: 10px;
+    right: 20px;
+
+    @include respond(lg) {
+      right: 10px;
+    }
+
+    @include respond(sm) {
+      right: 0;
+    }
   }
 
   &__images img:last-child {
@@ -604,8 +669,16 @@ $breakpoint-sm: 600px;
     width: auto;
     height: 62px;
     position: relative;
-    right: 20px;
+    right: 30px;
     animation: animationImgPopular 2s ease-in infinite alternate;
+
+    @include respond(lg) {
+      right: 20px;
+    }
+
+    @include respond(sm) {
+      right: 10px;
+    }
   }
 
   &__limited {
@@ -614,6 +687,8 @@ $breakpoint-sm: 600px;
     display: flex;
     align-items: center;
     gap: 8px;
+
+    @include respond(md) { justify-content: center; text-align: center; }
   }
 }
 

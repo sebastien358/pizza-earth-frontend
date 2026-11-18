@@ -202,8 +202,8 @@ export default function Home() {
               </div>
           </section>
           {/* Reviews */}
-          <section className={styles['reviews']}>
-              <div className={styles['reviews__inner']}>
+          <div className={styles['reviews']}>
+              <section className={styles['reviews__inner']}>
                   <p className={styles['reviews__eyebrow']}>Témoignages</p>
                   <h2 className={styles['reviews__title']}>CE QUE DISENT NOS CLIENTS</h2>
                   <p className={styles['reviews__subtitle']}>Adoré par les amateurs de pizza partout</p>
@@ -245,7 +245,7 @@ export default function Home() {
                           </div>
                       </article>
                   </div>
-              </div>
+              </section>
               {/* CTA */}
               <section className={styles['cta']}>
                   <div className={styles['cta__inner']}>
@@ -259,7 +259,7 @@ export default function Home() {
                       </button>
                   </div>
               </section>
-          </section>
+          </div>
       </main>
   );
 }

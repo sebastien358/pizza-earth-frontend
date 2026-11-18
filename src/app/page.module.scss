@@ -1044,7 +1044,7 @@ $breakpoint-sm: 600px;
   }
 }
 
-/// HOW
+// ---------- HOW ---------
 
 .how {
   background: $color-primary;
@@ -1219,17 +1219,23 @@ $breakpoint-sm: 600px;
   }
 }
 
-//$font-main: 'Inter', 'Segoe UI', sans-serif;
-
-// ---------- 9. AVIS ----------
+// ---------- REVIEWS ----------
 
 .reviews {
   background: $color-cream;
   font-family: 'Fredoka', sans-serif;
 
+  @include respond(lg) { padding: 0 20px; }
+  @include respond(md) { padding: 0 16px; }
+  @include respond(sm) { padding: 0 16px; }
+
   &__inner {
     @include container;
     padding: 100px 0;
+
+    @include respond(lg) { padding: 80px 0; }
+    @include respond(md) { padding: 50px 0; }
+    @include respond(sm) { padding: 40px 0; }
   }
 
   &__eyebrow {
@@ -1249,6 +1255,10 @@ $breakpoint-sm: 600px;
     text-transform: none;
     letter-spacing: 2px;
     font-size: 40px;
+
+    @include respond(lg) { font-size: 36px; }
+    @include respond(md) { font-size: 32px; }
+    @include respond(sm) { font-size: 28px; }
   }
 
   &__subtitle {
@@ -1257,6 +1267,12 @@ $breakpoint-sm: 600px;
     margin: 20px 0 45px;
     color: $color-text-light;
     font-size: 16px;
+
+    @include respond(md) {
+      font-size: 15px;
+      margin: 15px 0 30px;
+      padding: 0 10px;
+    }
   }
 
   &__grid {
@@ -1264,12 +1280,21 @@ $breakpoint-sm: 600px;
     grid-template-columns: repeat(3, 1fr);
     gap: 17px;
 
-    @include respond(md) { grid-template-columns: 1fr; }
+    @include respond(lg) { gap: 15px; }
+    @include respond(md) {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+      gap: 16px;
+    }
   }
 
   .cta {
     background: $color-cream;
     padding-bottom: 65px;
+
+    @include respond(md) { padding-bottom: 40px; }
+    @include respond(sm) { padding-bottom: 30px; }
 
     &__inner {
       @include container;
@@ -1279,6 +1304,18 @@ $breakpoint-sm: 600px;
       justify-content: space-between;
       padding: 45px 40px;
       border-radius: 30px;
+
+      @include respond(lg) { padding: 35px 30px; }
+      @include respond(md) {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 30px 20px;
+      }
+      @include respond(sm) {
+        padding: 24px 16px;
+        border-radius: 20px;
+      }
     }
 
     &__title {
@@ -1286,11 +1323,16 @@ $breakpoint-sm: 600px;
       font-size: 34px;
       font-weight: 600;
       margin-bottom: 13px;
+
+      @include respond(md) { font-size: 28px; }
+      @include respond(sm) { font-size: 24px; }
     }
 
     &__text {
       color: #FFF5E6;
       opacity: 0.85;
+
+      @include respond(md) { font-size: 15px; }
     }
 
     &__button {
@@ -1302,12 +1344,22 @@ $breakpoint-sm: 600px;
       color: white;
 
       @include btn($padding: 18px 32px);
+
+      @include respond(sm) {
+        width: 100%;
+        justify-content: center;
+        padding: 16px 20px;
+      }
     }
   }
 }
 
 .review-card {
   @include card;
+
+  @include respond(md) { padding: 24px 20px; }
+  @include respond(sm) { padding: 20px 16px; }
+
   &__stars {
     color: $color-star;
     font-weight: 800;
@@ -1320,6 +1372,8 @@ $breakpoint-sm: 600px;
     margin: 13px 0 26px 0;
     line-height: 27px;
     color: $color-text-light;
+
+    @include respond(sm) { font-size: 15px; line-height: 1.6; }
   }
 
   &__author {

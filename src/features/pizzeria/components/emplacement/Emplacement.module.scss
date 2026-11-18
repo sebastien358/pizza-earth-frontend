@@ -287,10 +287,25 @@ $breakpoint-sm: 600px;
 
     @media (max-width: 768px) {
       padding: 24px 20px;
+      flex-direction: column;
     }
 
-    h2 { margin: 0; font-size: 1.7rem; }
-    p { margin-top: 11px; opacity: 0.85; }
+    h2 {
+      margin: 0;
+      font-size: 1.7rem;
+      @media (max-width: 768px) {
+        font-size: 1.4rem;
+      }
+    }
+
+    p {
+      margin-top: 11px;
+      opacity: 0.85;
+
+      @media (max-width: 768px) {
+        font-size: 15px;
+      }
+    }
   }
 
   &__button {
@@ -298,7 +313,7 @@ $breakpoint-sm: 600px;
     font-weight: 900;
 
     @media (max-width: 768px) {
-      width: 100%;
+      font-size: 12px;
     }
   }
 }

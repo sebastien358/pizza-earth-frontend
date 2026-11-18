@@ -2,6 +2,7 @@
 
 import style from './Emplacement.module.scss'
 import {ShoppingBag} from "lucide-react";
+import Link from "next/link";
 
 export default function Emplacement() {
     return (
@@ -75,10 +76,10 @@ export default function Emplacement() {
                             <h2>Pas envie de bouger ?</h2>
                             <p>On vous livre, chaud et bien emballé.</p>
                         </div>
-                        <button className={style['cta__button']}>
+                        <Link href={"/pizzas"} className={style['cta__button']}>
                             <span>Commander maintenant</span>
                             <ShoppingBag size={18} />
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>

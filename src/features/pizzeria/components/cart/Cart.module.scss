@@ -9,13 +9,30 @@ $red: #D00;
   width: 100%;
   margin: 0 auto;
   padding: 50px 0;
+  overflow: auto;
   height: 100vh;
+
+  @media (max-width: 1200px) {
+    padding: 45px 20px;
+    height: auto;
+  }
+
+  @media (max-width: 991px) {
+    padding: 40px 20px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 30px 16px;
+    text-align: center;
+  }
 }
 
 .cart {
   background: #FF5A00;
 
   &__badge {
+    //display: inline-flex;
+    display: inline;
     background: rgba(255,255,255,.2);
     color: #fff;
     padding: 6px 14px;
@@ -23,10 +40,45 @@ $red: #D00;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
+
+    @media (max-width: 600px) {
+
+      display: inline-flex;
+      text-align: center;
+      margin: 0 auto;
+
+    }
   }
 
-  &__title { color: #fff; font-size: 56px; margin: 12px 0 6px 0 }
-  &__subtitle { color: #fff; opacity: .9; margin-bottom: 32px }
+
+  &__title {
+    color: #fff;
+    font-size: 56px;
+    margin: 12px 0 6px 0;
+
+    @media (max-width: 1200px) {
+      font-size: 50px;
+    }
+
+    @media (max-width: 991px) {
+      font-size: 45px;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 40px;
+      text-align: center;
+    }
+  }
+
+  &__subtitle {
+    color: #fff;
+    opacity: .9;
+    margin-bottom: 32px;
+
+    @media (max-width: 600px) {
+      text-align: center;
+    }
+  }
 
   &__layout {
     display: flex;
@@ -53,7 +105,7 @@ $red: #D00;
     flex: 1;
   }
 
-  &__info__content { display: flex; flex-direction: column; gap: 4px; }
+  &__info__content { display: flex; flex-direction: column; gap: 4px; text-align: left; }
   &__info__content__meta {
     display: flex;
     align-items: center;

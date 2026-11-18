@@ -147,9 +147,10 @@ export default function Pizzas() {
                             <h2>Une petite faim ? La Terre vous dit merci.</h2>
                             <p>Commandez votre pizza préférée, prête en 30 minutes.</p>
                         </div>
-                        <a href="/commander" className={`${styles['btn']} ${styles['btn--primary']}`}>Voir le panier 👆 <svg width="16" height="16">
-                            <use href="#i-arrow"/>
-                        </svg></a>
+                        <Link href="/cart" className={`${styles['btn']} ${styles['btn--primary']}`}>
+                            <span>Voir le panier 👆 </span>
+                            <svg width="16" height="16"><use href="#i-arrow"/></svg>
+                        </Link>
                     </aside>
                 </div>
             </section>

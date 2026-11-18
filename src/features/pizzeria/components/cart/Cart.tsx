@@ -49,7 +49,7 @@ export default function Cart() {
     return (
         <main className={styles['cart']}>
             <div className={styles['container']}>
-                <span className={styles['cart__badge']}>🔥 ENCORE CHAUD, PRESQUE À TOI</span>
+                <p className={styles['cart__badge']}>🔥 ENCORE CHAUD, PRESQUE À TOI</p>
                 <h1 className={styles['cart__title']}>Ton Panier</h1>
                 <p className={styles['cart__subtitle']}>3 articles • Prêt à être dévoré ?</p>
 

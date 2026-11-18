@@ -1,0 +1,25 @@
+$orange: #FF5A00;
+$brown: #5C2E0E;
+
+.search {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba($brown, 0.2);
+  border-radius: 12px;
+  margin-bottom: 14px;
+  background: #fff;
+  color: $brown;
+  box-shadow: 0 2px 10px rgba($brown, 0.08);
+
+  &:focus-within {
+    border-color: $orange;
+    box-shadow: 0 4px 16px rgba($orange, 0.18);
+  }
+
+  input {
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: transparent;
+  }
+}

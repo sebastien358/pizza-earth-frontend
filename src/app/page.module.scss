@@ -1,0 +1,1049 @@
+// ==================================================
+// PIZZA EARTH - SCSS
+// Compile avec : sass pizzas-earth.scss pizzas-earth.css
+// ==================================================
+
+// ---------- 1. VARIABLES ----------
+
+$color-primary: #FF5A00;
+$color-primary-dark: #b84712;
+$color-primary-darker: #9C2A00;
+$color-cream: #FFF5E6;
+$color-cream-light: #FFF8EC;
+$color-white: #FFFFFF;
+$color-text: #2B1200;
+$color-text-light: #6B4A2F;
+$color-star: #F5A623;
+$color-yellow: #FFD93D;
+
+$bg-white: white;
+$bg-footer: #3B1E0F;
+
+$font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+$container: 1100px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+
+// ---------- 2. MIXINS ----------
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+@mixin btn($bg: $color-primary, $color: $color-white, $padding: 18px 22px, $fontSize: 15px) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $bg;
+  color: $color;
+  border: none;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: $padding;
+  font-size: $fontSize;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@mixin card($bg: $color-white, $padding: 20px 25px 30px 25px) {
+  background: $bg;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  padding: $padding;
+}
+
+@mixin section-title {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: $color-text;
+  text-transform: uppercase;
+}
+
+@mixin respond($bp) {
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+// ---------- HERO ----------
+
+@keyframes animationImgHero {
+  to { transform: rotate(360deg); }
+}
+
+.hero {
+  position: relative;
+  background: $color-primary;
+  color: $color-white;
+  padding: 40px 0 30px;
+  overflow: hidden;
+
+  //margin-top: 75px;
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255,255,255,0.25);
+    color: $color-white;
+    font-weight: 900;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 0.80fr 1.20fr;
+    gap: 24px;
+    align-items: center;
+    padding: 30px 0 80px 0;
+    @include respond(md) { grid-template-columns: 1fr; }
+  }
+
+  &__title {
+    line-height: 1.05;
+    margin-bottom: 12px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 80px;
+    letter-spacing: 1px;
+    @include respond(sm) { font-size: 34px; }
+  }
+
+  &__subtitle {
+    font-size: 21px;
+    padding: 10px 0 17px 0;
+    font-weight: 600;
+  }
+
+  &__description {
+    color: rgba(255,255,255,0.85);
+    line-height: 25px;
+    font-size: 15px;
+    font-weight: 700;
+    padding-bottom: 27px;
+  }
+
+  &__title--earth {
+    color: #FFD93D;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__btn--explored {
+    @include btn($bg-white, $color-primary);
+    border: 1.5px solid rgba(255,255,255,0.8);
+  }
+
+  &__btn--history {
+    @include btn($color-primary, $bg-white);
+    border: 1.5px solid rgba(255,255,255,0.8);
+  }
+
+  .hero__image {
+    position: relative;
+  }
+
+  &__image--yum {
+    font-family: 'Fredoka', sans-serif;
+    position: absolute;
+    top: -25px;
+    right: 0;
+    font-size: 60px;
+    font-weight: 900;
+    color: $color-yellow;
+    transform: rotate(6deg);
+    -webkit-text-stroke: 2px #FFD93D;
+    text-shadow: 3px 3px 0 #B93A00;
+  }
+
+  &__image--img {
+    position: relative;
+    right: -200px;
+    bottom: 5px;
+    width: 500px;
+    height: 500px;
+    animation: animationImgHero 20s linear infinite;
+    filter: drop-shadow(0 0 800px #FFD93D);
+    margin-left: auto;
+    border-radius: $radius-lg;
+    object-fit: contain;
+  }
+
+  &__eco {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: $color-white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    position: absolute;
+    bottom: 60px;
+    right: 250px;
+  }
+
+  &__eco--icon {
+    border-radius: 50%;
+    background: #FFE8D6;
+    color: $color-primary;
+    padding: 8px;
+    display: flex;
+  }
+
+  &__eco--title {
+    font-weight: 800;
+    font-size: 13px;
+    color: $color-text;
+    padding-bottom: 6px;
+  }
+
+  &__eco--text {
+    font-size: 11px;
+    font-weight: 600;
+    color: $color-text-light;
+  }
+
+  &__infos {
+    display: flex;
+    padding-top: 28px;
+    gap: 20px;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  &__infos--title {
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  &__infos--subtitle {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  &__ticker {
+    background: $color-primary-dark;
+    color: $color-white;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-weight: bold;
+  }
+}
+
+// ---------- POPULAIRES + PROMO ----------
+
+.popular {
+  background: $color-primary;
+  font-family: 'Fredoka', sans-serif;
+  z-index: 1;
+  &__inner {
+    @include container;
+    padding: 80px 0;
+  }
+
+  &__eyebrow {
+    color: #FFD93D;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+  }
+
+  &__left {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &__title {
+    @include section-title;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 2px;
+    font-size: 42px;
+    color: $color-white;
+  }
+
+  &__subtitle {
+    font-weight: 400;
+    color: $color-cream;
+    font-size: 17px;
+    max-width: 400px;
+  }
+
+  &__row {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1.45fr 0.45fr;
+    gap: 25px;
+    align-items: flex-start;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  &__card {
+    @include card($color-cream, $padding: 15px);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  &__card:hover {
+    transform: translateY(-4px);
+  }
+
+  &__card__image {
+    background-color: $color-white;
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  &__card__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-position: center;
+    object-fit: cover;
+    aspect-ratio: 1.6 / 1;
+  }
+
+  &__card__description {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &--title {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: $color-text;
+    }
+
+    &--subtitle {
+      font-size: 14px;
+      font-weight: normal;
+      color: $color-text-light;
+    }
+
+    &__choice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    &__choice--choose {
+      color: $color-primary;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    &__choice--choose svg {
+      display: inline-block;
+      position: relative;
+      top: 2px;
+    }
+  }
+}
+
+// ---------- POPULAIRES LIMITED ----------
+
+@keyframes animationImgPopular {
+  from { transform: translateY(-7px); }
+  to { transform: translateY(7px); }
+}
+
+.popular-limited {
+  background-color: #000000B2;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 55px;
+  padding: 25px;
+  width: 100%;
+
+  &__eyebrow {
+    color: #FFD93D;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+  }
+
+  &__left {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    @include section-title;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 2px;
+    font-size: 50px;
+    color: $color-white;
+  }
+
+  &__title span:last-child {
+    color: $color-primary;
+  }
+
+  &__subtitle {
+    margin-top: 20px;
+    font-weight: 500;
+    color: $color-cream-light;
+    font-size: 15px;
+    max-width: 400px;
+    line-height: 1.8;
+  }
+
+  &__button {
+    @include btn($padding: 15px 20px, $fontSize: 14px);
+    margin-top: 20px;
+    font-weight: 900;
+  }
+
+  &__button svg {
+    position: relative;
+    top: 2px;
+    font-weight: 900;
+  }
+
+  &__address {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  &__images {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0;
+  }
+
+  &__images img:first-child {
+    transform: rotate(-10deg);
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    position: relative;
+    right: 10px;
+  }
+
+  &__images img:last-child {
+    object-fit: cover;
+    width: auto;
+    height: 62px;
+    position: relative;
+    right: 20px;
+    animation: animationImgPopular 2s ease-in infinite alternate;
+  }
+
+  &__limited {
+    color: $color-cream-light;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+///// PPPPPPPPPPPPPPPBIBIGUIBUIBUIBUI
+
+.pizza-card {
+  @include card;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-hover;
+  }
+
+  &__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+
+  &__name {
+    font-weight: 800;
+    font-size: 16px;
+  }
+
+  &__price {
+    color: $color-primary;
+    font-weight: 800;
+    font-size: 16px;
+  }
+}
+
+.promo {
+  background: $color-primary-darker;
+  color: $color-white;
+  border-radius: $radius-md;
+  padding: 20px;
+  overflow: hidden;
+
+  &__title {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  &__text {
+    font-size: 14px;
+    opacity: 0.95;
+    margin-bottom: 16px;
+  }
+
+  &__btn { @include btn; }
+
+  &__imgs {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+
+    img {
+      width: 48%;
+      border-radius: $radius-sm;
+      object-fit: contain;
+    }
+  }
+}
+
+// ---------- 7. QUI SOMMES-NOUS ----------
+
+.about {
+  background: $color-cream;
+  padding: 90px 0;
+  font-family: 'Fredoka', sans-serif;
+
+  &__inner {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 24px;
+    min-width: 0;
+
+    @include respond(md) { grid-template-columns: 1fr; }
+  }
+
+  &__image {
+    position: relative;
+    border-radius: 30px;
+    background-color: $color-white;
+    overflow: visible;
+  }
+
+  &__infos {
+    position: absolute;
+    background-color: $color-primary;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 12px 25px;
+    right: 30px;
+    bottom: -20px;
+    z-index: 3;
+  }
+
+  &__infos span {
+    color: $color-white;
+  }
+
+  &__infos span:first-child {
+    color: $color-white;
+    font-size: 25px;
+    font-weight: 900;
+  }
+
+  &__infos span:last-child {
+    color: $color-white;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  &__image::before {
+    content: "";
+    position: absolute;
+    background: #FFD93D;
+    z-index: 1;
+    top: -12px;
+    left: -12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    transform: rotate(-10deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  }
+
+  &__image .img {
+    object-fit: cover;
+    height: auto;
+    display: block;
+    width: 120%;
+    max-width: none;
+    transform: translateX(-7%);
+    position: relative;
+    z-index: 2;
+  }
+
+  &__eyebrow {
+    color: $color-primary;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 9px;
+  }
+
+  &__title {
+    @include section-title;
+    font-size: 46px;
+    text-transform: none;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+
+  &__subtitle {
+    color: $color-text-light;
+    font-size: 17px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__logo {
+    background-color: $color-white;
+    padding: 12px 15px;
+    border-radius: 20px;
+    display: inline-flex;
+    gap: 10px;
+  }
+
+  &__logo .logo-eco {
+    color: green;
+  }
+
+  &__logo .logo-fresh {
+    color: $color-primary;
+  }
+
+  &__logo span {
+    font-size: 16px;
+    font-weight: 600;
+
+    color: $color-text;
+  }
+
+  &__button {
+    @include btn($color-primary, $color-white);
+    margin-top: 25px;
+    font-weight: 900;
+  }
+}
+
+// ---------- 8. COMMENT CA MARCHE ----------
+
+.steps {
+  background: $color-primary;
+  padding: 40px 0;
+
+  &__inner { @include container; }
+
+  &__title {
+    @include section-title;
+    color: $color-white;
+    text-align: center;
+  }
+
+  &__subtitle {
+    color: $color-white;
+    text-align: center;
+    margin: 8px 0 24px;
+    font-weight: 600;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    @include respond(md) { grid-template-columns: 1fr; }
+  }
+}
+
+.step-card {
+  @include card;
+  text-align: center;
+  padding: 28px 20px;
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: $color-primary;
+    color: $color-white;
+    @include flex-center;
+    margin: 0 auto 14px;
+    font-size: 24px;
+  }
+
+  &__title {
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    color: $color-text-light;
+    font-size: 14px;
+  }
+}
+
+/// HOW
+
+.how {
+  background: $color-primary;
+  font-family: 'Fredoka', sans-serif;
+
+  &__inner {
+    @include container;
+    padding: 80px 0;
+  }
+
+  &__eyebrow {
+    color: #FFD93D;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+  }
+
+  &__title {
+    @include section-title;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    letter-spacing: 2px;
+    font-size: 40px;
+    color: $color-white;
+  }
+
+  &__subtitle {
+    text-align: center;
+    font-weight: 400;
+    margin: 20px 0 45px;
+    color: $color-cream;
+    font-size: 17px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+
+    @include respond(md) { grid-template-columns: 1fr; }
+  }
+
+  .cta {
+    background: $color-cream;
+    padding-bottom: 65px;
+
+    &__inner {
+      @include container;
+      background: $bg-footer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 45px 40px;
+      border-radius: 30px;
+    }
+
+    &__title {
+      color: #fff;
+      font-size: 34px;
+      font-weight: 600;
+      margin-bottom: 13px;
+    }
+
+    &__text {
+      color: #FFF5E6;
+      opacity: 0.85;
+
+    }
+
+    &__button {
+      background: $color-primary;
+      border-radius: 999px;
+      outline: none;
+      border: 0;
+      font-weight: bold;
+      color: white;
+
+      @include btn($padding: 18px 32px);
+    }
+  }
+}
+
+.how-card {
+  @include card;
+  text-align: center;
+
+  &__number {
+    text-align: end;
+    font-size: 36px;
+    font-weight: bold;
+    color: rgba(255, 90, 0, 0.18);
+    letter-spacing: 2px;
+  }
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 90, 0, 0.18);
+    opacity: 0.6;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+
+  &__logo .logo {
+    color: $color-primary;
+    opacity: 1;
+    stroke-width: 2.8;
+  }
+
+  &__title {
+    margin: 18px 0 0 0;
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: $color-text;
+  }
+
+  &__text {
+    font-size: 16px;
+    margin: 12px 0 0 0;
+    line-height: 26px;
+    color: $color-text-light;
+  }
+}
+
+//$font-main: 'Inter', 'Segoe UI', sans-serif;
+
+// ---------- 9. AVIS ----------
+
+.reviews {
+  background: $color-cream;
+  font-family: 'Fredoka', sans-serif;
+
+  &__inner {
+    @include container;
+    padding: 100px 0;
+  }
+
+  &__eyebrow {
+    color: $color-primary;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+  }
+
+  &__title {
+    @include section-title;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    letter-spacing: 2px;
+    font-size: 40px;
+  }
+
+  &__subtitle {
+    text-align: center;
+    font-weight: 400;
+    margin: 20px 0 45px;
+    color: $color-text-light;
+    font-size: 16px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+
+    @include respond(md) { grid-template-columns: 1fr; }
+  }
+
+  .cta {
+    background: $color-cream;
+    padding-bottom: 65px;
+
+    &__inner {
+      @include container;
+      background: $bg-footer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 45px 40px;
+      border-radius: 30px;
+    }
+
+    &__title {
+      color: #fff;
+      font-size: 34px;
+      font-weight: 600;
+      margin-bottom: 13px;
+    }
+
+    &__text {
+      color: #FFF5E6;
+      opacity: 0.85;
+    }
+
+    &__button {
+      background: $color-primary;
+      border-radius: 999px;
+      outline: none;
+      border: 0;
+      font-weight: bold;
+      color: white;
+
+      @include btn($padding: 18px 32px);
+    }
+  }
+}
+
+.review-card {
+  @include card;
+  &__stars {
+    color: $color-star;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  &__text {
+    font-size: 16px;
+    margin: 13px 0 26px 0;
+    line-height: 27px;
+    color: $color-text-light;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: black;
+    font-size: 15px;
+  }
+
+  &__author__name {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    small {
+      display: block;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    small:last-child {
+      display: block;
+      font-weight: 500;
+      color: #2E7D32;
+      font-size: 12px;
+    }
+  }
+
+  &__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: $color-primary;
+    color: $color-white;
+    font-size: 17px;
+
+    @include flex-center;
+    font-weight: 800;
+  }
+}
+

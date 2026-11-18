@@ -1,0 +1,62 @@
+.checkout { background: #FF5A00; padding: 40px 20px; min-height: 100vh; text-align: center;
+  .container { max-width: 1100px; margin: 0 auto }
+
+  &__badge { background: #fff; color: #FF5A00; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+  &__title { color: #fff; font-size: 48px; margin: 16px 0 8px; }
+  &__subtitle { color: #fff; opacity: .9; margin: 0 auto 20px auto; padding-bottom: 20px }
+
+  &__steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  &__step { background: #2B1A12; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
+  &__step--active { background: #fff; color: #FF5A00; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+  &__step--done { background: #fff; color: #000; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
+
+  &__layout { display: flex; gap: 20px; max-width: 1000px; margin: 0 auto; text-align: left; }
+  &__left { flex: 2; display: flex; flex-direction: column; gap: 16px; }
+
+
+  &__card { background: #FFF6E8; border-radius: 16px; padding: 20px; }
+  &__cardHead { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; h2 { margin: 0; } p { margin: 0; font-size: 12px; opacity: .7; } }
+  &__icon { background: #FF5A00; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  &__label { font-size: 12px; font-weight: 700; display: block; margin: 12px 0 6px; }
+  &__input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: #fff; margin-bottom: 8px; box-sizing: border-box; }
+  &__textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: #fff; box-sizing: border-box; }
+  &__row { display: flex; gap: 12px; }
+  &__field { flex: 1; }
+
+
+
+  &__choiceRow { display: flex; gap: 12px; margin-bottom: 12px; }
+  &__choice { flex: 1; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; text-align: left; }
+  &__choice--active { flex: 1; background: #fff; border: 2px solid #FF5A00; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; text-align: left; }
+
+  &__payMethods { display: flex; gap: 8px; margin-bottom: 12px; }
+  &__payMethod { flex: 1; background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 12px; cursor: pointer; }
+  &__payMethod--active { flex: 1; background: #fff; border: 2px solid #FF5A00; border-radius: 10px; padding: 12px; cursor: pointer; color: #FF5A00; font-weight: 700; }
+  &__secureSmall { font-size: 11px; opacity: .7; }
+
+
+  &__recap { flex: 1; background: #FFF6E8; border-radius: 16px; padding: 20px; height: fit-content; h2 span { font-size: 11px; background: #FF5A00; color: #fff; padding: 4px 8px; border-radius: 999px; } }
+  &__recapItem { display: flex; gap: 2px; align-items: flex-start; margin: 14px 0; } p { margin: 0; font-size: 11px; opacity: .7; }
+  &__recapImg { mix-blend-mode: multiply; }
+  &__qty { color: #FF5A00; }
+  &__line { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
+  &__total { display: flex; justify-content: space-between; font-size: 22px; color: #FF5A00; border-top: 1px solid #eee; padding-top: 12px; }
+
+  &__success { color: green; font-size: 18px; text-align: center; margin-top: 5px; }
+  &__error { color: red; font-size: 18px; text-align: center; margin-top: 5px; }
+
+  &__pay { width: 100%; border: 1px solid #FF5A00; background: #FF5A00; color: #fff; padding: 12px 14px; border-radius: 999px; font-weight: 700; cursor: pointer; margin: 12px 0;  transition: all 200ms ease }
+  &__pay:hover { border: 1px solid #FF5A00; background-color: white; color: #FF5A00; }
+  &__secure { text-align: center; font-size: 11px; }
+  &__back { display: inline-block; background: #fff; color: #000; padding: 10px 18px; border-radius: 999px; margin-top: 24px; text-decoration: none; font-size: 13px; transition: all 200ms ease }
+  &__back:hover { transform: translateX(-5px) }
+  @media (max-width: 768px) {
+    &__layout { flex-direction: column; }
+    &__row { flex-direction: column; }
+    &__choiceRow { flex-direction: column; }
+  }
+
+  &__encrypted__payment { text-align: center; color: white; font-size: 10px; margin-top: 18px; }
+}
+

@@ -1,0 +1,87 @@
+.order {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  &__step { background: #2B1A12; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
+  &__step--active { background: #fff; color: #FF5A00; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; }
+  &__step--done { background: #fff; color: #000; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
+
+  &__layout { display: flex; gap: 20px; max-width: 1000px; margin: 0 auto; text-align: left; }
+  &__left { flex: 2; display: flex; flex-direction: column; gap: 16px; }
+
+  &__card {
+    background: #FFF6E8;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__cardHead {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 0;
+    h2 { margin: 0; }
+    p { margin: 0; font-size: 12px; opacity: .7; }
+  }
+
+  &__icon { background: #FF5A00; color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__label { font-size: 12px; font-weight: 700; display: block; margin: 0 0 6px; }
+
+  &__input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: #fff; box-sizing: border-box; }
+
+  &__input:focus, &__textarea:focus {
+    border: 1px solid #FF5A00;
+    box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.15);
+    outline: none;
+  }
+
+  &__textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: #fff; box-sizing: border-box; margin: 0; }
+
+  &__row {
+    display: flex;
+    gap: 12px;
+    margin-top: 0;
+    align-items: flex-start;
+  }
+
+  &__field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  &__choiceRow { display: flex; gap: 12px; margin-bottom: 18px; margin-top: 9px }
+  &__choice { flex: 1; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; text-align: left; }
+  &__choice--active { flex: 1; background: #fff; border: 1px solid #FF5A00; box-shadow: 0 0 0 3px rgba(255, 90, 0, 0.15); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; text-align: left; }
+}
+
+.error-field {
+  color: red;
+  font-size: 11px;
+  margin: 5px 0 0 3px;
+  display: block;
+}
+
+.error-field:empty {
+  display: none;
+}

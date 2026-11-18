@@ -59,8 +59,9 @@ export default function Pizzas() {
                         Fraîches · Croustillantes · Durables
                     </p>
                     <h1>Nos <span>Pizzas</span></h1>
-                    <p className={styles['hero__text']}>Des ingrédients frais et locaux, une pâte croustillante et un emballage
-                        qui respecte la planète.</p>
+                    <p className={styles['hero__text']}>
+                        Des ingrédients frais et locaux, une pâte croustillante et un emballage qui respecte la planète.
+                    </p>
                     <ul className={styles['stats']}>
                         <li><strong>4,9/5</strong><small>500+ avis</small></li>
                         <li><strong>30 min</strong><small>Livraison express</small></li>
@@ -68,6 +69,7 @@ export default function Pizzas() {
                     </ul>
                 </div>
             </section>
+
             <div className={styles['strip']}>Pizza fraîche • Ingrédients locaux • Pâte croustillante • Emballage écologique</div>
 
             <section className={styles['catalog']}>
@@ -104,13 +106,15 @@ export default function Pizzas() {
                                 <span className={styles['loader']}></span>
                             </div>
                         ) : !isLoading && filtered.length > 0 ? (
-                            <>
+                            <div className={styles['grid-card']}>
                                 {filtered?.map((p: any) =>
                                     <main key={p.id} className={styles['card']} data-cat="classique" onClick={() => pizzaInTheCart(p.id)}>
                                         <div className={styles['card__media']}>
-                                            {p?.pictures?.length > 0 && (
-                                                <Image src={p.pictures?.[0]?.url} alt={p.name} height={400} width={500} quality={100} />
-                                            )}
+
+                                                {p?.pictures?.length > 0 && (
+                                                    <Image src={p.pictures?.[0]?.url} alt={p.name} height={400} width={500} quality={100} />
+                                                )}
+
                                             <div className={styles['info']}>
                                                 <span>33 cm</span>
                                             </div>
@@ -126,7 +130,7 @@ export default function Pizzas() {
                                         </div>
                                     </main>
                                 )}
-                            </>
+                            </div>
                         ) : (
                             <div className={styles.empty}>
                                 <p>Aucune pizza dans cette catégorie pour le moment.</p>

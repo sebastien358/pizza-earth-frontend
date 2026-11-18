@@ -110,11 +110,9 @@ export default function Pizzas() {
                                 {filtered?.map((p: any) =>
                                     <main key={p.id} className={styles['card']} data-cat="classique" onClick={() => pizzaInTheCart(p.id)}>
                                         <div className={styles['card__media']}>
-
-                                                {p?.pictures?.length > 0 && (
-                                                    <Image src={p.pictures?.[0]?.url} alt={p.name} height={400} width={500} quality={100} />
-                                                )}
-
+                                            {p?.pictures?.length > 0 && (
+                                                <Image src={p.pictures?.[0]?.url} alt={p.name} height={400} width={500} quality={100} />
+                                            )}
                                             <div className={styles['info']}>
                                                 <span>33 cm</span>
                                             </div>

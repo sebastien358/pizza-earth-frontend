@@ -31,7 +31,13 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
   text-decoration: none;
   transition: background 0.2s;
 
-  &--primary { background: $orange; color: $white; &:hover { background: $orange-dark; } }
+  &--primary {
+    background: $orange;
+    color: $white;
+
+    @media (max-width: 600px) { text-align: center; width: 170px; font-size: 13px; font-weight: 500; margin: 0 auto; padding: 0.7rem 1rem; }
+      &:hover { background: $orange-dark; }
+  }
 }
 
 .container { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
@@ -178,11 +184,11 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 2rem;
   margin-bottom: 1.75rem;
+  gap: 2rem;
 
   &__eyebrow { margin: 0 0 0.35rem; color: $orange; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-  h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1; }
+  h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1;}
   &__text {
     max-width: 32ch;
     margin: 0;
@@ -190,11 +196,21 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
     opacity: 0.75;
   }
 
-  @include md { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  @include md { flex-direction: column; align-items: center ;text-align: center; justify-content: center; gap: 0.75rem; }
 }
 
 // ---------- Filtres ----------
-.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
+}
 
 .chip {
   cursor: pointer;
@@ -337,8 +353,13 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
     border: none;
     font-weight: 900;
     font-size: 11px;
-    padding: 11px;
+    padding: 14px 11px;
     transition: all 200ms ease;
+
+    @media (max-width: 600px) {
+      padding: 12px 11px;
+    }
+
     &:hover { background-color: $orange-dark; transform: translateY(-2px); }
   }
 }

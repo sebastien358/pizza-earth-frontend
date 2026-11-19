@@ -68,7 +68,9 @@ export default function Footer() {
             </div>
             <p className={styles['footer__bottom']}>
                 <span>© 2026 PIZZA EARTH. Tous droits réservés.</span>
-                <span>Politique de confidentialité |Conditions d'utilisation</span>
+                <Link href={'/legal-notice'}>
+                    <span>Politique de confidentialité |Conditions d'utilisation</span>
+                </Link>
             </p>
         </footer>
     )

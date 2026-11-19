@@ -1,0 +1,174 @@
+
+$bg-white: white;
+
+$color-primary: #FF5A00;
+$color-primary-dark: #b84712;
+$color-primary-darker: #9C2A00;
+$color-cream: #FFF5E6;
+$color-cream-light: #FFF8EC;
+$color-white: #FFFFFF;
+$color-text: #2B1200;
+$color-text-light: #6B4A2F;
+$color-star: #F5A623;
+$color-yellow: #FFD93D;
+$brown: #5C2E0E;
+
+$font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+$container: 1100px;
+
+$breakpoint-lg: 1200px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+
+// ---------- 2. MIXINS ----------
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: $container;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@mixin btn($bg: $color-primary, $color: $color-white, $fontSize: 16px, $padding: 13px 22px) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $bg;
+  color: $color;
+  border: none;
+  border-radius: 30px;
+  padding: $padding;
+  font-size: $fontSize;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.20s ease;
+  &:hover {
+    transform: translateX(2px);
+  }
+}
+
+@mixin card {
+  background: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-card;
+  padding: 20px;
+}
+
+@mixin section-title {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: $color-text;
+  text-transform: uppercase;
+}
+
+@mixin respond($bp) {
+  @if $bp == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+.mentions {
+  background: $color-white;
+  font-family: 'Fredoka', sans-serif;
+
+  &__inner {
+    @include container;
+    padding: 80px 0;
+
+    @include respond(lg) { padding: 70px 20px; }
+    @include respond(md) { padding: 50px 16px; }
+    @include respond(sm) { padding: 40px 16px; }
+  }
+
+  &__eyebrow {
+    color: $color-primary;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+  }
+
+  &__title {
+    @include section-title;
+    font-weight: 600;
+    text-align: center;
+    font-size: 40px;
+    text-transform: none;
+
+    @include respond(lg) { font-size: 36px; }
+    @include respond(md) { font-size: 32px; }
+    @include respond(sm) { font-size: 28px; }
+  }
+
+  &__subtitle {
+    text-align: center;
+    font-weight: 400;
+    margin: 20px 0 45px;
+    color: $color-text-light;
+    font-size: 16px;
+
+    @include respond(md) { font-size: 15px; margin: 15px 0 30px; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 17px;
+
+    @include respond(lg) { gap: 15px; }
+    @include respond(md) {
+      grid-template-columns: 1fr;
+      max-width: 520px;
+      margin: 0 auto;
+      gap: 16px;
+    }
+  }
+}
+
+.mentions-card {
+  @include card;
+  text-align: left;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: $color-text;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: $color-text-light;
+    margin-bottom: 6px;
+  }
+
+  @include respond(md) { padding: 24px 20px; }
+  @include respond(sm) { padding: 20px 16px; }
+}

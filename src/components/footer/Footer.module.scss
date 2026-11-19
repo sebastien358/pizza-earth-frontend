@@ -12,7 +12,6 @@ $color-star: #F5A623;
 
 $bg-footer: #3B1E0F;
 
-$font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
 $radius-sm: 12px;
 $radius-md: 16px;
 $radius-lg: 24px;
@@ -20,6 +19,8 @@ $shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
 $shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
 
 $container: 1100px;
+
+$breakpoint-lg: 1200px;
 $breakpoint-md: 900px;
 $breakpoint-sm: 600px;
 
@@ -78,6 +79,9 @@ $breakpoint-sm: 600px;
 }
 
 @mixin respond($bp) {
+  @if $bp == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
   @if $bp == md {
     @media (max-width: $breakpoint-md) { @content; }
   }
@@ -112,21 +116,16 @@ $breakpoint-sm: 600px;
   background: $bg-footer;
   color: $color-white;
 
-  @media (max-width: 1200px) {
-    padding: 20px;
-
-  }
-
-  @media (max-width: 768px) {
-    padding: 16px;
-  }
-
   &__inner {
     @include container;
     display: grid;
     grid-template-columns: 1.2fr 0.7fr 0.9fr 1.1fr;
     gap: 24px;
-    padding: 60px 0 60px 0;
+    padding: 60px 20px 60px 20px;
+
+    @media (max-width: 991px) {
+      padding: 50px 20px 50px 20px;
+    }
 
     @media (max-width: 768px) {
       padding: 40px 20px;
@@ -136,8 +135,13 @@ $breakpoint-sm: 600px;
       padding: 32px 16px;
     }
 
-    @include respond(md) { grid-template-columns: 1fr 1fr; }
-    @include respond(sm) { grid-template-columns: 1fr; }
+    @include respond(md) { grid-template-columns: 2fr;
+      padding: 50px 20px;
+
+    }
+    @include respond(sm) {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__brand {
@@ -291,27 +295,28 @@ $breakpoint-sm: 600px;
     opacity: 0.85;
     margin-top: 26px;
     border-top: 1px solid rgba(255,255,255,0.2);
-    padding: 14px 0;
     font-weight: 600;
     color: $color-cream-light;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 14px 20px;
 
-    @media (max-width: 600px) {
+    @include respond(lg) {
+      font-size: 12px;
+      padding: 13px 20px 13px 20px;
+    }
+
+    @include respond(md) {
+      font-size: 12px;
+    }
+
+    @include respond(sm) {
       flex-direction: column;
       gap: 6px;
       text-align: center;
+      padding: 13px 16px 13px 16px;
       font-size: 11px;
-      padding: 13px 0 0 0;
-    }
-
-    @media (max-width: 768px) {
-      font-size: 11px;
-    }
-
-    @media (max-width: 600px) {
-      font-size: 10px;
     }
   }
 }

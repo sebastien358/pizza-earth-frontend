@@ -1344,7 +1344,6 @@ $breakpoint-sm: 600px;
       color: white;
 
       @include btn($padding: 18px 32px);
-
       @include respond(sm) {
         width: 100%;
         justify-content: center;

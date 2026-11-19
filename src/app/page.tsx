@@ -210,36 +210,33 @@ export default function Home() {
                   <div className={styles['reviews__grid']}>
                       <article className={styles['review-card']}>
                           <p className={styles['review-card__stars']}>★★★★</p>
-                          <p className={styles['review-card__text']}>"J'adore l'emballage écologique et les saveurs sont
-                              incroyables. Le Jardin Végétarien est frais et délicieux !"</p>
+                          <p className={styles['review-card__text']}>"La Reine est incroyable, pâte fine, fromage généreux. Livraison en 25 minutes à Rugles, encore chaude. Je recommande !"</p>
                           <div className={styles['review-card__author']}>
-                              <div className={styles['review-card__avatar']}>J</div>
+                              <div className={styles['review-card__avatar']}>S</div>
                               <div className={styles['review-card__author__name']}>
-                                  <small>James K.</small>
+                                  <small>Sophie L. - Reine.</small>
                                   <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
                               </div>
                           </div>
                       </article>
                       <article className={styles['review-card']}>
                           <p className={styles['review-card__stars']}>★★★★</p>
-                          <p className={styles['review-card__text']}>"J'adore l'emballage écologique et les saveurs sont
-                              incroyables. Le Jardin Végétarien est frais et délicieux !"</p>
+                          <p className={styles['review-card__text']}>"La Diavola elle pique juste comme il faut. Commande simple, suivi en direct, emballage vraiment écologique. C'est devenu ma cantine du vendredi."</p>
                           <div className={styles['review-card__author']}>
-                              <div className={styles['review-card__avatar']}>J</div>
+                              <div className={styles['review-card__avatar']}>M</div>
                               <div className={styles['review-card__author__name']}>
-                                  <small>James K.</small>
+                                  <small>Mehdi R. - Diavola.</small>
                                   <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
                               </div>
                           </div>
                       </article>
                       <article className={styles['review-card']}>
                           <p className={styles['review-card__stars']}>★★★★</p>
-                          <p className={styles['review-card__text']}>"J'adore l'emballage écologique et les saveurs sont
-                              incroyables. Le Jardin Végétarien est frais et délicieux !"</p>
+                          <p className={styles['review-card__text']}>"Je suis végétarienne, l'Aubergine Grillée c'est la meilleure que j'ai goûtée. Fraîche, légère, et on sent que les ingrédients sont locaux."</p>
                           <div className={styles['review-card__author']}>
-                              <div className={styles['review-card__avatar']}>J</div>
+                              <div className={styles['review-card__avatar']}>L</div>
                               <div className={styles['review-card__author__name']}>
-                                  <small>James K.</small>
+                                  <small>Léa M. - Aubergine Grillée.</small>
                                   <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
                               </div>
                           </div>

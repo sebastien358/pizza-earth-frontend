@@ -135,37 +135,42 @@ export default function Header() {
 
                     <button className={styles['header-mobile__cart']} onClick={() => openMenuCart()}>
                         <ShoppingBag size={24} />
-                        <span className={styles['header-mobile__badge']}>
+                        <span className={styles['header-mobile__cart__badge']}>
                             {cart.length}
                         </span>
 
                         {menuCart && (
-                            <section className={styles['header-mobile__menu']}>
-                                <ul className={styles['header-mobile__list']}>
+                            <section className={styles['header-mobile__cart__menu']}>
+                                <ul className={styles['header-mobile__cart__list']}>
                                     {cart.length > 0 ? (
                                         <>
                                             {cart.map((c) =>
-                                                <li key={c.id} className={styles['header-mobile__item']}>
+                                                <li key={c.id} className={styles['header-mobile__cart__item']}>
                                                     <Image src={c.pictures[0].url} alt={"Images Pizzas"} height={50} width={50} />
-                                                    <div className={styles['header-mobile__item__info']}>
-                                                        <span className={styles['header-mobile-cart__item__name']}>{c.name}</span>
-                                                        <span className={styles['header-mobile__item__qty']}>{c.quantity}</span>
+                                                    <div className={styles['header-mobile__cart__item__row']}>
+
+                                                        <div className={styles['header-mobile__cart__item__info']}>
+                                                            <span className={styles['header-mobile__cart__item__info__name']}>{c.name}</span>
+                                                            <span className={styles['header-mobile__cart__item__info__qty']}>{c.quantity}</span>
+                                                        </div>
+                                                        <span className={styles['header-mobile__cart__item__info__price']}>12,90 €</span>
+
                                                     </div>
-                                                    <span className={styles['header-mobile__item__price']}>12,90 €</span>
+
                                                 </li>
                                             )}
                                         </>
                                     ) : (
-                                        <div className={styles['header-mobile__item__empty']}>
+                                        <div className={styles['header-mobile__cart__item__empty']}>
                                             <p>Aucune pizza dans le panier.</p>
                                         </div>
                                     )}
                                 </ul>
-                                <div className={styles['header-mobile__item__total']}>
+                                <div className={styles['header-mobile__cart__item__total']}>
                                     <span>Total</span>
                                     <strong>{totalCart()} €</strong>
                                 </div>
-                                <Link href="/cart" className={styles['header-mobile__item__cta']}>
+                                <Link href="/cart" className={styles['header-mobile__cart__item__cta']}>
                                     Voir le panier →
                                 </Link>
                             </section>

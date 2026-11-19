@@ -35,6 +35,12 @@ export default function Header() {
         setMenuMobile(prev => !prev)
     }
 
+    function disconnected() {
+        setMenuMobile(false)
+        setMenuCart(false)
+        logout()
+    }
+
     return (
         <header className={styles['header']}>
             <section className={styles['header__inner']}>
@@ -65,25 +71,12 @@ export default function Header() {
                             {isAdmin() ? (
                                 <>
                                     <Link href="/admin/commands">Commandes</Link>
-                                    <Link
-                                        onClick={() => logout()}
-                                        className={styles['logout']}
-                                        href="/login"
-                                    >
-                                        Se Déconnecter
-                                    </Link>
+                                    <Link onClick={() => logout()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                 </>
 
                             ) : isUser() ? (
                                 <>
-                                    <Link href="/user/orders">Commandes</Link>
-                                    <Link
-                                        onClick={() => logout()}
-                                        className={styles['logout']}
-                                        href="/login"
-                                    >
-                                        Se Déconnecter
-                                    </Link>
+                                    <Link href="/user/orders">Commandes</Link><Link onClick={() => logout()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                 </>
                             ) : (
                                 <>
@@ -195,25 +188,13 @@ export default function Header() {
                                 {isAdmin() ? (
                                     <>
                                         <Link href="/admin/commands">Commandes</Link>
-                                        <Link
-                                            onClick={() => logout()}
-                                            className={styles['logout']}
-                                            href="/login"
-                                        >
-                                            Se Déconnecter
-                                        </Link>
+                                        <Link onClick={() => logout()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                     </>
 
                                 ) : isUser() ? (
                                     <>
                                         <Link href="/user/orders">Commandes</Link>
-                                        <Link
-                                            onClick={() => logout()}
-                                            className={styles['logout']}
-                                            href="/login"
-                                        >
-                                            Se Déconnecter
-                                        </Link>
+                                        <Link onClick={() => disconnected()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                     </>
                                 ) : (
                                     <>

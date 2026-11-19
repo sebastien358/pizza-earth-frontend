@@ -9,6 +9,7 @@ import {z} from 'zod'
 import {useCategoryStore} from "@/store/category.store";
 import {ProductFormData, useProductAdminStore} from "@/store/admin/productAdmin.store";
 import {useRouter} from "next/navigation";
+import Link from "next/link";
 
 const DELAY_TIMEOUT = 2000
 
@@ -84,72 +85,65 @@ export default function ProductNew() {
 
     return (
         <main className={styles['product']}>
-            <section className={styles['product__main']}>
-                <div className={styles['card']}>
-                    <h2>Ajout Pizza</h2>
-                    <form onSubmit={handleSubmit(onSubmit)} action="/admin/products/form" method="post" noValidate className={styles['product__form']}>
-                        <div className={styles['field']}>
-                            <label htmlFor="nom">Nom</label>
-                            <input {...register('name')} id="email" name="name" type="text" autoComplete="name" />
-                            {errors && <small>{errors?.name?.message}</small>}
-                        </div>
-                        <div className={styles['field']}>
-                            <label htmlFor="price">Prix</label>
-                            <input {...register('price')} id="price" name="price" type="number" autoComplete="price" placeholder={"0€"} />
-                            {errors && <small>{errors.price?.message}</small>}
-                        </div>
-                        <div className={styles['field']}>
-                            <label htmlFor="description">Description</label>
-                            <textarea {...register('description')} id="description" name="description" autoComplete="description"></textarea>
-                            {errors && <small>{errors.description?.message}</small>}
-                        </div>
 
-                        <div className={styles['field']}>
-                            {isLoading ? (
-                                <>
-                                    <span className={styles['loader']}></span>
-                                </>
-                            ) : !isLoading && categories && (
-                                <>
-                                    <label htmlFor="category">Catégorie &nbsp;</label>
-                                    <select {...register('category')} name="category" id="category" defaultValue={""}>
-                                        <option value="" disabled>Choisissez une catégorie</option>
-                                        {categories.map((c: any) =>
-                                            <option key={c.id} value={c.id}>{c.name}</option>
-                                        )}
-                                    </select>
-                                    {errors && <small>{errors.category?.message}</small>}
-                                </>
+            <section className={styles['product__form']}>
+                <h1>Ajout Pizza</h1>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <label className={styles['field']}>
+                        <span>Nom</span>
+                        <input {...register('name')} type="text" />
+                        {errors && <small>{errors.name?.message}</small>}
+                    </label>
+
+                    <label className={styles['field']}>
+                        <span>Prix</span>
+                        <input {...register('price')} type="text" />
+                        {errors && <small>{errors.price?.message}</small>}
+                    </label>
+
+                    <label className={styles['field']}>
+                        <span>Description</span>
+                        <textarea {...register('description')} rows={2}></textarea>
+                        {errors && <small>{errors.description?.message}</small>}
+                    </label>
+
+                    <label className={styles['field']}>
+                        <span>Catégorie</span>
+                        <select {...register('category')} defaultValue={""}>
+                            <option value="" disabled>Choisissez une catégorie</option>
+                            {categories?.map((c: any) =>
+                                <option key={c.id} value={c.id}>{c.name}</option>
                             )}
-                        </div>
-                        <div className={styles['field']}>
-                            <label htmlFor="picture">Image</label>
-                            <div className={styles['file']}>
-                                <label className={styles['file__label']}>
-                                    <input
-                                        className={styles['file__input']}
-                                        id="picture"
-                                        name="picture"
-                                        type="file"
-                                        onChange={(e) => handleChangeImage(e)}
-                                    />
-                                    <span className={`${filename ? styles['filename'] : styles['no-filename']}`}>
-                                        {filename ? filename : 'Choisir'}
-                                    </span>
-                                </label>
-                            </div>
-                            {errors && <small>{errors.picture?.message}</small>}
-                        </div>
+                        </select>
+                        {errors && <small>{errors.category?.message}</small>}
+                    </label>
 
-                        {successMessage && <p className={styles['success-message']}>{successMessage}</p>}
-                        {errorMessage && <p className={styles['error-message']}>{errorMessage}</p>}
+                    <div className={styles['field']}>
+                        <span>Image</span>
+                        <label className={styles['drop']}>
+                            <span className={styles['drop__icon']}>☁</span>
+                            <strong>Cliquez ou glissez une image ici</strong>
+                            <small>PNG, JPG jusqu'à 5MB</small>
+                            <input type="file" accept="image/png, image/jpeg" hidden onChange={(e) => handleChangeImage(e)} />
+                            <p>{filename}</p>
+                        </label>
+                        {errors && <small>{errors.picture?.message}</small>}
+                    </div>
 
-                        <button type="submit" className={`${styles['btn']} ${styles['btn--primary']}`}
-                                disabled={isSubmitting}>
-                            {isSubmitting ? 'Chargement…' : 'Add Pizza'}
+                    {successMessage && <p className={styles['success-message']}>{successMessage}</p>}
+                    {errorMessage && <p className={styles['error-message']}>{errorMessage}</p>}
+
+                    <div className={styles['actions']}>
+                        <Link href={"/admin/products"} className={`${styles['btn']} ${styles['btn--ghost']}`}>Annuler</Link>
+                        <button
+                            type="submit"
+                            className={`${styles['btn']} ${styles['btn--primary']}`}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Chargement…' : ' Enregistrer'}
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </section>
         </main>
     )

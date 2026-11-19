@@ -56,7 +56,7 @@ export default function Pizzas() {
                         <svg width="12" height="12">
                             <use href="#i-leaf"/>
                         </svg>
-                        Fraîches · Croustillantes · Durables
+                        Savoureuses • Croustillantes • Moelleuses
                     </p>
                     <h1>Nos <span>Pizzas</span></h1>
                     <p className={styles['hero__text']}>
@@ -70,7 +70,7 @@ export default function Pizzas() {
                 </div>
             </section>
 
-            <div className={styles['strip']}>Pizza fraîche • Ingrédients locaux • Pâte croustillante • Emballage écologique</div>
+            <div className={styles['strip']}>Pizza savoureuses • Ingrédients locaux • Pâte croustillante • Emballage écologique</div>
 
             <section className={styles['catalog']}>
                 <div className={styles['container']}>
@@ -100,7 +100,7 @@ export default function Pizzas() {
                         )}
                     </div>
 
-                    <ul className={styles['grid']} id="grid">
+                    <ul id="grid">
                         {isLoading ? (
                             <div className={styles['loader-container']}>
                                 <span className={styles['loader']}></span>
@@ -141,8 +141,12 @@ export default function Pizzas() {
                         </div>
                     )}
                     <aside className={styles['cta']}>
-                        <div>
+                        <div className={styles['cta__desktop']}>
                             <h2>Une petite faim ? La Terre vous dit merci.</h2>
+                            <p>Commandez votre pizza préférée, prête en 30 minutes.</p>
+                        </div>
+                        <div className={styles['cta__mobile']}>
+                            <h2>Une petite faim ?</h2>
                             <p>Commandez votre pizza préférée, prête en 30 minutes.</p>
                         </div>
                         <Link href="/cart" className={`${styles['btn']} ${styles['btn--primary']}`}>

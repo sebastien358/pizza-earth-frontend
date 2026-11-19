@@ -14,11 +14,21 @@ const nextConfig: NextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: 'api-pizzeria.sebastien-petit.fr',
+                hostname: 'api-pizza-earth.sebastien-petit.fr',
                 pathname: '/images/**',
             },
         ],
     },
+    async redirects() {
+        return [
+            {
+                source: '/:path*',
+                has: [{ type: 'host', value: 'www.pizza-earth.sebastien-petit.fr' }],
+                destination: 'https://pizza-earth.sebastien-petit.fr/:path*',
+                permanent: true,
+            },
+        ]
+    }
 };
 
 export default nextConfig;

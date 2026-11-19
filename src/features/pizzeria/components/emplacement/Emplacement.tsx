@@ -22,14 +22,14 @@ export default function Emplacement() {
 
                         <div className={style['info__block']}>
                             <h3>Adresse</h3>
-                            <address>123 Green St<br/>Los Angeles, CA</address>
+                            <address>12 Rue des Lilas, 27250 <br/>Rugles, Eure</address>
                             <a className={style['link']} href="https://maps.google.com/?q=123+Green+St+Los+Angeles"
                                target="_blank" rel="noopener">Obtenir l’itinéraire</a>
                         </div>
 
                         <div className={style['info__block']}>
                             <h3>Contact</h3>
-                            <p><a href="tel:+15551234567">+1 (555) 123-4567</a></p>
+                            <p><a href="tel:+33232240000">02 32 24 00 00</a></p>
                             <p><a href="mailto:hello@pizzaearth.com">hello@pizzaearth.com</a></p>
                         </div>
 

@@ -181,7 +181,9 @@ export const useProductAdminStore = create<ProductState>()(
         deleteProduct: async (id: number) => {
             try {
                 await axiosDeleteProduct(id)
-                await get().productDetails(String(id))
+                set((state) => ({
+                    products: state.products.filter((p) => p.id !== id)
+                }))
             } catch (err: any) {
                 console.error(err)
                 throw err

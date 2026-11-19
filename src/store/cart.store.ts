@@ -33,7 +33,9 @@ export const useCartStore = create<CartState>()(
         },
 
         addToCart: (id: number) => {
-            const productExist = useProductStore.getState().products.find((p) => p.id === id)
+            const state = useProductStore.getState()
+            const productExist = state.products.find((p) => p.id === id) || state.productsHome.find((p) => p.id === id)
+
             if (!productExist) return
 
             const found = get().cart.find((p) => p.id === id)

@@ -38,7 +38,7 @@ export default function Footer() {
                     <ul>
                         <li>Pizzas</li>
                         <li>Accompagnements</li>
-                        <li>Boissons</li>
+                        <li>Menu</li>
                         <li>Offres</li>
                     </ul>
                 </div>
@@ -51,11 +51,11 @@ export default function Footer() {
                         </li>
                         <li>
                             <Phone size={16} />
-                            <p>+1 (555) 123-4567</p>
+                            <p>02 32 24 00 00</p>
                         </li>
                         <li>
                             <MapPin size={15} />
-                            <p>123 Green St, Los Angeles, CA</p>
+                            <p>12 Rue des Lilas, 27250 Rugles, Eure</p>
                         </li>
                     </ul>
                 </div>

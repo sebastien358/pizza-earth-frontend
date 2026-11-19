@@ -12,14 +12,25 @@ import Pizzas from '@/assets/images/deux_petites_pizzas_maquette.png'
 import Pizza from '@/assets/images/pizza_hero_logo.png'
 import {useProductStore} from "@/store/product.store";
 import {useEffect} from "react";
+import {useCartStore} from "@/store/cart.store";
 
 export default function Home() {
 
-    const { productHomeList, productsHome } = useProductStore()
+    {/* Store Product : affichage des pizzas */}
+
+    const { productHomeList, productsHome,  } = useProductStore()
 
     useEffect(() => {
         productHomeList()
     }, [productHomeList]);
+
+    {/* Store Cart: ajout product au panier */}
+
+    const { addToCart } = useCartStore()
+
+    function addProductToCart(id: number) {
+        addToCart(id)
+    }
 
   return (
       <main>
@@ -27,7 +38,7 @@ export default function Home() {
           <section className={styles['hero']}>
               <div className={styles['hero__inner']}>
                   <div className={styles['']}>
-                      <div className={styles['hero__badge']}>🍃 Fraîches • Croustillantes • Durables</div>
+                      <div className={styles['hero__badge']}>🍃 Savoureuses • Croustillantes • Moelleuses</div>
                       <h1 className={styles['hero__title']}>Des Pizzas Qui Aiment <span
                           className={styles['hero__title--earth']}>La Terre !</span></h1>
                       <p className={styles['hero__subtitle']}>Croustillantes, Savoureuses, Délicieuses !</p>
@@ -67,7 +78,7 @@ export default function Home() {
                   </div>
               </div>
               <div className={styles['hero__ticker']}>
-                  PIZZA FRAÎCHE • INGRÉDIENTS LOCAUX • PÂTE CROUSTILLANTE • EMBALLAGE ÉCOLOGIQUE
+                  PIZZA SAVOUREUSE • INGRÉDIENTS LOCAUX • PÂTE CROUSTILLANTE • EMBALLAGE ÉCOLOGIQUE
               </div>
           </section>
           {/* Popular */}
@@ -93,7 +104,7 @@ export default function Home() {
 
                                               <div className={styles['popular__card__description__choice']}>
                                                   <p>{p.price}€</p>
-                                                  <Link className={styles['popular__card__description__choice--choose']} href={"#"}>
+                                                  <Link className={styles['popular__card__description__choice--choose']} href={"#"} onClick={() => addProductToCart(p.id)}>
                                                       <span>Choisir</span>
                                                       <span><ArrowRight size={16} /></span>
                                                   </Link>
@@ -113,7 +124,7 @@ export default function Home() {
                                   <span>-10%</span>
                               </div>
                               <p className={styles['popular-limited__subtitle']}>
-                                  Offre limitée sur toutes les pizzas et boissons. Commandez maintenant et économisez gros sur vos favoris !
+                                  Offre limitée sur toutes les pizzas. Commandez maintenant et économisez gros sur vos favoris !
                               </p>
                               <button className={styles['popular-limited__button']}>
                                   <Link href={"/pizzas"}>Commander</Link>
@@ -127,7 +138,7 @@ export default function Home() {
                               </div>
                               <div className={styles['popular-limited__limited']}>
                                   <MapPin size={14} />
-                                  <span> 123 Green St, Los Angeles • À emporter & livraison</span>
+                                  <span> 12 Rue des Lilas, 27250, Rugles, Eure • À emporter & livraison</span>
                               </div>
                           </div>
                       </div>
@@ -246,9 +257,13 @@ export default function Home() {
               {/* CTA */}
               <section className={styles['cta']}>
                   <div className={styles['cta__inner']}>
-                      <div>
+                      <div className={styles['cta__inner__desktop']}>
                           <h3 className={styles['cta__title']}>Une petite faim ? La Terre vous dit merci.</h3>
                           <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -50% sur les pizzas et boissons.</p>
+                      </div>
+                      <div className={styles['cta__inner__mobile']}>
+                          <h3 className={styles['cta__title']}>Une petite faim ?</h3>
+                          <p className={styles['cta__text']}>La Terre vous dit merci. -10% sur votre première pizza.</p>
                       </div>
                       <button className={styles['cta__button']}>
                           <Link href={"/pizzas"}>Commander maintenant</Link>

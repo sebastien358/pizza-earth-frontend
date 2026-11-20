@@ -16,6 +16,13 @@
   background: #2A1A0E;
   height: 100vh;
 
+  &__burger {
+    display: none;
+    @media (max-width: 700px) {
+      display: block;
+    }
+  }
+
   &__container {
     h2 {
       margin-bottom: 0.5rem;
@@ -101,24 +108,24 @@
 ===============*/
 
 @media (max-width: 991.98px) {
-  .admin-layout {
-    flex-direction: column;
-  }
-
   .admin-sidebar {
     flex-direction: row;
     align-items: center;
     width: 100%;
     height: auto;
-
     border-bottom: 1px solid #333;
-    padding: 0 25px 0 15px;
-
-
+    padding: 10px 15px;
     justify-content: space-between;
     flex-wrap: wrap;
-    overflow-x: visible; // <-- tu vires le scroll carrousel
+    overflow-x: visible;
     gap: 12px;
+
+    &__burger svg {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
 
     &__container {
       display: flex;
@@ -168,78 +175,38 @@
   RESPONSIVE MOBILE
 ===============*/
 
-.admin-menu-mobile {
-  display: none;
-}
-
 @media (max-width: 700px) {
-  .admin-menu-mobile {
-    z-index: 500;
-    display: flex;
+  .admin-sidebar {
+    flex-direction: row;
     justify-content: space-between;
-    align-content: center;
-    backdrop-filter: blur(6px);
-    background: white;
-    background: rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 20px 10px;
-    p {
-      white-space: nowrap;
-      font-size: 13px;
-      font-weight: 600;
-      color: #fff;
+
+    padding: 10px 10px 10px 10px;
+
+    &__container__nav {
+      display: none;
     }
-    .fa-bars {
-      cursor: pointer;
-      font-size: 19px;
-      color: #fff;
+
+   &__total {
+      display: none;
     }
-    &_toggle {
+
+    &__burger {
+      position: relative;
+    }
+    &__burger__menu {
+      padding: 10px 13px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
       position: absolute;
-      padding: 10px 10px 5px 10px;
-      background: white;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      row-gap: 1rem;
-      top: 70px;
-      right: 10px;
-      opacity: 0;
-    }
-    &_toggle_nav {
-      display: flex;
-      flex-direction: column;
-      row-gap: 0.5rem;
-      transition: initial;
-      .reset-contact {
-        margin-top: 2px;
-        display: flex;
-        flex-direction: column;
-        row-gap: 6px;
-        p {
-          font-size: 9px;
-          margin: 0;
-          color: gray;
-          font-weight: normal;
-        }
-        span {
-          color: gray;
-          font-size: 9px;
-        }
-      }
-    }
-    &_toggle_nav .link {
-      color: black;
-      transition: color 0.3s ease;
-      font-size: 11px;
-      &:hover {
-        color: #b22ad0;
-      }
-      &.active {
-        color: #b22ad0;
+      border-radius: 10px;
+      top: 40px;
+      left: -8px;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+      a {
+        font-size: 12px;
       }
     }
   }

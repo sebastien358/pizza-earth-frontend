@@ -7,6 +7,8 @@ import {useProductAdminStore} from "@/store/admin/productAdmin.store";
 import {useAuthStore} from "@/store/auth.store";
 import {useOrderAdminStore} from "@/store/admin/orderAdmin.store";
 import {useOrderStore} from "@/store/user/order.store";
+import {useState} from "react";
+import {ChevronDown, Menu} from "lucide-react";
 
 export default function Sidebar() {
 
@@ -49,8 +51,14 @@ export default function Sidebar() {
     ]
 
     const userPageConfig = {
-        '/user/orders': { reset: null, count: orders.length },
+        '/user/orders': { reset: null, count: orders.length }
     }
+
+    {/* Gtestion du menu version mobile */}
+
+    const [open, setOpen] = useState<boolean>(false)
+
+    //////
 
     const isActiveUser = userPageConfig[pathname as keyof typeof userPageConfig]
 
@@ -58,6 +66,38 @@ export default function Sidebar() {
 
     return (
         <main className={styles['admin-sidebar']}>
+
+            {/* Sidebar Button Menu Déroulant */}
+
+            <button className={styles['admin-sidebar__burger']} onClick={() => setOpen(!open)}>
+                <Menu />
+                {open && (
+                    <div className={styles['admin-sidebar__burger__menu']}>
+                        <>
+                            {isAdmin() ? (
+                                <>
+                                    {adminLinks.map((link) =>
+                                        <NavLink key={link.path} href={link.path} dropdownSidebar>
+                                            {link.name}
+                                        </NavLink>
+                                    )}
+                                </>
+                            ) : isUser() && (
+                                <>
+                                    {userLinks.map((link) =>
+                                        <NavLink key={link.path} href={link.path} dropdownSidebar>
+                                            {link.name}
+                                        </NavLink>
+                                    )}
+                                </>
+                            )}
+                        </>
+                    </div>
+                )}
+            </button>
+
+            {/* Liens Sidebar */}
+
             <div className={styles['admin-sidebar__container']}>
                 <h2>{isAdmin() ? 'Admin' : 'Client'}</h2>
                 {isAdmin() && (
@@ -71,11 +111,7 @@ export default function Sidebar() {
                         {isAdmin() ? (
                             <>
                                 {adminLinks.map((link) =>
-                                    <NavLink
-                                        key={link.path}
-                                        href={link.path}
-                                        dropdownSidebar
-                                    >
+                                    <NavLink key={link.path} href={link.path} dropdownSidebar>
                                         {link.name}
                                     </NavLink>
                                 )}
@@ -83,11 +119,7 @@ export default function Sidebar() {
                         ) : isUser() && (
                             <>
                                 {userLinks.map((link) =>
-                                    <NavLink
-                                        key={link.path}
-                                        href={link.path}
-                                        dropdownSidebar
-                                    >
+                                    <NavLink key={link.path} href={link.path} dropdownSidebar>
                                         {link.name}
                                     </NavLink>
                                 )}

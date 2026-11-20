@@ -153,7 +153,7 @@ export default function Header() {
                                                             <span className={styles['header-mobile__cart__item__info__name']}>{c.name}</span>
                                                             <span className={styles['header-mobile__cart__item__info__qty']}>{c.quantity}</span>
                                                         </div>
-                                                        <span className={styles['header-mobile__cart__item__info__price']}>12,90 €</span>
+                                                        <span className={styles['header-mobile__cart__item__info__price']}>{c.price} €</span>
 
                                                     </div>
 
@@ -168,7 +168,7 @@ export default function Header() {
                                 </ul>
                                 <div className={styles['header-mobile__cart__item__total']}>
                                     <span>Total</span>
-                                    <strong>{totalCart()} €</strong>
+                                    <strong>{totalCart().toFixed(2)} €</strong>
                                 </div>
                                 <Link href="/cart" className={styles['header-mobile__cart__item__cta']}>
                                     Voir le panier →

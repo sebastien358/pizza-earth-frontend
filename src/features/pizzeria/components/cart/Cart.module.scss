@@ -31,7 +31,6 @@ $red: #D00;
   background: #FF5A00;
 
   &__badge {
-    //display: inline-flex;
     display: inline;
     background: rgba(255,255,255,.2);
     color: #fff;
@@ -42,14 +41,12 @@ $red: #D00;
     letter-spacing: 2px;
 
     @media (max-width: 600px) {
-
+      font-size: 10px;
       display: inline-flex;
       text-align: center;
       margin: 0 auto;
-
     }
   }
-
 
   &__title {
     color: #fff;
@@ -65,7 +62,7 @@ $red: #D00;
     }
 
     @media (max-width: 600px) {
-      font-size: 40px;
+      font-size: 36px;
       text-align: center;
     }
   }
@@ -90,26 +87,85 @@ $red: #D00;
   &__list { flex: 2; display: flex; flex-direction: column; gap: 16px; }
 
   &__item {
-    display: flex;
-    align-items: center;
     background: #FFF6E8;
     border-radius: 16px;
-    padding: 16px;
+    display: flex;
+    align-items: center;
+    padding: 5px 0 5px 0;
+
+    @media (max-width: 600px){
+      padding: 0;
+    }
   }
 
-  &__img {
-    width: 100px; height: 100px; border-radius: 6px; object-fit: cover;
-    mix-blend-mode: multiply;
+  &__image {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 12px;
+
+    @media (max-width: 600px) {
+      width: 82px;
+      height: 82px;
+    }
   }
+
+  &__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+
+  }
+
   &__info {
     flex: 1;
   }
 
-  &__info__content { display: flex; flex-direction: column; gap: 4px; text-align: left; }
+  &__info__content {
+    position: relative;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+
+    @media (max-width: 600px) {
+      position: relative;
+      right: 5px;
+    }
+  }
+
+  &__info__content .name {
+    font-size: 21px;
+
+    @media (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+
+  &__info__content .description {
+
+    font-size: 15px;
+    @media (max-width: 600px) {
+      font-size: 12px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 165px;
+    }
+  }
+
+
   &__info__content__meta {
     display: flex;
     align-items: center;
     gap: 8px;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 
   &__info__content__meta span:first-child {
@@ -123,19 +179,45 @@ $red: #D00;
   }
 
   &__qty {
+    position: relative;
+    right: 10px;
     display: flex;
     align-items: center;
     gap: 8px;
     transition: all 350ms ease;
     margin-top: 10px;
-    button { width: 25px; height: 25px; border-radius: 50%; border: none; cursor: pointer; font-size: 12px; }
+
+    @media (max-width: 600px) { position: relative; right: 5px; gap: 6px; }
+
+    button { width: 25px; height: 25px; border-radius: 50%; border: none; cursor: pointer; font-size: 12px;
+      @media (max-width: 600px) { width: 22px; height: 22px; font-size: 12px; }
+    }
     button:last-child { background-color: #FF5A00;color: white; }
     button:hover { transform: scale(1.05) }
   }
 
-  &__delete { background: white; border: none; cursor: pointer; font-size: 20px; margin-left: 20px; padding: 3px; border-radius: 50%; transition: all 200ms ease; }
-  &__delete:hover { transform: scale(1.05) }
+  &__qty .number {
+    font-size: 14px;
 
+    @media (max-width: 600px) { font-size: 11px; }
+  }
+
+  &__delete {
+    background: white; border: none; cursor: pointer; margin-left: 20px; padding: 3px; border-radius: 50%; transition: all 200ms ease;
+    position: relative;
+    right: 10px;
+
+    @media (max-width: 600px) { right: 0; }
+  }
+
+  &__delete .logo-lucid {
+    width: 19px;
+    height: 19px;
+
+      @media (max-width: 600px) { width: 16px; height: 16px; }
+  }
+
+  &__delete:hover { transform: scale(1.05) }
 
   &__right {
     display: flex;
@@ -143,12 +225,21 @@ $red: #D00;
     align-items: center;
     justify-content: space-between;
     height: 100%;
+
+    padding: 16px 16px 16px 0;
+
+    @media (max-width: 600px) {
+      min-width: 65px;
+    }
   }
 
   &__right__price { display: flex; flex-direction: column; align-items: center; gap: 3px }
-  &__right__price p:first-child { color: black; text-transform: uppercase; font-size: 12px; font-weight: 300 }
-  &__right__price p:last-child { color: red; font-size: 16px; font-weight: 600 }
-
+  &__right__price p:first-child { color: black; text-transform: uppercase; font-size: 12px; font-weight: 300;
+    @media (max-width: 600px) { font-size: 10px; text-align: center; position: relative; left: 10px; margin: 4px 0; }
+  }
+  &__right__price p:last-child { color: red; font-size: 16px; font-weight: 600 ;
+    @media (max-width: 600px) { font-size: 13px; position: relative; left: 10px; }
+  }
 
   .empty {
     grid-column: 1 / -1;
@@ -161,6 +252,8 @@ $red: #D00;
     p {
       margin: 0;
       font-size: 16px;
+
+      @media (max-width: 600px) { font-size: 14px; }
     }
   }
 
@@ -173,15 +266,33 @@ $red: #D00;
     padding: 24px;
     height: fit-content;
 
-    h1 {
-      font-size: 15px;
+    @media (max-width: 600px) {
+      padding: 16px;
     }
   }
 
-  &__line { display: flex; justify-content: space-between; margin: 15px 0; }
-  &__total { display: flex; justify-content: space-between; font-weight: 700; font-size: 20px; margin: 16px 0; }
+  &__recap__title {
+    font-size: 24px;
 
-  &__pay {
+    @media (max-width: 600px) {
+      font-size: 20px;
+    }
+  }
+
+  &__recap__line { display: flex; justify-content: space-between; margin: 15px 0; font-size: 16px;
+    @media (max-width: 600px) {
+      font-size: 14px;
+      margin: 10px 0;
+    }
+  }
+  &__recap__total { display: flex; justify-content: space-between; font-weight: 700; font-size: 20px; margin: 16px 0;
+    @media (max-width: 600px) {
+      font-size: 16px;
+      margin: 14px 0;
+    }
+  }
+
+  &__recap__pay {
     width: 100%;
     background: #FF5A00;
     color: #fff;
@@ -192,9 +303,13 @@ $red: #D00;
     cursor: pointer;
     transition: all 200ms ease;
     font-weight: 500;
+
+    @media (max-width: 600px) {
+      font-size: 12px;
+    }
   }
 
-  &__pay:hover { background: white; color: #FF5A00; }
+  &__recap__pay:hover { background: white; color: #FF5A00; }
 
   @media (max-width: 768px) {
     &__layout { flex-direction: column; }

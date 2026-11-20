@@ -24,7 +24,8 @@ export const useCartStore = create<CartState>()(
         setDelivery: (deliveryPrice: number) => set({ deliveryPrice }),
 
         totalCart: (): number => {
-            return get().cart.reduce((acc, product) => acc + product.price * product.quantity, 0)
+            const total = get().cart.reduce((acc, product) => acc + product.price * product.quantity, 0)
+            return Math.round(total * 100) / 100
         },
 
         totalDelivered: (): number => {

@@ -28,6 +28,7 @@ $shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
 
 $container: 1100px;
 
+$breakpoint-macbook: 1600px;
 $breakpoint-lg: 1200px;
 $breakpoint-md: 900px;
 $breakpoint-sm: 600px;
@@ -89,6 +90,9 @@ $breakpoint-xs: 400px;
 }
 
 @mixin respond($bp) {
+  @if $bp == macbook {
+    @media (max-width: $breakpoint-macbook) { @content; }
+  }
   @if $bp == lg {
     @media (max-width: $breakpoint-lg) { @content; }
   }
@@ -172,6 +176,7 @@ $breakpoint-xs: 400px;
     font-size: 80px;
     letter-spacing: 1px;
 
+    @include respond(macbook) { font-size: 75px; }
     @include respond(md) { font-size: 56px; text-align: center; }
     @include respond(sm) { font-size: 40px; }
     @include respond(xs) { font-size: 38px; }
@@ -253,6 +258,8 @@ $breakpoint-xs: 400px;
     transform: rotate(6deg);
     -webkit-text-stroke: 2px #FFD93D;
     text-shadow: 3px 3px 0 #B93A00;
+
+    @include respond(macbook) { font-size: 54px; }
 
     @include respond(md) {
       font-size: 38px;

@@ -24,7 +24,7 @@ export default function Footer() {
 
                         <div className={styles['footer__description']}>
                             <p>Des Pizzas Qui Aiment La Terre.</p>
-                            <p>Fraîches, croustillantes, durables.</p>
+                            <p>Savoureuses, croustillantes, moelleuses.</p>
                         </div>
 
                         <div className={styles['footer__eco']}>

@@ -59,14 +59,16 @@ export default function Cart() {
                             <>
                                 {cart.map((p) => (
                                     <article key={p.id} className={styles['cart__item']}>
-                                        {p.pictures.length > 0 && (
-                                            <Image src={p.pictures?.[0]?.url} alt={p.name} className={styles['cart__img']} width={100} height={100} />
-                                        )}
+                                        <div className={styles['cart__image']}>
+                                            {p.pictures.length > 0 && (
+                                                <Image src={p.pictures?.[0]?.url} alt={p.name} className={styles['img']} width={100} height={100} />
+                                            )}
+                                        </div>
                                         <div className={styles['cart__info']}>
 
                                             <div className={styles['cart__info__content']}>
-                                                <h3>{p.name}</h3>
-                                                <span>{p.description}</span>
+                                                <h3 className={styles['name']}>{p.name}</h3>
+                                                <span className={styles['description']}>{p.description}</span>
                                                 <div className={styles['cart__info__content__meta']}>
                                                     <span>Prix inutaire</span>
                                                     <span className={styles['price']}> {p.price}€</span>
@@ -75,7 +77,7 @@ export default function Cart() {
 
                                             <div className={styles['cart__qty']}>
                                                 <button onClick={() => decrease(p.id)}>-</button>
-                                                <span>{p.quantity}</span>
+                                                <span className={styles['number']}>{p.quantity}</span>
                                                 <button onClick={() => increase(p.id)}>+</button>
                                             </div>
                                         </div>
@@ -83,7 +85,7 @@ export default function Cart() {
                                         <div className={styles['cart__right']}>
                                             <div>
                                                 <button onClick={() => remove(p.id)} className={styles['cart__delete']}>
-                                                    <Trash2 size={19} />
+                                                    <Trash2 className={styles['logo-lucid']} />
                                                 </button>
                                             </div>
 
@@ -104,11 +106,11 @@ export default function Cart() {
 
                     {cart.length > 0 && (
                         <div className={styles['cart__recap']}>
-                            <h2>Récapitulatif</h2>
-                            <div className={styles['cart__line']}><span>Sous-total</span><span>{total()}</span></div>
-                            <div className={styles['cart__line']}><span>Livraison</span><span>À la commande</span></div>
-                            <div className={styles['cart__total']}><span>Total</span><span>{total()}€</span></div>
-                            <button className={styles['cart__pay']} onClick={() => redirectPayment()}>Payer →</button>
+                            <h2 className={styles['cart__recap__title']}>Récapitulatif</h2>
+                            <div className={styles['cart__recap__line']}><span>Sous-total</span><span>{total()}</span></div>
+                            <div className={styles['cart__recap__line']}><span>Livraison</span><span>À la commande</span></div>
+                            <div className={styles['cart__recap__total']}><span>Total</span><span>{total()}€</span></div>
+                            <button className={styles['cart__recap__pay']} onClick={() => redirectPayment()}>Payer →</button>
                         </div>
                     )}
                 </div>

@@ -79,8 +79,9 @@ export default function Pizzas() {
                             <p className={styles['section-head__eyebrow']}>Notre carte</p>
                             <h2>Toutes nos pizzas</h2>
                         </div>
-                        <p className={styles['section-head__text']}>Une seule taille, 33 cm. Préparées minute et cuites à la
-                            perfection.</p>
+                        <p className={styles['section-head__text']}>
+                            Une seule taille, 33 cm. Préparées minute et cuites à la perfection.
+                        </p>
                     </header>
                     <div className={styles['filters']} role="group" aria-label="Filtrer les pizzas">
                         <button

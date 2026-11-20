@@ -17,10 +17,12 @@ export interface ProductState {
     productsHome: ProductData[],
     products: ProductData[]
     isLoading: boolean
+    isLoadingMore: false
     offset: number
     limit: number
     hasMore: boolean
 
+    getLimitProduct: () => void
     productHomeList: () => Promise<void>
     productList: () => Promise<void>
     productLazyLoad: () => Promise<void>
@@ -31,9 +33,24 @@ export const useProductStore = create<ProductState>()(
         productsHome: [],
         products: [],
         isLoading: false,
+        isLoadingMore: false,
         offset: 0,
-        limit: 9,
+        limit: 0,
         hasMore: true,
+
+        getLimitProduct: () => {
+            if (window.innerWidth >= 1600) {
+                set({ limit: 9 })
+            } else if (window.innerWidth >= 1200) {
+                set({ limit: 6 })
+            } else if (window.innerWidth >= 900) {
+                set({ limit: 6 })
+            } else if (window.innerWidth >= 700) {
+                set({ limit: 4 })
+            } else {
+                set({ limit: 4 })
+            }
+        },
 
         productHomeList: async () => {
             try {
@@ -48,6 +65,7 @@ export const useProductStore = create<ProductState>()(
         },
 
         productList: async () => {
+            get().getLimitProduct()
             try {
                 set({ isLoading: true, offset: 0, hasMore: true })
                 const data = await axiosProductsList(get().offset, get().limit)
@@ -61,25 +79,25 @@ export const useProductStore = create<ProductState>()(
 
         productLazyLoad: async () => {
             try {
-                const { products, isLoading, offset, limit, hasMore } = get()
-                if (!hasMore || isLoading) return
+                const { products, isLoadingMore, offset, limit, hasMore } = get()
+                if (!hasMore || isLoadingMore) return
 
-                set({ offset: offset + limit, isLoading: true })
+                set({ offset: offset + limit, isLoadingMore: false })
 
                 const data = await axiosProductsList(get().offset, get().limit)
                 const newProducts = data ?? []
 
                 if (newProducts.length === 0) {
-                    set({ hasMore: false, isLoading: false})
+                    set({ hasMore: false, isLoadingMore: false})
                     return
                 }
                 set({
                     products: [...products, ...newProducts],
-                    isLoading: false,
+                    isLoadingMore: false,
                     hasMore: newProducts.length >= get().limit
                 })
             } catch (err: any) {
-                set({ isLoading: false })
+                set({ isLoadingMore: false })
                 console.error(err)
                 throw err
             }

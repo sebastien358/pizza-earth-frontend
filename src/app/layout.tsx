@@ -10,7 +10,7 @@ import React from "react";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-        <body className={'layout'}>
+        <body className={styles['layout']}>
             <ConditionalHeader className={styles['layout__header']} />
             <main className={styles['layout__main']}>
                 {children}

@@ -12,6 +12,7 @@ $radius: 20px;
 $radius-sm: 12px;
 $radius-pill: 999px;
 $shadow: 0 6px 20px rgba($brown, 0.12);
+$shadow-sm: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 $bp-md: 900px;
 
 $breakpoint-macbook: 1600px;
@@ -160,6 +161,8 @@ $breakpoint-xs: 400px;
 
   @include respond(sm) {
     padding: 1.5rem;
+
+    box-shadow: $shadow-sm;
   }
 
 

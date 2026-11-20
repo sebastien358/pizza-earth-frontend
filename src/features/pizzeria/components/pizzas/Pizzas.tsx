@@ -49,7 +49,7 @@ export default function Pizzas() {
     }
 
     return (
-        <main>
+        <div>
             <section className={styles['hero']}>
                 <div className={styles['container']}>
                     <p className={styles['eyebrow']}>
@@ -101,7 +101,7 @@ export default function Pizzas() {
                         )}
                     </div>
 
-                    <ul id="grid">
+                    <div id="grid">
                         {isLoading ? (
                             <div className={styles['loader-container']}>
                                 <span className={styles['loader']}></span>
@@ -109,7 +109,7 @@ export default function Pizzas() {
                         ) : !isLoading && filtered.length > 0 ? (
                             <div className={styles['grid-card']}>
                                 {filtered?.map((p: any) =>
-                                    <main key={p.id} className={styles['card']} data-cat="classique" onClick={() => pizzaInTheCart(p.id)}>
+                                    <div key={p.id} className={styles['card']} data-cat="classique" onClick={() => pizzaInTheCart(p.id)}>
                                         <div className={styles['card__media']}>
                                             {p?.pictures?.length > 0 && (
                                                 <Image src={p.pictures?.[0]?.url} alt={p.name} height={400} width={500} quality={100} />
@@ -127,7 +127,7 @@ export default function Pizzas() {
                                                 <Link href={"#"} className={styles['choose']}>Choisir <ArrowRight size={16} /></Link>
                                             </div>
                                         </div>
-                                    </main>
+                                    </div>
                                 )}
                             </div>
                         ) : (
@@ -135,13 +135,13 @@ export default function Pizzas() {
                                 <p>Aucune pizza dans cette catégorie pour le moment.</p>
                             </div>
                         )}
-                    </ul>
+                    </div>
                     {hasMore && (
-                        <div onClick={() => productLazyLoad()} className={styles['lazy-load']}>
-                            <button className={styles['btn-load']}>Plus de pizzas…</button>
+                        <div className={styles['lazy-load']}>
+                            <button type={"button"} className={styles['btn-load']} onClick={() => productLazyLoad()} >Plus de pizzas…</button>
                         </div>
                     )}
-                    <aside className={styles['cta']}>
+                    <section className={styles['cta']}>
                         <div className={styles['cta__desktop']}>
                             <h2>Une petite faim ? La Terre vous dit merci.</h2>
                             <p>Commandez votre pizza préférée, prête en 30 minutes.</p>
@@ -154,9 +154,9 @@ export default function Pizzas() {
                             <span>Voir le panier 👆 </span>
                             <svg width="16" height="16"><use href="#i-arrow"/></svg>
                         </Link>
-                    </aside>
+                    </section>
                 </div>
             </section>
-        </main>
+        </div>
     )
 }

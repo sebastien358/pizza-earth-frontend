@@ -2,9 +2,15 @@
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100dvh;
+  justify-content: space-between;
+  min-height: 100dvh;
 
   &__header { flex-shrink: 0; }
-  &__main { flex: 1; }
+  &__main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    overflow: visible;
+  }
   &__footer { flex-shrink: 0; }
 }

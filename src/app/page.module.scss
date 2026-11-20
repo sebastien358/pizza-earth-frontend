@@ -293,8 +293,8 @@ $breakpoint-xs: 400px;
     }
 
     @include respond(sm) {
+      animation: animationImgHero 30s linear infinite;
       max-width: 380px;
-      animation: none;
       bottom: 30px;
     }
   }

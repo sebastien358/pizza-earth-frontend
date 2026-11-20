@@ -72,12 +72,12 @@ export default function Login() {
                         <div className={styles['field']}>
                             <label htmlFor="email">Email</label>
                             <input {...register('email')} id="email" name="email" type="email" autoComplete="email" placeholder="vous@exemple.fr" />
-                            {errors && <small>{errors.email?.message}</small>}
+                            {errors && <small className={styles['error-field']}>{errors.email?.message}</small>}
                         </div>
                         <div className={styles['field']}>
                             <label htmlFor="password">Mot de passe</label>
                             <input {...register('password')} id="password" name="password" type="password" autoComplete="current-password" />
-                            {errors && <small>{errors.password?.message}</small>}
+                            {errors && <small className={styles['error-field']}>{errors.password?.message}</small>}
                         </div>
                         <div className={styles['options']}>
                             <label className={styles['check']}>

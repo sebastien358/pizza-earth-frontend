@@ -95,6 +95,10 @@ $breakpoint-sm: 600px;
   @media (max-width: 1200px) {
     padding: 0 20px;
   }
+
+  @media (max-width: 600px) {
+    padding: 0 16px;
+  }
 }
 
 // ---------- Boutons ----------
@@ -129,8 +133,13 @@ $breakpoint-sm: 600px;
       font-size: 50px;
     }
 
-    @media (max-width: 480px) {
-      font-size: 32px;
+    @media (max-width: 600px) {
+      text-align: center;
+      font-size: 38px;
+    }
+
+    @media (max-width: 400px) {
+      text-align: center;
     }
   }
 
@@ -140,13 +149,20 @@ $breakpoint-sm: 600px;
     font-size: 17px;
     font-weight: 600;
     line-height: 1.7;
+
+    @media (max-width: 600px) {
+      text-align: center;
+      max-width: 50ch;
+      font-size: 15px;
+      margin: 0 auto;
+    }
   }
 }
 
 // ---------- Infos + carte ----------
 
 .location {
-  padding: 0 0 4rem;
+  padding: 0 0 4rem 0;
   position: relative;
 
   @media (max-width: 768px) {
@@ -154,7 +170,7 @@ $breakpoint-sm: 600px;
   }
 
   @media (max-width: 600px) {
-    padding-bottom: 2rem;
+    padding-bottom: 2.5rem;
   }
 
   &__grid {
@@ -188,7 +204,7 @@ $breakpoint-sm: 600px;
     font-size: 1.6rem;
 
     @media (max-width: 768px) {
-      font-size: 1.4rem;
+      font-size: 1.13rem;
     }
   }
 
@@ -213,6 +229,11 @@ $breakpoint-sm: 600px;
 
     p, address {
       font-style: normal;
+      font-size: 17px;
+
+      @media (max-width: 600px) {
+        font-size: 15px;
+      }
     }
     a { text-decoration: none; &:hover { color: $color-orange; } }
   }
@@ -230,7 +251,9 @@ $breakpoint-sm: 600px;
   width: 100%;
   border-collapse: collapse;
 
-  th, td { padding: 0.2rem 0; text-align: left; font-weight: 400; }
+  th, td { padding: 0.2rem 0; text-align: left; font-weight: 400; font-size: 16px;
+    @media (max-width: 600px) { font-size: 14px; }
+  }
   td { text-align: right; font-weight: 500; }
 }
 
@@ -247,6 +270,7 @@ $breakpoint-sm: 600px;
     background: $cream;
     font-size: 0.9rem;
     font-weight: 500;
+    @media (max-width: 600px) { font-size: 0.80rem; }
   }
 }
 
@@ -271,7 +295,7 @@ $breakpoint-sm: 600px;
   }
 
   @media (max-width: 600px) {
-    padding-bottom: 2rem;
+    padding-bottom: 3rem;
   }
 
   &__box {
@@ -290,11 +314,20 @@ $breakpoint-sm: 600px;
       flex-direction: column;
     }
 
+    @media (max-width: 600px) {
+      padding: 20px;
+      gap: 1.1rem;
+    }
+
     h2 {
       margin: 0;
       font-size: 1.7rem;
       @media (max-width: 768px) {
         font-size: 1.4rem;
+      }
+
+      @media (max-width: 600px) {
+        font-size: 1.2rem;
       }
     }
 
@@ -305,6 +338,11 @@ $breakpoint-sm: 600px;
       @media (max-width: 768px) {
         font-size: 15px;
       }
+
+      @media (max-width: 600px) {
+        margin-top: 9px;
+        font-size: 14px;
+      }
     }
   }
 
@@ -314,6 +352,12 @@ $breakpoint-sm: 600px;
 
     @media (max-width: 768px) {
       font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      @include btn($padding: 12px 15px);
+      font-size: 11px;
+      font-weight: normal;
     }
   }
 }

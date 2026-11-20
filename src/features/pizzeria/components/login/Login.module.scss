@@ -5,15 +5,36 @@ $brown: #3b1f10;
 $yellow: #ffd43b;
 $white: #fff;
 $error: #c62828;
-$success: #008000FF;
+$success: #008000;
 
 $radius: 20px;
 $radius-sm: 12px;
 $radius-pill: 999px;
 $shadow: 0 6px 20px rgba($brown, 0.12);
-$bp-md: 900px;
 
-@mixin md { @media (max-width: $bp-md) { @content; } }
+$breakpoint-macbook: 1600px;
+$breakpoint-lg: 1200px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+$breakpoint-xs: 400px;
+
+@mixin respond($bp) {
+  @if $bp == macbook {
+    @media (max-width: $breakpoint-macbook) { @content; }
+  }
+  @if $bp == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @if $bp == xs {
+    @media (max-width: $breakpoint-xs) { @content; }
+  }
+}
 
 // ---------- Boutons ----------
 .btn {
@@ -26,6 +47,11 @@ $bp-md: 900px;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
+  font-size: 1rem;
+
+  @include respond(sm) {
+    font-size: 0.9rem;
+  }
 
   &--primary {
     background: $orange;
@@ -41,7 +67,9 @@ $bp-md: 900px;
   grid-template-columns: 1fr 1.1fr;
   min-height: 100vh;
 
-  @include md { grid-template-columns: 1fr; }
+  @include respond(md) {
+    grid-template-columns: 1fr;
+  }
 
   // Panneau orange
   &__side {
@@ -53,7 +81,7 @@ $bp-md: 900px;
     background: $orange;
     color: $white;
 
-    @include md { padding: 1.5rem; gap: 1.25rem; }
+    @include respond(md) { gap: 1.25rem; }
   }
 
   &__pitch {
@@ -61,6 +89,10 @@ $bp-md: 900px;
       margin: 0 0 1.25rem;
       font-size: clamp(2rem, 4.5vw, 3.4rem);
       line-height: 1.1;
+      @include respond(sm) {
+        text-align: center;
+        font-size: 1.8rem;
+      }
       span { color: $yellow; }
     }
 
@@ -75,14 +107,15 @@ $bp-md: 900px;
 
     li::before { content: "✓ "; color: $yellow; font-weight: 700; }
 
-    @include md { ul { display: none; } }
+    @include respond(md) { ul { display: none; } }
   }
 
   &__note {
     margin: 0;
     font-size: 0.9rem;
     opacity: 0.9;
-    @include md { display: none; }
+
+    @include respond(md) { display: none; }
   }
 
   // Zone formulaire
@@ -107,6 +140,8 @@ $bp-md: 900px;
   text-decoration: none;
   span { color: $brown; }
   &:hover { color: $white; }
+
+  @include respond(sm) { text-align: center; margin: 0 auto }
 }
 
 // ---------- Carte formulaire ----------
@@ -117,16 +152,40 @@ $bp-md: 900px;
   border-radius: $radius;
   box-shadow: $shadow;
 
-  h2 { margin: 0; font-size: 1.8rem; }
-  &__sub { margin: 0.25rem 0 1.5rem; opacity: 0.75; }
-  &__alt { margin: 1.25rem 0 0; text-align: center; font-size: 0.95rem; a { font-weight: 600; } }
+  @include respond(sm) {
+    padding: 1.5rem;
+  }
+
+  h2 { margin: 0; font-size: 1.8rem;
+    @include respond(sm) {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+  }
+  &__sub { margin: 0.25rem 0 1.5rem; opacity: 0.75; font-size: 1rem;
+    @include respond(sm) {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  }
+
+  &__alt { margin: 1.25rem 0 0 0; text-align: center; font-size: 0.95rem; a { font-weight: 600; }
+    @include respond(sm) {
+      font-size: 0.80rem;
+      margin: 1rem 0 0 0;
+    }
+  }
 }
 
 .field {
   display: flex;
   flex-direction: column;
 
-  label { margin-bottom: 0.3rem; font-weight: 500; }
+  label { margin-bottom: 0.3rem; font-weight: 500; font-size: 1rem;
+    @include respond(sm) {
+      font-size: 0.9rem;
+    }
+  }
 
   input {
     padding: 0.7rem 0.9rem;
@@ -136,10 +195,30 @@ $bp-md: 900px;
     font: inherit;
     color: $brown;
     transition: border-color 0.2s, background 0.2s;
+    font-size: 1rem;
 
-    &::placeholder { color: rgba($brown, 0.4); }
+    @include respond(sm) {
+      padding: 0.8rem;
+      border: 1px solid rgba($brown, 0.15);
+      font-size: 0.8rem;
+    }
+
+    &::placeholder { color: rgba($brown, 0.4); font-size: 1rem;
+      @include respond(sm) {
+        font-size: 0.9rem;
+      }
+    }
     &:focus { outline: none; border-color: $orange; background: $white; }
     &:user-invalid { border-color: $error; }
+  }
+
+  .error-field {
+    font-size: 0.90rem;
+    margin: 4px 0 0 3px;
+
+    @include respond(sm) {
+      font-size: 0.70rem;
+    }
   }
 }
 
@@ -152,6 +231,10 @@ $bp-md: 900px;
   row-gap: 0.5rem;
   font-size: 0.9rem;
 
+  @include respond(sm) {
+    font-size: 0.85rem;
+  }
+
   a { font-weight: 500; }
 }
 
@@ -160,7 +243,15 @@ $bp-md: 900px;
   align-items: center;
   gap: 0.5rem;
 
-  input { accent-color: $orange; width: 1.1rem; height: 1.1rem; }
+  @include respond(sm) {
+    gap: 0.4rem;
+  }
+
+  input { accent-color: $orange; width: 1.1rem; height: 1.1rem;
+    @include respond(sm) {
+      width: 0.8rem;
+    }
+  }
 }
 
 .success-message {
@@ -168,6 +259,10 @@ $bp-md: 900px;
   color: $success;
   text-align: center;
   font-size: 16px;
+
+  @include respond(sm) {
+    font-size: 13px;
+  }
 }
 
 .error-message {
@@ -175,4 +270,8 @@ $bp-md: 900px;
   color: $error;
   text-align: center;
   font-size: 16px;
+
+  @include respond(sm) {
+    font-size: 13px;
+  }
 }

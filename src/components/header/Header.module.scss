@@ -511,11 +511,8 @@ $breakpoint-xs: 400px;
     z-index: 2;
 
     @include respond(sm) {
+      top: 52px;
       left: -213px;
-    }
-
-    @include respond(xs) {
-      left: -212px;
     }
 
     &::before {
@@ -699,6 +696,7 @@ $breakpoint-xs: 400px;
     border: 1px solid #f0f0f0;
 
     @include respond(sm) {
+      top: 52px;
       right: -6px;
     }
 

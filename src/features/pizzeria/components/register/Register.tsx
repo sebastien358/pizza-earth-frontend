@@ -114,7 +114,7 @@ export default function Register() {
                         </div>
                         <label className={styles['check']}>
                             <input {...register('terms')} type="checkbox" name="terms" required/>
-                            <span>J’accepte les <a href="/conditions">conditions d’utilisation</a> et la <a href="/confidentialite">politique de confidentialité</a>.</span>
+                            <span>J’accepte les <a href="/conditions">conditions d’utilisation</a> et la <Link href="#">politique de confidentialité</Link>.</span>
                             {errors && <small>{errors.terms?.message}</small>}
                         </label>
 

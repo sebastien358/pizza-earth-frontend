@@ -51,7 +51,7 @@
       font-size: 13px;
       &:hover {
         color: #fff;
-        background: #4A2C1A; // marron clair, bien visible sur ton #2A1A0E
+        background: #4A2C1A;
         border-left: 3px solid #FF6A00;
         transform: translateX(2px);
       }
@@ -101,17 +101,25 @@
 ===============*/
 
 @media (max-width: 991.98px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
   .admin-sidebar {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    overflow-x: auto;
+    height: auto;
+
     border-bottom: 1px solid #333;
     padding: 0 25px 0 15px;
-    height: 100%;
-    @media (max-width: 991.98px) {
-      display: none;
-    }
+
+
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-x: visible; // <-- tu vires le scroll carrousel
+    gap: 12px;
+
     &__container {
       display: flex;
       align-items: center;
@@ -119,11 +127,28 @@
         display: none;
       }
     }
+
     &__container__nav {
       align-items: center;
       flex-direction: row;
       column-gap: 12px;
+      justify-content: center;
+      margin-top: 0;
+      transition: initial;
+
+      margin-left: 20px;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+          transform: initial;
+          border-left: 0;
+        }
+      }
     }
+
     .reset-contact {
       display: initial;
       p,
@@ -147,7 +172,7 @@
   display: none;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 700px) {
   .admin-menu-mobile {
     z-index: 500;
     display: flex;
@@ -188,6 +213,7 @@
       display: flex;
       flex-direction: column;
       row-gap: 0.5rem;
+      transition: initial;
       .reset-contact {
         margin-top: 2px;
         display: flex;

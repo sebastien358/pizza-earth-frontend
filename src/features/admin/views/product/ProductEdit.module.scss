@@ -11,12 +11,49 @@ $muted: #8A8A8A;
 $error: #c62828;
 $success: #008000FF;
 
+$breakpoint-macbook: 1600px;
+$breakpoint-lg: 1200px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+$breakpoint-xs: 400px;
+
+@mixin respond($bp) {
+  @if $bp == macbook {
+    @media (max-width: $breakpoint-macbook) { @content; }
+  }
+  @if $bp == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @if $bp == xs {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+@keyframes spin-full {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  80% { transform: rotate(360deg) scale(1); }
+  85% { transform: rotate(355deg) scale(1); }
+  90% { transform: rotate(365deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   padding: 20px 80px;
+
+  @include respond(sm) {
+    padding: 30px 16px;
+  }
 }
 
 .edit {
@@ -43,6 +80,11 @@ $success: #008000FF;
     background: #fff;
     border-radius: 20px;
     padding: 16px;
+
+    @include respond(sm) {
+      background: none;
+    }
+
     img {
       width: 100%;
       height: auto;
@@ -51,6 +93,22 @@ $success: #008000FF;
       background: #fff;
       aspect-ratio: 1 / 1.1;
       object-fit: cover;
+      mix-blend-mode: multiply;
+      transition: transform 250ms ease;
+
+      @include respond(sm) {
+        background: #fff;
+        aspect-ratio: 4 / 4;
+        background: none;
+      }
+
+      &:hover {
+        transform: rotate(10deg);
+      }
+
+      &:not(:hover) {
+        animation: spin-full 0.9s ease;
+      }
     }
   }
 
@@ -64,9 +122,15 @@ $success: #008000FF;
     cursor: pointer;
   }
 
-  // DROITE : form TON design
   &__form {
     padding: 40px 36px 32px;
+
+    @include respond(sm) {
+      padding: 20px 16px;
+      border-radius: 6px;
+      gap: 10px;
+    }
+
     form {
       display: flex;
       flex-direction: column;
@@ -79,9 +143,20 @@ $success: #008000FF;
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  @include respond(sm) {
+    font-size: 0.8rem;
+    gap: 3px;
+  }
+
   > span {
     font-size: 1rem;
     font-weight: 500;
+
+
+    @include respond(sm) {
+      font-size: 0.70rem;
+    }
   }
   input, textarea, select {
     width: 100%;
@@ -94,8 +169,16 @@ $success: #008000FF;
     outline: none;
     box-sizing: border-box;
     &:focus { border-color: $orange; }
+
+    @include respond(sm) {
+      font-size: 0.7rem;
+    }
   }
-  textarea { resize: vertical; }
+  textarea { resize: vertical;
+    @include respond(sm) {
+      height: 100px;
+    }
+  }
 }
 
 .drop {
@@ -118,12 +201,20 @@ $success: #008000FF;
   color: $success;
   text-align: center;
   font-size: 16px;
+
+  @include respond(sm) {
+    font-size: 13px;
+  }
 }
 
 .error-message {
   color: $error;
   text-align: center;
   font-size: 16px;
+
+  @include respond(sm) {
+    font-size: 13px;
+  }
 }
 
 .actions {
@@ -131,6 +222,10 @@ $success: #008000FF;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-top: 4px;
+
+  @include respond(sm) {
+    margin-top: 0;
+  }
 }
 
 .btn {
@@ -140,6 +235,12 @@ $success: #008000FF;
   font-weight: 600;
   cursor: pointer;
   border: 0;
+
+  @include respond(sm) {
+    font-size: 0.7rem;
+    padding: 10px;
+  }
+
   &--ghost {
     background: #fff;
     border: 1px solid $border;

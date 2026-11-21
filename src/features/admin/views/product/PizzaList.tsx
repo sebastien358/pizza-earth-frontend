@@ -8,6 +8,7 @@ import {useCategoryStore} from "@/store/category.store";
 import Link from "next/link";
 import Image from "next/image";
 import InputSearch from "@/components/input-search/InputSearch";
+import Pagination from "@/components/pagination/Pagination";
 
 export default function ProductList() {
 
@@ -23,7 +24,7 @@ export default function ProductList() {
 
     {/* Store Product */}
 
-    const { productsList, productSearch, term, publishedProduct, deleteProduct, products, isLoading } = useProductAdminStore()
+    const { productsList, productSearch, previousPage, followingPage, term, current, pages, publishedProduct, deleteProduct, products, isLoading } = useProductAdminStore()
 
     useEffect(() => {
         productsList()
@@ -74,7 +75,7 @@ export default function ProductList() {
                 {/* Input Search */}
 
                 <InputSearch
-                    productSearch={productSearch}
+                    search={productSearch}
                     term={term ?? ""}
                     placeholder={"Rechercher une pizza…"}
                 />
@@ -108,55 +109,66 @@ export default function ProductList() {
                             <span className={styles['loader']}></span>
                         </div>
                     ) : !isLoading && filtered.length > 0 ? (
-                        <div className={styles.grid}>
-                            {filtered.map((p: any) => (
-                                <div key={p.id} className={styles.card}>
-                                    <div className={styles.img}>
-                                        {p.pictures?.length > 0 && (
-                                            <>
-                                                <Image
-                                                    src={p.pictures[0].url}
-                                                    alt={p.name}
-                                                    width={100}
-                                                    height={100}
-                                                />
-                                                <label className={styles['publish']}>
-                                                    <span>{p.isVisible ? 'En ligne' : 'Brouillon'}</span>
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={p.isVisible}
-                                                        onChange={() => togglePublish(p.id)}
+                        <>
+                            <div className={styles.grid}>
+                                {filtered.map((p: any) => (
+                                    <div key={p.id} className={styles.card}>
+                                        <div className={styles.img}>
+                                            {p.pictures?.length > 0 && (
+                                                <>
+                                                    <Image
+                                                        src={p.pictures[0].url}
+                                                        alt={p.name}
+                                                        width={100}
+                                                        height={100}
                                                     />
-                                                    <span className={styles['slider']} />
-                                                </label>
-                                            </>
-                                        )}
-                                    </div>
-                                    <div className={styles.body}>
-                                        <div className={styles.top}>
-                                            <span>{p?.category?.name}</span>
-                                            <span className={styles.price}>{p.price} €</span>
+                                                    <label className={styles['publish']}>
+                                                        <span>{p.isVisible ? 'En ligne' : 'Brouillon'}</span>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={p.isVisible}
+                                                            onChange={() => togglePublish(p.id)}
+                                                        />
+                                                        <span className={styles['slider']} />
+                                                    </label>
+                                                </>
+                                            )}
                                         </div>
-                                        <h3>{p.name}</h3>
-                                        <p>{p.description}</p>
-                                        <div className={styles.actions}>
-                                            <Link
-                                                href={`/admin/products/form/${p.id}`}
-                                                className={styles.edit}
-                                            >
-                                                Modifier
-                                            </Link>
-                                            <button
-                                                onClick={() => deletePizza(p.id)}
-                                                className={styles.delete}
-                                            >
-                                                Supprimer
-                                            </button>
+                                        <div className={styles.body}>
+                                            <div className={styles.top}>
+                                                <span>{p?.category?.name}</span>
+                                                <span className={styles.price}>{p.price} €</span>
+                                            </div>
+                                            <h3>{p.name}</h3>
+                                            <p>{p.description}</p>
+                                            <div className={styles.actions}>
+                                                <Link
+                                                    href={`/admin/products/form/${p.id}`}
+                                                    className={styles.edit}
+                                                >
+                                                    Modifier
+                                                </Link>
+                                                <button
+                                                    onClick={() => deletePizza(p.id)}
+                                                    className={styles.delete}
+                                                >
+                                                    Supprimer
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                            {/* Pagination */}
+                            {pages > 1 && (
+                                <Pagination
+                                    previousPage={previousPage}
+                                    followingPage={followingPage}
+                                    current={current}
+                                    pages={pages}
+                                />
+                            )}
+                        </>
                     ) : (
                         <div className={styles.empty}>
                             <p>Aucune pizza dans cette catégorie pour le moment.</p>

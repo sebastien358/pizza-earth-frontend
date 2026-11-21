@@ -2,15 +2,15 @@ import styles from './InputSearch.module.scss';
 import {ChangeEvent} from "react";
 
 interface InputSearchProps {
-    productSearch: (e: string) => Promise<void>
+    search: (e: string) => Promise<void>
     term: string | null
     placeholder: string | null
 }
 
-export default function InputSearch({ productSearch, term, placeholder }: InputSearchProps) {
+export default function InputSearch({ search, term, placeholder }: InputSearchProps) {
 
-    async function search(e: ChangeEvent<HTMLInputElement>) {
-        await productSearch(e?.target?.value)
+    async function onChangeSearch(e: ChangeEvent<HTMLInputElement>) {
+        await search(e?.target?.value)
     }
 
     return (
@@ -18,7 +18,7 @@ export default function InputSearch({ productSearch, term, placeholder }: InputS
             <input
                 type={"text"}
                 value={term ?? ""}
-                onChange={(e) => search(e)}
+                onChange={(e) => onChangeSearch(e)}
                 placeholder={placeholder ?? ''}
             />
         </main>

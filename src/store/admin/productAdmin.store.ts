@@ -35,18 +35,22 @@ export interface ProductState {
     countProducts: number
     isLoading: boolean
     term?: string
+    current: number
+    limit: number
+    pages: number
     filename: string | null
     successMessage: string | null
     errorMessage: string | null
 
+    getLimitOrders: () => void
     productsList: () => Promise<void>
+    previousPage: () => Promise<void>
+    followingPage: () => Promise<void>
     productDetails: (id: string) => Promise<void>
     productSearch: (term: string) => Promise<void>
     productNew: (data: ProductFormData) => Promise<void>
     productEditImage: (id: string, file: File) => Promise<void>
-
     productEdit: (id: string, data: ProductFormData) => Promise<void>
-
     publishedProduct: (id: number) => Promise<void>
     productDeleteImage: (id: number) => Promise<void>
     deleteProduct: (id: number) => Promise<void>
@@ -63,17 +67,61 @@ export const useProductAdminStore = create<ProductState>()(
         countProducts: 0,
         isLoading: false,
         term: "",
+        current: 1,
+        limit: 0,
+        pages: 0,
         filename: null,
         successMessage: null,
         errorMessage: null,
 
+        getLimitOrders: () => {
+            if (window.innerWidth >= 1600) {
+                set({ limit: 9 })
+            } else if (window.innerWidth >= 1200) {
+                set({ limit: 6 })
+            } else if (window.innerWidth >= 900) {
+                set({ limit: 6 })
+            } else if (window.innerWidth >= 700) {
+                set({ limit: 4 })
+            } else {
+                set({ limit: 4 })
+            }
+        },
+
         productsList: async () => {
+            get().getLimitOrders()
             try {
                 set({ isLoading: true })
-                const data = await axiosProductsList()
-                set({ products: data.products, countProducts: data.count, isLoading: false })
+                const data = await axiosProductsList(get().current, get().limit)
+                set({ products: data.products, countProducts: data.count, pages: data.pages, isLoading: false })
             } catch (err: any) {
                 set({ isLoading: false})
+                console.error(err)
+                throw err
+            }
+        },
+
+        previousPage: async () => {
+            try {
+                const { current, limit } = get()
+                if (current > 1) {
+                    set({ current: current - 1 })
+                    await get().productsList(current, limit)
+                }
+            } catch (err: any) {
+                console.error(err)
+                throw err
+            }
+        },
+
+        followingPage: async () => {
+            try {
+                const { current, limit, pages } = get()
+                if (current < pages) {
+                    set({ current: current + 1 })
+                    await get().productsList(current, limit)
+                }
+            } catch (err: any) {
                 console.error(err)
                 throw err
             }
@@ -93,6 +141,7 @@ export const useProductAdminStore = create<ProductState>()(
 
         productSearch: async (term: string) => {
             const trimmed = term?.toLowerCase().trim()
+            console.log(trimmed)
             try {
                 if (!trimmed) {
                     set({ isLoading: false, term: "" })

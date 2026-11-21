@@ -4,6 +4,8 @@ import styles from './Commands.module.scss'
 
 import {ChangeEvent, useEffect, useMemo, useState} from "react";
 import {useOrderAdminStore} from "@/store/admin/orderAdmin.store";
+import InputSearch from "@/components/input-search/InputSearch";
+import Pagination from "@/components/pagination/Pagination";
 
 const orderStatus = [
     {name: 'Tous', slug: 'tous'},
@@ -24,11 +26,11 @@ export default function Commands() {
 
     {/* Store Admin Order */}
 
-    const { orderList, orderChangeStatus, orderDelete, orders, isLoading } = useOrderAdminStore()
+    const { orderList, orderSearch, orderChangeStatus, orderDelete, previousPage, followingPage, orders, term, current, pages, isLoading } = useOrderAdminStore()
 
     useEffect(() => {
         orderList()
-    }, []);
+    }, [orderList]);
 
     const [selectedSlug, setSelectedSlug] = useState<string>('tous')
 
@@ -37,7 +39,8 @@ export default function Commands() {
     }
 
     const filteredOrders = useMemo(() => {
-        return orders?.filter((o) => {
+        if (!Array.isArray(orders)) return []
+        return orders?.filter((o: any) => {
             if (selectedSlug === 'tous') return true
             if (selectedSlug === 'pickup' || selectedSlug === 'delivery') return o.deliveryMode === selectedSlug
             return o.status === selectedSlug
@@ -74,7 +77,7 @@ export default function Commands() {
             </div>
 
             <div className={styles['orders__search']}>
-                <input className={styles['orders__search__input']} placeholder="Rechercher une commande..." />
+                <InputSearch search={orderSearch} term={term ?? ""} placeholder={"Rechercher une commande..."} />
             </div>
 
             <div className={styles['orders__filters']}>
@@ -94,63 +97,74 @@ export default function Commands() {
                     <span className={styles['loader']}></span>
                 </div>
             ) : !isLoading && filteredOrders.length > 0 ? (
-                <div className={styles['orders__grid']}>
-                    {filteredOrders.map((order) => (
-                        <article key={order.id} className={styles['orders__card']}>
-                            <div className={styles['orders__card__top']}>
+                <>
+                    <div className={styles['orders__grid']}>
+                        {filteredOrders.map((order: any) => (
+                            <article key={order.id} className={styles['orders__card']}>
+                                <div className={styles['orders__card__top']}>
                                 <span className={`${styles['orders__card__status']} ${styles[`orders__card__status--${order.status}`]}`}>
                                   {order.status === 'pending' ? 'En attente' : order.status === 'validated' ? 'Validée' : 'Annulée'}
                                 </span>
-                                <span className={styles['orders__card__mode']}>
+                                    <span className={styles['orders__card__mode']}>
                                     {order.deliveryMode === 'delivery' ? 'Livraison' : 'Retrait'}
                                 </span>
-                            </div>
+                                </div>
 
-                            <h2 className={styles['orders__card__name']}>{order.name}</h2>
+                                <h2 className={styles['orders__card__name']}>{order.name}</h2>
 
-                            <div className={styles['orders__card__items']}>
-                                {order.orderItems.map((item: any) => (
-                                    <p key={item.id}>
-                                        <span>{item.product.name}</span>
-                                        <span>x {item.quantity}</span>
-                                    </p>
-                                ))}
-                            </div>
+                                <div className={styles['orders__card__items']}>
+                                    {order.orderItems.map((item: any) => (
+                                        <p key={item.id}>
+                                            <span>{item.product.name}</span>
+                                            <span>x {item.quantity}</span>
+                                        </p>
+                                    ))}
+                                </div>
 
-                            <p className={styles['orders__card__meta']}>{order.email} - {order.phone}</p>
-                            <p className={styles['orders__card__address']}>
-                                {order.address} - {order.postalCode} {order.city}
-                            </p>
-                            {order.complementAddress && (
-                                <p className={styles['orders__card__address']}>{order.complementAddress}</p>
-                            )}
-                            {order.deliveryInstructions && (
-                                <p className={styles['orders__card__note']}>📝 {order.deliveryInstructions}</p>
-                            )}
+                                <p className={styles['orders__card__meta']}>{order.email} - {order.phone}</p>
+                                <p className={styles['orders__card__address']}>
+                                    {order.address} - {order.postalCode} {order.city}
+                                </p>
+                                {order.complementAddress && (
+                                    <p className={styles['orders__card__address']}>{order.complementAddress}</p>
+                                )}
+                                {order.deliveryInstructions && (
+                                    <p className={styles['orders__card__note']}>📝 {order.deliveryInstructions}</p>
+                                )}
 
-                            <div className={styles['orders__footer']}>
-                                <span className={styles['orders__card__total']}>Total : {order.total.toFixed(2)}€</span>
-                                <span className={styles['orders__card__date']}>{new Date(order.createdAt).toLocaleDateString('fr-FR')} - N°{order.id}</span>
-                            </div>
+                                <div className={styles['orders__footer']}>
+                                    <span className={styles['orders__card__total']}>Total : {order.total.toFixed(2)}€</span>
+                                    <span className={styles['orders__card__date']}>{new Date(order.createdAt).toLocaleDateString('fr-FR')} - N°{order.id}</span>
+                                </div>
 
-                            <div className={styles['orders__card__actions']}>
+                                <div className={styles['orders__card__actions']}>
 
-                                <select onChange={(e) => changeStatus(order.id, e)} className={`${styles['orders__card__select']} ${styles[`orders__card__select--${order.status}`]}`} value={order.status}>
-                                    {selectedStatus.map((select) =>
-                                        <option key={select.slug} value={select.slug}>{select.name}</option>
-                                    )}
-                                </select>
+                                    <select onChange={(e) => changeStatus(order.id, e)} className={`${styles['orders__card__select']} ${styles[`orders__card__select--${order.status}`]}`} value={order.status}>
+                                        {selectedStatus.map((select) =>
+                                            <option key={select.slug} value={select.slug}>{select.name}</option>
+                                        )}
+                                    </select>
 
-                                <button
-                                    className={styles['orders__card__btn--delete']}
-                                    onClick={() => deleteOrder(order.id)}
-                                >
-                                    Supprimer
-                                </button>
-                            </div>
-                        </article>
-                    ))}
-                </div>
+                                    <button
+                                        className={styles['orders__card__btn--delete']}
+                                        onClick={() => deleteOrder(order.id)}
+                                    >
+                                        Supprimer
+                                    </button>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                    {/* Pagination */}
+                    {pages > 1 && (
+                        <Pagination
+                            previousPage={previousPage}
+                            followingPage={followingPage}
+                            current={current}
+                            pages={pages}
+                        />
+                    )}
+                </>
             ) : (
                 <div className={styles.empty}>
                     <p>Aucune commande dans ce status pour le moment.</p>

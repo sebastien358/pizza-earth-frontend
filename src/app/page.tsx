@@ -18,7 +18,7 @@ export default function Home() {
 
     {/* Store Product : affichage des pizzas */}
 
-    const { productHomeList, productsHome,  } = useProductStore()
+    const { productHomeList, productsHome, isLoading } = useProductStore()
 
     useEffect(() => {
         productHomeList()
@@ -91,7 +91,11 @@ export default function Home() {
                   </div>
                   <div className={styles['popular__row']}>
                       <div className={styles['popular__grid']}>
-                          {productsHome.length > 0 && (
+                          {isLoading ?  (
+                              <div className={styles['loader-wrapper']}>
+                                  <span className={styles['loader-wrapper__loader']}></span>
+                              </div>
+                          ) : !isLoading && productsHome.length > 0 ? (
                               <>
                                   {productsHome?.map((p: any) =>
                                       <article key={p.id} className={styles['popular__card']}>
@@ -113,6 +117,10 @@ export default function Home() {
                                       </article>
                                   )}
                               </>
+                          ) : (
+                              <div className={styles['popular-empty']}>
+                                  <p>Aucune pizza dans cette catégorie pour le moment.</p>
+                              </div>
                           )}
                       </div>
                       {/* Popular Limited */}

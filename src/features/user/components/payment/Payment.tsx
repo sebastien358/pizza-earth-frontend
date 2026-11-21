@@ -101,12 +101,9 @@ function CheckoutForm() {
                     );
                 } catch {}
             }
-
-            // 2. Erreur après
             handleError();
         }
     }
-
     const router = useRouter()
 
     function handleSuccess() {

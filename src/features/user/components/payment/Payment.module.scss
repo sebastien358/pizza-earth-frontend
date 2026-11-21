@@ -1,11 +1,38 @@
+$breakpoint-macbook: 1600px;
+$breakpoint-lg: 1200px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+$breakpoint-xs: 400px;
+
+@mixin respond($bp) {
+  @if $bp == macbook {
+    @media (max-width: $breakpoint-macbook) { @content; }
+  }
+  @if $bp == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @if $bp == xs {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
 .checkout { background: #FF5A00; padding: 40px 20px; min-height: 100vh; text-align: center;
   .container { max-width: 1100px; margin: 0 auto }
 
   &__badge { background: #fff; color: #FF5A00; padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; }
-  &__title { color: #fff; font-size: 48px; margin: 16px 0 8px; }
-  &__subtitle { color: #fff; opacity: .9; margin: 0 auto 20px auto; padding-bottom: 20px }
+  &__title { color: #fff; font-size: 48px; margin: 16px 0 8px;
+    @include respond(md) { font-size: 36px; }
+    @include respond(sm) { font-size: 30px; }
+  }
+  &__subtitle { color: #fff; opacity: .9; margin: 0 auto 20px auto; padding-bottom: 20px; }
 
-  &__steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  &__steps { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 24px; }
   &__step { background: #2B1A12; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
   &__step--active { background: #fff; color: #FF5A00; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; }
   &__step--done { background: #fff; color: #000; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
@@ -23,7 +50,6 @@
   &__textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: #fff; box-sizing: border-box; }
   &__row { display: flex; gap: 12px; }
   &__field { flex: 1; }
-
 
 
   &__choiceRow { display: flex; gap: 12px; margin-bottom: 12px; }
@@ -51,7 +77,8 @@
   &__secure { text-align: center; font-size: 11px; }
   &__back { display: inline-block; background: #fff; color: #000; padding: 10px 18px; border-radius: 999px; margin-top: 24px; text-decoration: none; font-size: 13px; transition: all 200ms ease }
   &__back:hover { transform: translateX(-5px) }
-  @media (max-width: 768px) {
+
+  @include respond(md){
     &__layout { flex-direction: column; }
     &__row { flex-direction: column; }
     &__choiceRow { flex-direction: column; }

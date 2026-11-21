@@ -85,7 +85,6 @@ export default function ProductNew() {
 
     return (
         <main className={styles['product']}>
-
             <section className={styles['product__form']}>
                 <h1>Ajout Pizza</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

@@ -38,7 +38,7 @@ $green: #1a7a1a;
   }
 
   @media (max-width: 600px) {
-    font-size: 30px;
+    font-size: 26px;
   }
 }
 
@@ -67,6 +67,11 @@ $green: #1a7a1a;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 24px;
+
+  @media (max-width: 600px) {
+    justify-content: center;
+    gap: 7px;
+  }
 }
 
 .orders__filters__btn {
@@ -77,6 +82,10 @@ $green: #1a7a1a;
   cursor: pointer;
   font-weight: 600;
   font-size: 13px;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+  }
 }
 
 .orders__filters__btn--active {
@@ -94,6 +103,18 @@ $green: #1a7a1a;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
+
+  @media (max-width: 1200px) {
+    gap: 18px;
+  }
+
+  @media (max-width: 900px) {
+    gap: 15px;
+  }
+
+  @media (max-width: 600px) {
+    gap: 12px;
+  }
 }
 
 /* ===== CARTE ===== */
@@ -291,7 +312,11 @@ $green: #1a7a1a;
   text-align: center;
   color: rgba($brown, 0.6);
 }
-.empty p { margin: 0; font-size: 16px; }
+.empty p { margin: 0; font-size: 16px;
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
+}
 
 @keyframes rotation {
   to { transform: rotate(360deg); }

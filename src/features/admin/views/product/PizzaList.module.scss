@@ -79,6 +79,13 @@ $red: #D00;
   margin-bottom: 20px;
   flex-wrap: wrap;
 
+  @media (max-width: 600px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+  }
+
   button {
     border: 1px solid rgba($brown, 0.2);
     background: #fff;
@@ -272,6 +279,10 @@ $red: #D00;
   p {
     margin: 0;
     font-size: 16px;
+
+    @media (max-width: 600px) {
+      font-size: 12px;
+    }
   }
 }
 

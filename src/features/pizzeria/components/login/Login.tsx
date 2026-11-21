@@ -8,6 +8,7 @@ import {LoginFormData, useAuthStore} from "@/store/auth.store";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useRouter} from "next/navigation";
 import {z} from "zod"
+import {useCartStore} from "@/store/cart.store";
 
 const DELAY_TIMEOUT = 2000
 
@@ -19,7 +20,15 @@ const schema = z.object({
 
 export default function Login() {
 
-    const { login, successMessage, errorMessage, resetSuccessMessage, resetErrorMessage } = useAuthStore()
+    {/* Store Auth */}
+
+    const { isAdmin, isUser, login, successMessage, errorMessage, resetSuccessMessage, resetErrorMessage } = useAuthStore()
+
+    {/* Store Cart */}
+
+    const { cart } = useCartStore()
+
+    {/* Gestion formulaire  */}
 
     const router = useRouter()
 
@@ -39,8 +48,19 @@ export default function Login() {
     function handleSuccess() {
         setTimeout(() => {
             resetSuccessMessage()
-            router.push('/')
             reset()
+            if (isAdmin()) {
+                router.push('/admin/commands')
+                return
+            } else if (isUser() && cart.length > 0) {
+                router.push('/cart')
+                return
+            } else if (isUser() && !cart.length) {
+                router.push('/pizzas')
+                return
+            } else {
+                router.push('/')
+            }
         }, DELAY_TIMEOUT)
     }
 

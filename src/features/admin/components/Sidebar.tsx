@@ -69,7 +69,7 @@ export default function Sidebar() {
 
             {/* Sidebar Button Menu Déroulant */}
 
-            <button className={styles['admin-sidebar__burger']} onClick={() => setOpen(!open)}>
+            <div className={styles['admin-sidebar__burger']} onClick={() => setOpen(!open)}>
                 <Menu />
                 {open && (
                     <div className={styles['admin-sidebar__burger__menu']}>
@@ -94,7 +94,7 @@ export default function Sidebar() {
                         </>
                     </div>
                 )}
-            </button>
+            </div>
 
             {/* Liens Sidebar */}
 

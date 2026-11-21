@@ -2,9 +2,11 @@ import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL as string
 
-export async function axiosProductsHomeList() {
+export async function axiosProductsHomeList(limit: number) {
     try {
-        const response = await axios.get(`${BASE_URL}/api/products/home/list`)
+        const response = await axios.get(`${BASE_URL}/api/products/home/list`, {
+            params: { limit }
+        })
         if (response.status >= 200 && response.status < 300) {
             return response.data
         }

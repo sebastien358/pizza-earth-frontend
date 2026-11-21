@@ -22,6 +22,7 @@ export interface ProductState {
     limit: number
     hasMore: boolean
 
+    getLimitProductHome: () => void
     getLimitProduct: () => void
     productHomeList: () => Promise<void>
     productList: () => Promise<void>
@@ -38,6 +39,14 @@ export const useProductStore = create<ProductState>()(
         limit: 0,
         hasMore: true,
 
+        getLimitProductHome: () => {
+           if (window.innerWidth >= 700) {
+                set({ limit: 4 })
+            } else {
+                set({ limit: 2 })
+            }
+        },
+
         getLimitProduct: () => {
             if (window.innerWidth >= 1600) {
                 set({ limit: 9 })
@@ -53,9 +62,10 @@ export const useProductStore = create<ProductState>()(
         },
 
         productHomeList: async () => {
+            get().getLimitProductHome()
             try {
                 set({ isLoading: true })
-                const data = await axiosProductsHomeList()
+                const data = await axiosProductsHomeList(get().limit)
                 set({ productsHome: data, isLoading: false })
             } catch (err: any) {
                 set({ isLoading: false })

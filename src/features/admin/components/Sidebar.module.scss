@@ -180,7 +180,7 @@
     flex-direction: row;
     justify-content: space-between;
 
-    padding: 10px 10px 10px 10px;
+    padding: 15px 10px 15px 10px;
 
     &__container__nav {
       display: none;
@@ -193,18 +193,31 @@
     &__burger {
       position: relative;
     }
-    &__burger__menu {
-      padding: 10px 13px;
+
+    &__burger svg {
       background-color: white;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      padding: 3px;
+    }
+
+    &__burger__menu {
+      background-color: white;
+      padding: 10px 15px 10px 10px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 12px;
       position: absolute;
       border-radius: 10px;
-      top: 40px;
+      top: 47px;
       left: -8px;
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+      button {
+        background-color: red;
+      }
       a {
         font-size: 12px;
       }

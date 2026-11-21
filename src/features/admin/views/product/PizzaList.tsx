@@ -19,6 +19,8 @@ export default function ProductList() {
         categoryList()
     }, [categoryList]);
 
+    console.log(categories)
+
     {/* Store Product */}
 
     const { productsList, productSearch, term, publishedProduct, deleteProduct, products, isLoading } = useProductAdminStore()
@@ -34,9 +36,9 @@ export default function ProductList() {
     }
 
     const filtered = useMemo(() => {
-        if (categoryId === null) return products;
-        return products.filter((p: any) => p?.category?.id === categoryId);
-    }, [products, categoryId]);
+        if (!categoryId) return products
+        return products.filter((p: any) => p.category?.id === categoryId)
+    }, [products, categoryId])
 
     {/* Delete Product */}
 
@@ -81,7 +83,7 @@ export default function ProductList() {
 
                 <div className={styles.filters}>
                     <button
-                        className={`${categoryId === 0 ? styles.active : ''}`}
+                        className={`${categoryId === null ? styles.active : ''}`}
                         onClick={() => onClickCategory(0)}
                     >
                         Tous

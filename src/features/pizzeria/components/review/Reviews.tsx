@@ -2,6 +2,7 @@
 
 import styles from './Reviews.module.scss';
 import Pagination from "@/components/pagination/Pagination";
+import AddReview from "@/features/pizzeria/components/review/AddReview";
 
 const reviews = [
     { id: 1, name: 'Sophie L.', pizza: 'Reine', rating: 4, text: 'La Reine est incroyable, pâte fine, fromage généreux. Livraison en 25 minutes à Rugles, encore chaude.' },
@@ -50,6 +51,7 @@ export default function Reviews() {
                     ))}
                 </ul>
                 <Pagination current={1} pages={3} previousPage={null} followingPage={null} />
+                <AddReview />
             </div>
         </section>
     );

@@ -264,7 +264,7 @@ export default function Home() {
                           </div>
                       </article>
                   </div>
-                  <Link className={styles['reviews__link']} href={"/reviews"}>
+                  <Link className={styles['reviews__link']} href={"/testimonials"}>
                       Les avis clients
                   </Link>
               </section>

@@ -1,6 +1,6 @@
 'use client';
 
-import styles from './AddReview.module.scss';
+import styles from './AddTestimonial.module.scss';
 
 import Image from "next/image";
 import {useForm} from "react-hook-form";
@@ -8,6 +8,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {ReviewFormData, useReviewStore} from "@/store/review.store";
 import {ChangeEvent, useEffect, useState} from 'react';
 import {z} from 'zod';
+import {clearTimeout} from "node:timers";
 
 const DELAY_TIMEOUT = 2000
 
@@ -55,7 +56,7 @@ const schema = z.object({
         .max(300, { message: '300 caractères maximum' }),
 });
 
-export default function AddReview() {
+export default function AddTestimonial() {
     const [open, setOpen] = useState(false);
     const [rating, setRating] = useState(5);
 
@@ -114,10 +115,10 @@ export default function AddReview() {
 
     {/* Gestion Validation Form */}
 
-    async function onSubmit(data: ReviewFormData, e: PointerEvent) {
-        e.preventDefault()
+    async function onSubmit(data: ReviewFormData) {
         try {
-            await reviewAdd(data)
+            //await reviewAdd(data)
+            console.log(data)
             handleResetSuccess()
         } catch (err: any) {
             handleResetError()
@@ -218,6 +219,7 @@ export default function AddReview() {
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']} htmlFor="review-pizza">Pizza commandée</label>
                                 <select {...register('pizza')} id="review-pizza" className={styles['modal__input']} defaultValue={""}>
+                                    <option value={""}>--Choisissez une Pizza--</option>
                                     {PIZZAS.map((p) => <option key={p} value={p}>{p}</option>)}
                                 </select>
                                 {errors && <small>{errors.pizza?.message}</small>}

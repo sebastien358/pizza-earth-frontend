@@ -1,16 +1,18 @@
 "use client"
 
-import styles from './Reviews.module.scss';
+import styles from './Testimonials.module.scss';
 import Pagination from "@/components/pagination/Pagination";
-import AddReview from "@/features/pizzeria/components/review/AddReview";
+import AddTestimonial from "@/features/pizzeria/components/testimonial/AddTestimonial";
+import {useReviewStore} from "@/store/review.store";
 
-const reviews = [
+const testimonials = [
     { id: 1, name: 'Sophie L.', pizza: 'Reine', rating: 4, text: 'La Reine est incroyable, pâte fine, fromage généreux. Livraison en 25 minutes à Rugles, encore chaude.' },
     { id: 2, name: 'Mehdi R.', pizza: 'Diavola', rating: 5, text: "La Diavola elle pique juste comme il faut. Suivi en direct, emballage vraiment écologique." },
     { id: 3, name: 'Léa M.', pizza: 'Aubergine Grillée', rating: 5, text: "Je suis végétarienne, c'est la meilleure que j'ai goûtée. Fraîche, légère, ingrédients locaux." },
 ];
 
 export default function Reviews() {
+    const { previousPage, followingPage } = useReviewStore()
     return (
         <section className={styles['reviews']}>
             <div className={styles['reviews__container']}>
@@ -28,7 +30,7 @@ export default function Reviews() {
                 </header>
 
                 <ul className={styles['reviews__list']}>
-                    {reviews.map((r) => (
+                    {testimonials.map((r) => (
                         <li key={r.id} className={styles['review']}>
                             <span className={styles['review__quote']} aria-hidden="true">“</span>
 
@@ -50,8 +52,8 @@ export default function Reviews() {
                         </li>
                     ))}
                 </ul>
-                <Pagination current={1} pages={3} previousPage={null} followingPage={null} />
-                <AddReview />
+                <Pagination current={1} pages={3} previousPage={previousPage} followingPage={followingPage} />
+                <AddTestimonial />
             </div>
         </section>
     );

@@ -24,6 +24,8 @@ export interface ReviewState {
     successMessage: string | null
     errorMessage: string | null
 
+    previousPage: () => Promise<void>
+    followingPage: () => Promise<void>
     reviewAdd: (data: ReviewFormData) => Promise<void>
     resetSuccessMessage: () => void
     resetErrorMessage: () => void
@@ -35,12 +37,16 @@ export const useReviewStore = create<ReviewState>()(
         successMessage: null,
         errorMessage: null,
 
+        previousPage: async () => {},
+
+        followingPage: async () => {},
+
         reviewAdd: async (data: ReviewFormData) => {
             try {
                 const formData = new FormData()
 
                 formData.append('name', data.name)
-                formData.append('rating', data.rating)
+                formData.append('rating', data.rating.toString())
                 formData.append('pizza', data.pizza)
                 formData.append('message', data.message)
 

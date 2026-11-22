@@ -4,12 +4,13 @@ import styles from './OrderList.module.scss'
 
 import {useOrderStore} from "@/store/user/order.store";
 import {useEffect} from "react";
+import Pagination from "@/components/pagination/Pagination";
 
 export default function OrderList() {
 
     {/* Store Order */}
 
-    const { orderList, orders, isLoading } = useOrderStore()
+    const { orderList, previousPage, followingPage, orders, isLoading, current, countOrders, pages } = useOrderStore()
 
     useEffect(() => {
         orderList()
@@ -19,11 +20,7 @@ export default function OrderList() {
         <main className={styles['orders']}>
             <div className={styles['orders__header']}>
                 <h1 className={styles['orders__title']}>Les Commandes</h1>
-                <p className={styles['orders__subtitle']}>{orders.length} commande{orders.length > 1 ? 's' : ''}</p>
-            </div>
-
-            <div className={styles['orders__search']}>
-                <input className={styles['orders__search__input']} placeholder="Rechercher une commande..." />
+                <p className={styles['orders__subtitle']}>{countOrders} commande{countOrders > 1 ? 's' : ''}</p>
             </div>
 
             {isLoading ? (
@@ -31,47 +28,57 @@ export default function OrderList() {
                     <span className={styles['loader']}></span>
                 </div>
             ) : !isLoading && orders.length > 0 ? (
-                <div className={styles['orders__grid']}>
-                    {orders.map((order) => (
-                        <article key={order.id} className={styles['orders__card']}>
-                            <div className={styles['orders__card__top']}>
+                <>
+                    <div className={styles['orders__grid']}>
+                        {orders.map((order) => (
+                            <article key={order.id} className={styles['orders__card']}>
+                                <div className={styles['orders__card__top']}>
                                 <span className={`${styles['orders__card__status']} ${styles[`orders__card__status--${order.status}`]}`}>
                                   {order.status === 'pending' ? 'En attente' : order.status === 'validated' ? 'Validée' : 'Annulée'}
                                 </span>
-                                <span className={styles['orders__card__mode']}>
+                                    <span className={styles['orders__card__mode']}>
                                     {order.deliveryMode === 'delivery' ? 'Livraison' : 'Retrait'}
                                 </span>
-                            </div>
+                                </div>
 
-                            <h2 className={styles['orders__card__name']}>{order.name}</h2>
+                                <h2 className={styles['orders__card__name']}>{order.name}</h2>
 
-                            <div className={styles['orders__card__items']}>
-                                {order?.orderItems?.map((item: any) => (
-                                    <p key={item.id}>
-                                        <span>{item.product.name}</span>
-                                        <span>x {item.quantity}</span>
-                                    </p>
-                                ))}
-                            </div>
+                                <div className={styles['orders__card__items']}>
+                                    {order?.orderItems?.map((item: any) => (
+                                        <p key={item.id}>
+                                            <span>{item.product.name}</span>
+                                            <span>x {item.quantity}</span>
+                                        </p>
+                                    ))}
+                                </div>
 
-                            <p className={styles['orders__card__meta']}>{order.email} - {order.phone}</p>
-                            <p className={styles['orders__card__address']}>
-                                {order.address} - {order.postalCode} {order.city}
-                            </p>
-                            {order.complementAddress && (
-                                <p className={styles['orders__card__address']}>{order.complementAddress}</p>
-                            )}
-                            {order.deliveryInstructions && (
-                                <p className={styles['orders__card__note']}>📝 {order.deliveryInstructions}</p>
-                            )}
+                                <p className={styles['orders__card__meta']}>{order.email} - {order.phone}</p>
+                                <p className={styles['orders__card__address']}>
+                                    {order.address} - {order.postalCode} {order.city}
+                                </p>
+                                {order.complementAddress && (
+                                    <p className={styles['orders__card__address']}>{order.complementAddress}</p>
+                                )}
+                                {order.deliveryInstructions && (
+                                    <p className={styles['orders__card__note']}>📝 {order.deliveryInstructions}</p>
+                                )}
 
-                            <div className={styles['orders__footer']}>
-                                <span className={styles['orders__card__total']}>Total : {order.total}€</span>
-                                <span className={styles['orders__card__date']}>{new Date(order.createdAt).toLocaleDateString('fr-FR')} - N°{order.id}</span>
-                            </div>
-                        </article>
-                    ))}
-                </div>
+                                <div className={styles['orders__footer']}>
+                                    <span className={styles['orders__card__total']}>Total : {order.total}€</span>
+                                    <span className={styles['orders__card__date']}>{new Date(order.createdAt).toLocaleDateString('fr-FR')} - N°{order.id}</span>
+                                </div>
+                            </article>
+                        ))}
+
+                    </div>
+
+                    <Pagination
+                        current={current}
+                        pages={pages}
+                        previousPage={previousPage}
+                        followingPage={followingPage}
+                    />
+                </>
             ) : (
                 <div className={styles.empty}>
                     <p>Aucune commande dans ce status pour le moment.</p>

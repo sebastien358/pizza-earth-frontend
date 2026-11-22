@@ -55,7 +55,14 @@ $breakpoint-xs: 400px;
 }
 
 .pagination {
-  margin-top: 15px; display: flex; align-items: center; justify-content: center;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include respond(lg) {
+    margin-top: 15px;
+  }
+
   &__row { display: flex; align-items: center; flex-direction: row; gap: 5px; }
   &__previous {
     @include btn();
@@ -77,11 +84,11 @@ $breakpoint-xs: 400px;
     }
   }
 
-  &__number {
-    font-size: 13px;
+  &__number span {
+    font-size: 14px;
     font-weight: 300;
     @include respond(sm) {
-      font-size: 12px;
+      font-size: 13px;
     }
   }
 }

@@ -20,9 +20,9 @@ export default function Pagination({ current, pages, previousPage, followingPage
                 >
                     Précédent
                 </button>
-                    <span className={styles['pagination__number']}>
-                        {current} - {pages}
-                    </span>
+                <div className={styles['pagination__number']}>
+                    <span>{current} - {pages}</span>
+                </div>
                 <button
                     type={"button"}
                     className={styles['pagination__following']}

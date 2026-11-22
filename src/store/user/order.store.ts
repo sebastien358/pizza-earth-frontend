@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosOrderList, axiosOrderNew} from "@/shared/services/user/order.service";
+import {axiosOrderList, axiosOrderNew, axiosOrderSearch} from "@/shared/services/user/order.service";
 import {useCartStore} from "@/store/cart.store";
 
 export interface OrderFormData {
@@ -25,10 +25,17 @@ export interface ItemFormData {
 export interface OrderState {
     orders: any[]
     isLoading: boolean
+    current: number
+    limit: number
+    pages: number
+    countOrders: number
     successMessage: string | null
     errorMessage: string | null
 
+    getLimitOrders: () => void
     orderList: () => Promise<void>
+    previousPage: () => Promise<void>
+    followingPage: () => Promise<void>
     orderNew: (data: OrderFormData) => Promise<void>
     resetSuccessMessage: () => void
     resetErrorMessage: () => void
@@ -38,16 +45,63 @@ export const useOrderStore = create<OrderState>()(
     persist((set, get) => ({
         orders: [],
         isLoading: false,
+        current: 1,
+        limit: 0,
+        pages: 0,
+        countOrders: 0,
         successMessage: null,
         errorMessage: null,
 
+        getLimitOrders: () => {
+            if (window.innerWidth >= 1600) {
+                set({ limit: 9 })
+            } else if (window.innerWidth >= 1200) {
+                set({ limit: 6 })
+            } else if (window.innerWidth >= 900) {
+                set({ limit: 6 })
+            } else if (window.innerWidth >= 700) {
+                set({ limit: 4 })
+            } else {
+                set({ limit: 4 })
+            }
+        },
+
         orderList: async () => {
+            get().getLimitOrders()
             try {
                 set({ isLoading: true })
-                const data = await axiosOrderList()
-                set({ orders: data, isLoading: false })
+                const data = await axiosOrderList(get().current, get().limit)
+                set({ orders: data.orders, countOrders: data.count, pages: data.pages, isLoading: false })
             } catch (err: any) {
                 set({ isLoading: false })
+                console.error(err)
+                throw err
+            }
+        },
+
+        previousPage: async () => {
+            try {
+                const { current } = get()
+                if (current > 1) {
+                    const newCurrent = current - 1
+                    set({ current: newCurrent })
+                    await get().orderList()
+                }
+            } catch (err: any) {
+                console.error(err)
+                throw err
+            }
+        },
+
+        followingPage: async () => {
+            try {
+                const { current, pages } = get()
+                if (current < pages) {
+                    const newCurrent = current + 1
+                    set({ current: newCurrent })
+                    await get().orderList()
+                }
+            } catch (err: any) {
                 console.error(err)
                 throw err
             }

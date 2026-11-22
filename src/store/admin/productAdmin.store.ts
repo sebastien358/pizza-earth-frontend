@@ -103,10 +103,11 @@ export const useProductAdminStore = create<ProductState>()(
 
         previousPage: async () => {
             try {
-                const { current, limit } = get()
+                const { current } = get()
                 if (current > 1) {
-                    set({ current: current - 1 })
-                    await get().productsList(current, limit)
+                    const newCurrent = current - 1
+                    set({ current: newCurrent })
+                    await get().productsList()
                 }
             } catch (err: any) {
                 console.error(err)
@@ -116,10 +117,11 @@ export const useProductAdminStore = create<ProductState>()(
 
         followingPage: async () => {
             try {
-                const { current, limit, pages } = get()
+                const { current, pages } = get()
                 if (current < pages) {
-                    set({ current: current + 1 })
-                    await get().productsList(current, limit)
+                    const newCurrent = current + 1
+                    set({ current: newCurrent })
+                    await get().productsList()
                 }
             } catch (err: any) {
                 console.error(err)

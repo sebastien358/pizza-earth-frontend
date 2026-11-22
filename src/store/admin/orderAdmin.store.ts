@@ -34,7 +34,7 @@ export interface OrderState {
     orderList: () => Promise<void>
     previousPage: () => Promise<void>
     followingPage: () => Promise<void>
-    orderSearch: () => Promise<void>
+    orderSearch: (term: string) => Promise<void>
     orderDelete: (id: number) => Promise<void>
     orderChangeStatus: (id: number, status: string) => Promise<void>
 }
@@ -85,10 +85,11 @@ export const useOrderAdminStore = create<OrderState>()(
 
         previousPage: async () => {
             try {
-                const { current, limit } = get()
+                const { current } = get()
                 if (current > 1) {
-                    set({ current: current - 1 })
-                    await get().orderList(current, limit)
+                    const prev = current - 1
+                    set({ current: prev })
+                    await get().orderList()
                 }
             } catch (err: any) {
                 console.error(err)
@@ -96,12 +97,14 @@ export const useOrderAdminStore = create<OrderState>()(
             }
         },
 
+
         followingPage: async () => {
             try {
-                const { current, pages, limit } = get()
+                const { current, pages } = get()
                 if (current < pages) {
-                    set({ current: current + 1 })
-                    await get().orderList(current, limit)
+                    const next = current + 1
+                    set({ current: next })
+                    await get().orderList()
                 }
             } catch (err: any) {
                 console.error(err)

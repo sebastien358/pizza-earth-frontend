@@ -1,6 +1,7 @@
 "use client"
 
 import styles from './Sidebar.module.scss'
+
 import NavLink from "@/components/nav-link/NavLink";
 import {usePathname} from "next/navigation";
 import {useProductAdminStore} from "@/store/admin/productAdmin.store";
@@ -8,7 +9,7 @@ import {useAuthStore} from "@/store/auth.store";
 import {useOrderAdminStore} from "@/store/admin/orderAdmin.store";
 import {useOrderStore} from "@/store/user/order.store";
 import {useState} from "react";
-import {ChevronDown, Menu} from "lucide-react";
+import {Menu} from "lucide-react";
 
 export default function Sidebar() {
 
@@ -41,7 +42,7 @@ export default function Sidebar() {
 
     {/* Store User Order */}
 
-    const { orders } = useOrderStore()
+    const { countOrders } = useOrderStore()
 
     {/* Gestion Routes User */}
 
@@ -51,7 +52,7 @@ export default function Sidebar() {
     ]
 
     const userPageConfig = {
-        '/user/orders': { reset: null, count: orders.length }
+        '/user/orders': { reset: null, count: countOrders }
     }
 
     {/* Gtestion du menu version mobile */}

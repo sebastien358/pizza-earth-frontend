@@ -267,7 +267,7 @@ export default function Home() {
                   <div className={styles['cta__inner']}>
                       <div className={styles['cta__inner__desktop']}>
                           <h3 className={styles['cta__title']}>Une petite faim ? La Terre vous dit merci.</h3>
-                          <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -50% sur les pizzas et boissons.</p>
+                          <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -10% sur les pizzas et boissons.</p>
                       </div>
                       <div className={styles['cta__inner__mobile']}>
                           <h3 className={styles['cta__title']}>Une petite faim ?</h3>

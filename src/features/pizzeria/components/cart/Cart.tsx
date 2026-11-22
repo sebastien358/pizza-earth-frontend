@@ -51,7 +51,7 @@ export default function Cart() {
             <div className={styles['container']}>
                 <p className={styles['cart__badge']}>🔥 ENCORE CHAUD, PRESQUE À TOI</p>
                 <h1 className={styles['cart__title']}>Ton Panier</h1>
-                <p className={styles['cart__subtitle']}>3 articles • Prêt à être dévoré ?</p>
+                <p className={styles['cart__subtitle']}>{cart.length} articles • Prêt à être dévoré ?</p>
 
                 <div className={styles['cart__layout']}>
                     <div className={styles['cart__list']}>

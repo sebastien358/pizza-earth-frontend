@@ -97,7 +97,7 @@ $green: #1a7a1a;
 .orders__grid {
   margin-top: 30px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 20px;
 
   @media (max-width: 1200px) {
@@ -121,6 +121,13 @@ $green: #1a7a1a;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
+  transition: all 300ms ease;
+  &:hover {
+    transform: scale(1.02);
+    @media (max-width: 600px) {
+      transform: scale(1.01);
+    }
+  }
 }
 
 .orders__card__top {

@@ -1,8 +1,15 @@
 'use client';
-import {ChangeEvent, useEffect, useState} from 'react';
+
 import styles from './AddReview.module.scss';
+
 import Image from "next/image";
-import {create} from "zustand/react";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {ReviewFormData, useReviewStore} from "@/store/review.store";
+import {ChangeEvent, useEffect, useState} from 'react';
+import {z} from 'zod';
+
+const DELAY_TIMEOUT = 2000
 
 const PIZZAS = [
     'Aubergine Grillée',
@@ -23,6 +30,31 @@ const PIZZAS = [
     'Saumon Fumé',
 ];
 
+const FILE_SIZE = 2 * 1024 * 1024;
+const FILE_ACCEPT = ['image/jpeg', 'image/png', 'image/webp'];
+
+const schema = z.object({
+    rating: z.coerce
+        .number({ message: 'Choisissez une note' })
+        .int()
+        .min(1, { message: 'Choisissez une note' })
+        .max(5, { message: 'Note invalide' }),
+    name: z
+        .string()
+        .min(1, { message: 'Le nom est obligatoire' })
+        .max(50, { message: '50 caractères maximum' }),
+    picture: z
+        .instanceof(File)
+        .refine((f) => f.size <= FILE_SIZE, { message: 'Image trop lourde (2 Mo max)' })
+        .refine((f) => FILE_ACCEPT.includes(f.type), { message: 'Formats acceptés : JPG, PNG, WEBP' })
+        .optional(),
+    pizza: z.string().min(1, { message: 'Choisissez une pizza' }),
+    message: z
+        .string()
+        .min(10, { message: '30 caractères minimum' })
+        .max(300, { message: '300 caractères maximum' }),
+});
+
 export default function AddReview() {
     const [open, setOpen] = useState(false);
     const [rating, setRating] = useState(5);
@@ -38,10 +70,10 @@ export default function AddReview() {
         };
     }, [open]);
 
-    // dans le composant
-    const [photo, setPhoto] = useState<File | null>(null);
+    {/* Gestion de la photo client dans le formaulaire */}
+
     const [preview, setPreview] = useState<string | null>(null);
-    const [photoError, setPhotoError] = useState('');
+    const [photoError, setPhotoError] = useState<string | null>(null);
 
     function onPhotoChange(e: ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0];
@@ -49,21 +81,62 @@ export default function AddReview() {
 
         if (!file.type.startsWith('image/')) return setPhotoError('Le fichier doit être une image.');
         if (file.size > 2 * 1024 * 1024) return setPhotoError('Image trop lourde (2 Mo max).');
-
         setPhotoError('');
-        setPhoto(file);
         setPreview(URL.createObjectURL(file))
+        setValue('picture', file, { shouldValidate: true })
     }
 
     function removePhoto() {
-        setPhoto(null);
         setPreview(null);
     }
 
-// libère la mémoire de l'aperçu
+    {/* Libère la mémoire de l'aperçu */}
+
     useEffect(() => {
         return () => { if (preview) URL.revokeObjectURL(preview); };
     }, [preview]);
+
+    {/* Gestion Formulaire UseForm */}
+
+    const { register,  handleSubmit, setValue, reset, formState: { errors, isSubmitting } } = useForm({
+        resolver: zodResolver(schema)
+    })
+
+    function onclickRating(n: number) {
+        if (!n) return
+        setRating(n)
+        setValue('rating', n)
+    }
+
+    {/* Store Review */}
+
+    const { reviewAdd, resetSuccessMessage, resetErrorMessage, successMessage, errorMessage } = useReviewStore()
+
+    {/* Gestion Validation Form */}
+
+    async function onSubmit(data: ReviewFormData, e: PointerEvent) {
+        e.preventDefault()
+        try {
+            await reviewAdd(data)
+            handleResetSuccess()
+        } catch (err: any) {
+            handleResetError()
+        }
+    }
+
+    function handleResetSuccess() {
+        setTimeout(() => {
+            resetSuccessMessage()
+            setOpen(false)
+            reset()
+        }, DELAY_TIMEOUT)
+    }
+
+    function handleResetError() {
+        setTimeout(() => {
+            resetErrorMessage()
+        }, DELAY_TIMEOUT)
+    }
 
     return (
         <>
@@ -87,7 +160,7 @@ export default function AddReview() {
                         <span className={styles['modal__eyebrow']}>Votre avis compte</span>
                         <h3 id="review-modal-title" className={styles['modal__title']}>Laisser un avis</h3>
 
-                        <form className={styles['modal__form']} onSubmit={(e) => { e.preventDefault(); setOpen(false); }}>
+                        <form className={styles['modal__form']} onSubmit={handleSubmit(onSubmit)}>
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']}>Votre note</label>
                                 <div className={styles['modal__stars']}>
@@ -96,23 +169,24 @@ export default function AddReview() {
                                             key={n}
                                             type="button"
                                             className={`${styles['modal__star']} ${n <= rating ? styles['modal__star--on'] : ''}`}
-                                            onClick={() => setRating(n)}
+                                            onClick={() => onclickRating(n)}
                                             aria-label={`${n} sur 5`}
                                         >★</button>
                                     ))}
                                 </div>
+                                {errors && <small>{errors.rating?.message}</small>}
                             </div>
 
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']} htmlFor="review-name">Votre nom</label>
                                 <input
+                                    {...register('name')}
                                     id="review-name"
                                     type="text"
                                     className={styles['modal__input']}
                                     placeholder="Ex : Sophie L."
-                                    maxLength={30}
-                                    required
                                 />
+                                {errors && <small>{errors.name?.message}</small>}
                             </div>
 
                             <label className={styles['modal__label']}>Photo (facultatif)</label>
@@ -138,23 +212,31 @@ export default function AddReview() {
                                 </label>
                             )}
 
-                            {photoError && <span className={styles['modal__error']}>{photoError}</span>}
+                            {errors && <small>{errors.picture?.message}</small>}
+                            {photoError && <small className={styles['modal__error']}>{photoError}</small>}
 
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']} htmlFor="review-pizza">Pizza commandée</label>
-                                <select id="review-pizza" className={styles['modal__input']} required>
-                                    {PIZZAS.map((p) => <option key={p}>{p}</option>)}
+                                <select {...register('pizza')} id="review-pizza" className={styles['modal__input']} defaultValue={""}>
+                                    {PIZZAS.map((p) => <option key={p} value={p}>{p}</option>)}
                                 </select>
+                                {errors && <small>{errors.pizza?.message}</small>}
                             </div>
 
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']} htmlFor="review-text">Votre avis</label>
-                                <textarea id="review-text" className={styles['modal__textarea']} rows={4} maxLength={300} required placeholder="Racontez-nous votre expérience…" />
+                                <textarea {...register('message')} id="review-text" className={styles['modal__textarea']} rows={4} placeholder="Racontez-nous votre expérience…" />
+                                {errors && <small>{errors.message?.message}</small>}
                             </div>
+
+                            <small className={styles['modal__success--message']}>{successMessage}</small>
+                            <small className={styles['modal__error--message']}>{errorMessage}</small>
 
                             <div className={styles['modal__actions']}>
                                 <button type="button" className={styles['modal__cancel']} onClick={() => setOpen(false)}>Annuler</button>
-                                <button type="submit" className={styles['modal__submit']}>Publier</button>
+                                <button type="submit" className={styles['modal__submit']} disabled={isSubmitting}>
+                                    {isSubmitting ? 'Chargement…' : 'Publier'}
+                                </button>
                             </div>
                         </form>
                     </div>

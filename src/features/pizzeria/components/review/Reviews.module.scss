@@ -5,6 +5,7 @@ $brown: #3b1d0e;
 $green: #1f7a3a;
 $sand: #f6e3cc; // nouveau
 $white: #FFFFFFFF;
+$primary: #FF5A00;
 
 .reviews {
   background: $orange;
@@ -134,13 +135,14 @@ $white: #FFFFFFFF;
 
   &__quote {
     position: absolute;
-    top: -0.5rem;
-    right: 1.25rem;
-    font-size: 6rem;
+    top: 0.75rem;
+    right: 1.5rem;
+    font-size: 4.5rem;
     line-height: 1;
-    color: $orange;
+    color: $primary;
     opacity: 0.15;
     font-family: Georgia, serif;
+    pointer-events: none;
   }
 
   &__stars { color: $yellow; font-size: 1.2rem; letter-spacing: 2px; }

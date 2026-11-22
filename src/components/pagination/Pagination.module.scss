@@ -8,7 +8,20 @@ $breakpoint-md: 900px;
 $breakpoint-sm: 600px;
 $breakpoint-xs: 400px;
 
-@mixin btn($bg: $bg-footer, $color: $color-white, $padding: 12px, $fontSize: 11px) {
+$color-primary: #FF5A00;
+$color-white: #FFFFFF;
+$bg-footer: #3B1E0F;
+
+$breakpoint-sm: 600px;
+
+@mixin btn(
+  $bg: $color-white,
+  $color: $color-primary,
+  $hover-bg: $bg-footer,
+  $hover-color: $color-white,
+  $padding: 12px,
+  $fontSize: 12px
+) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,23 +29,25 @@ $breakpoint-xs: 400px;
   background: $bg;
   color: $color;
   border: none;
-  font-weight: 500;
+  font-weight: 800;
   padding: $padding;
   font-size: $fontSize;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 0.15s ease, background 0.15s ease;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  box-shadow: 0 6px 20px rgba($bg-footer, 0.15);
   border-radius: 999px;
-  width: 110px;
+  width: 120px;
 
-  &:hover {
-    background: $color-primary;
+  &:hover:not(:disabled) {
+    background: $hover-bg;
+    color: $hover-color;
   }
 
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+    box-shadow: none;
   }
 }
 
@@ -54,41 +69,101 @@ $breakpoint-xs: 400px;
   }
 }
 
+
+@mixin btn(
+  $bg: $color-white,
+  $color: $color-primary,
+  $hover-bg: $bg-footer,
+  $hover-color: $color-white,
+  $padding: 12px,
+  $fontSize: 12px
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: $bg;
+  color: $color;
+  border: none;
+  font-weight: 800;
+  padding: $padding;
+  font-size: $fontSize;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  box-shadow: 0 6px 20px rgba($bg-footer, 0.15);
+  border-radius: 999px;
+  width: 120px;
+
+  &:hover:not(:disabled) {
+    background: $hover-bg;
+    color: $hover-color;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
 .pagination {
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+
   @include respond(lg) {
-    margin-top: 15px;
+    margin-top: 30px;
   }
 
-  &__row { display: flex; align-items: center; flex-direction: row; gap: 5px; }
+  @include respond(sm) {
+    margin-top: 20px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 16px;
+
+    @include respond(md) {
+      gap: 10px;
+    }
+
+    @include respond(sm) {
+      gap: 5px;
+    }
+  }
+
   &__previous {
     @include btn();
-    @include respond(sm) { @include btn($padding: 11px, $fontSize: 10px) }
+    @include respond(sm) { @include btn($padding: 11px, $fontSize: 11px); }
 
-    &:hover {
-      transform: translateX(-2px);
-      @include respond(sm) { transform: translateX(-1px); }
+    &:hover:not(:disabled) {
+      transform: translateX(-3px);
     }
   }
 
   &__following {
     @include btn();
-    @include respond(sm) { @include btn($padding: 11px, $fontSize: 10px) }
+    @include respond(sm) { @include btn($padding: 11px, $fontSize: 11px); }
 
-    &:hover {
-      transform: translateX(2px);
-      @include respond(sm) { transform: translateX(1px); }
+    &:hover:not(:disabled) {
+      transform: translateX(3px);
     }
   }
 
   &__number span {
-    font-size: 14px;
-    font-weight: 300;
+    color: $color-white;
+    font-size: 16px;
+    font-weight: 800;
+    min-width: 50px;
+    text-align: center;
+    display: inline-block;
+
     @include respond(sm) {
-      font-size: 13px;
+      font-size: 14px;
     }
   }
 }

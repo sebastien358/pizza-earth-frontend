@@ -49,7 +49,6 @@ export default function Reviews() {
                         </li>
                     ))}
                 </ul>
-
                 <Pagination current={1} pages={3} previousPage={null} followingPage={null} />
             </div>
         </section>

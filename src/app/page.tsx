@@ -228,6 +228,7 @@ export default function Home() {
                   <p className={styles['reviews__subtitle']}>Adoré par les amateurs de pizza partout</p>
                   <div className={styles['reviews__grid']}>
                       <article className={styles['review-card']}>
+                          <span className={styles['review-card__quote']} aria-hidden="true">“</span>
                           <p className={styles['review-card__stars']}>★★★★</p>
                           <p className={styles['review-card__text']}>"La Reine est incroyable, pâte fine, fromage généreux. Livraison en 25 minutes à Rugles, encore chaude. Je recommande !"</p>
                           <div className={styles['review-card__author']}>
@@ -239,6 +240,7 @@ export default function Home() {
                           </div>
                       </article>
                       <article className={styles['review-card']}>
+                          <span className={styles['review-card__quote']} aria-hidden="true">“</span>
                           <p className={styles['review-card__stars']}>★★★★</p>
                           <p className={styles['review-card__text']}>"La Diavola elle pique juste comme il faut. Commande simple, suivi en direct, emballage vraiment écologique. C'est devenu ma cantine du vendredi."</p>
                           <div className={styles['review-card__author']}>
@@ -250,6 +252,7 @@ export default function Home() {
                           </div>
                       </article>
                       <article className={styles['review-card']}>
+                          <span className={styles['review-card__quote']} aria-hidden="true">“</span>
                           <p className={styles['review-card__stars']}>★★★★</p>
                           <p className={styles['review-card__text']}>"Je suis végétarienne, l'Aubergine Grillée c'est la meilleure que j'ai goûtée. Fraîche, légère, et on sent que les ingrédients sont locaux."</p>
                           <div className={styles['review-card__author']}>
@@ -261,13 +264,15 @@ export default function Home() {
                           </div>
                       </article>
                   </div>
+
+                  <Link className={styles['reviews__link']} href={"/reviews"}>Les avis clients</Link>
               </section>
               {/* CTA */}
               <section className={styles['cta']}>
                   <div className={styles['cta__inner']}>
                       <div className={styles['cta__inner__desktop']}>
                           <h3 className={styles['cta__title']}>Une petite faim ? La Terre vous dit merci.</h3>
-                          <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -10% sur les pizzas et boissons.</p>
+                          <p className={styles['cta__text']}>Commandez votre pizza préférée et profitez de -10% sur les pizzas.</p>
                       </div>
                       <div className={styles['cta__inner__mobile']}>
                           <h3 className={styles['cta__title']}>Une petite faim ?</h3>

@@ -1,6 +1,8 @@
 'use client';
-import { useEffect, useState } from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import styles from './AddReview.module.scss';
+import Image from "next/image";
+import {create} from "zustand/react";
 
 const PIZZAS = [
     'Aubergine Grillée',
@@ -36,6 +38,33 @@ export default function AddReview() {
         };
     }, [open]);
 
+    // dans le composant
+    const [photo, setPhoto] = useState<File | null>(null);
+    const [preview, setPreview] = useState<string | null>(null);
+    const [photoError, setPhotoError] = useState('');
+
+    function onPhotoChange(e: ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('image/')) return setPhotoError('Le fichier doit être une image.');
+        if (file.size > 2 * 1024 * 1024) return setPhotoError('Image trop lourde (2 Mo max).');
+
+        setPhotoError('');
+        setPhoto(file);
+        setPreview(URL.createObjectURL(file))
+    }
+
+    function removePhoto() {
+        setPhoto(null);
+        setPreview(null);
+    }
+
+// libère la mémoire de l'aperçu
+    useEffect(() => {
+        return () => { if (preview) URL.revokeObjectURL(preview); };
+    }, [preview]);
+
     return (
         <>
             <div className={styles['add']}>
@@ -58,7 +87,7 @@ export default function AddReview() {
                         <span className={styles['modal__eyebrow']}>Votre avis compte</span>
                         <h3 id="review-modal-title" className={styles['modal__title']}>Laisser un avis</h3>
 
-                        <form className={styles['modal__form']} onSubmit={(e) => { e.preventDefault(); /* appel API */ setOpen(false); }}>
+                        <form className={styles['modal__form']} onSubmit={(e) => { e.preventDefault(); setOpen(false); }}>
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']}>Votre note</label>
                                 <div className={styles['modal__stars']}>
@@ -85,6 +114,31 @@ export default function AddReview() {
                                     required
                                 />
                             </div>
+
+                            <label className={styles['modal__label']}>Photo (facultatif)</label>
+
+                            {preview ? (
+                                <div className={styles['modal__preview']}>
+                                    <Image src={preview} alt="Aperçu" className={styles['modal__previewImg']} width={100} height={100} />
+                                    <button type="button" className={styles['modal__remove']} onClick={removePhoto}>
+                                        Retirer
+                                    </button>
+                                </div>
+                            ) : (
+                                <label className={styles['modal__file']} htmlFor="review-photo">
+                                    <span className={styles['modal__fileIcon']}>📷</span>
+                                    <span>Ajouter une photo</span>
+                                    <input
+                                        id="review-photo"
+                                        type="file"
+                                        accept="image/*"
+                                        className={styles['modal__fileInput']}
+                                        onChange={onPhotoChange}
+                                    />
+                                </label>
+                            )}
+
+                            {photoError && <span className={styles['modal__error']}>{photoError}</span>}
 
                             <div className={styles['modal__field']}>
                                 <label className={styles['modal__label']} htmlFor="review-pizza">Pizza commandée</label>

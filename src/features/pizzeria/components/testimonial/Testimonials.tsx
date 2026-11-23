@@ -50,13 +50,13 @@ export default function Reviews() {
                             <p className={styles['review__text']}>{r.message}</p>
 
                             <footer className={styles['review__footer']}>
-                                {r?.pictures.length > 0 ? (
+                                {r.pictures?.length > 0 ? (
                                     <div className={styles['review__avatar']}>
-                                        <Image src={r?.pictures[0]?.url} alt={"Image client"} width={40} height={40} />
+                                        <Image src={r?.pictures?.[0]?.url} alt={"Image client"} width={40} height={40} />
                                     </div>
                                 ) : (
                                     <div className={styles['review__avatar']}>
-                                        {r.name[0]}
+                                        {r.name?.[0] ?? '?'}
                                     </div>
                                 )}
                                 <div className={styles['review__author']}>

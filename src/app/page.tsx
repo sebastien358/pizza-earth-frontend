@@ -255,13 +255,13 @@ export default function Home() {
                                   <p className={styles['review__text']}>"{t.message}"</p>
 
                                   <footer className={styles['review__footer']}>
-                                      {t?.pictures.length > 0 ? (
+                                      {t.pictures?.length > 0 ? (
                                           <div className={styles['review__avatar']}>
-                                              <Image src={t?.pictures[0]?.url} alt={"Image client"} width={40} height={40} />
+                                              <Image src={t?.pictures?.[0]?.url} alt={"Image client"} width={40} height={40} />
                                           </div>
                                       ) : (
                                           <div className={styles['review__avatar']}>
-                                              {t.name[0]}
+                                              {t.name?.[0] ?? '?'}
                                           </div>
                                       )}
                                       <div className={styles['review__author']}>

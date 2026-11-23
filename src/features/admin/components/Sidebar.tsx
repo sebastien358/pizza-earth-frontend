@@ -28,6 +28,7 @@ export default function Sidebar() {
     const adminLinks = [
         { name: 'Accueil', path: '/' },
         { name: 'Commandes', path: '/admin/commands' },
+        { name: 'Témoignages', path: '/admin/testimonials' },
         { name: 'Pizzas', path: '/admin/products' },
         { name: 'Ajout Pizza', path: '/admin/products/form' }
     ]

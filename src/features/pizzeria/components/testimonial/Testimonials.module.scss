@@ -20,6 +20,7 @@ $primary: #FF5A00;
     padding: 3rem 16px;
   }
 
+
   &__container {
     max-width: 1100px;
     margin: 0 auto;
@@ -83,7 +84,13 @@ $primary: #FF5A00;
   }
 
   &__summaryInfo { text-align: left; }
-  &__stars { color: $yellow; letter-spacing: 2px; }
+  &__stars { color: $yellow; letter-spacing: 2px; font-size: 18px; }
+  &__starsOff {
+    color: #E0E0E0;
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
   &__count { margin: 0; font-size: 0.85rem; color: $brown; opacity: 0.7; }
 
   &__list {
@@ -149,8 +156,8 @@ $primary: #FF5A00;
     pointer-events: none;
   }
 
-  &__stars { color: $yellow; font-size: 1.2rem; letter-spacing: 2px; }
-  &__starsOff { color: #e8dccd; }
+  &__stars { color: $yellow; letter-spacing: 2px; font-size: 22px; }
+  &__starsOff { color: #e8dccd; font-size: 22px; }
 
   &__text {
     flex: 1;
@@ -178,6 +185,11 @@ $primary: #FF5A00;
     font-weight: 800;
     display: grid;
     place-items: center;
+    img {
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+    }
   }
 
   &__author { display: flex; flex-direction: column; }

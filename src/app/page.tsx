@@ -13,6 +13,7 @@ import Pizza from '@/assets/images/pizza_hero_logo.png'
 import {useProductStore} from "@/store/product.store";
 import {useEffect} from "react";
 import {useCartStore} from "@/store/cart.store";
+import {useTestimonialStore} from "@/store/testimonial.store";
 
 export default function Home() {
 
@@ -32,6 +33,14 @@ export default function Home() {
         addToCart(id)
     }
 
+    {/* Store Testimonial : affichage moyenne */}
+
+    const { testimonialsList, testimonials, averageRating, countTestimonials, isLoadingTestimonial } = useTestimonialStore()
+
+    useEffect(() => {
+        testimonialsList()
+    }, [testimonialsList]);
+
   return (
       <main>
           {/* Hero */}
@@ -50,8 +59,8 @@ export default function Home() {
                       </div>
                       <div className={styles['hero__infos']}>
                           <div>
-                              <p className={styles['hero__infos--title']}>4,9/5</p>
-                              <p className={styles['hero__infos--subtitle']}>500+ avis</p>
+                              <p className={styles['hero__infos--title']}>{averageRating}/5</p>
+                              <p className={styles['hero__infos--subtitle']}>{countTestimonials}+ avis</p>
                           </div>
                           <div>
                               <p className={styles['hero__infos--title']}>30 min</p>
@@ -119,7 +128,7 @@ export default function Home() {
                               </>
                           ) : (
                               <div className={styles['popular-empty']}>
-                                  <p>Aucune pizza dans cette catégorie pour le moment.</p>
+                                  <p>Aucune pizza pour le moment.</p>
                               </div>
                           )}
                       </div>
@@ -226,44 +235,49 @@ export default function Home() {
                   <p className={styles['reviews__eyebrow']}>Témoignages</p>
                   <h2 className={styles['reviews__title']}>CE QUE DISENT NOS CLIENTS</h2>
                   <p className={styles['reviews__subtitle']}>Adoré par les amateurs de pizza partout</p>
-                  <div className={styles['reviews__grid']}>
-                      <article className={styles['review-card']}>
-                          <span className={styles['review-card__quote']} aria-hidden="true">“</span>
-                          <p className={styles['review-card__stars']}>★★★★</p>
-                          <p className={styles['review-card__text']}>"La Reine est incroyable, pâte fine, fromage généreux. Livraison en 25 minutes à Rugles, encore chaude. Je recommande !"</p>
-                          <div className={styles['review-card__author']}>
-                              <div className={styles['review-card__avatar']}>S</div>
-                              <div className={styles['review-card__author__name']}>
-                                  <small>Sophie L. - Reine.</small>
-                                  <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
-                              </div>
-                          </div>
-                      </article>
-                      <article className={styles['review-card']}>
-                          <span className={styles['review-card__quote']} aria-hidden="true">“</span>
-                          <p className={styles['review-card__stars']}>★★★★</p>
-                          <p className={styles['review-card__text']}>"La Diavola elle pique juste comme il faut. Commande simple, suivi en direct, emballage vraiment écologique. C'est devenu ma cantine du vendredi."</p>
-                          <div className={styles['review-card__author']}>
-                              <div className={styles['review-card__avatar']}>M</div>
-                              <div className={styles['review-card__author__name']}>
-                                  <small>Mehdi R. - Diavola.</small>
-                                  <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
-                              </div>
-                          </div>
-                      </article>
-                      <article className={styles['review-card']}>
-                          <span className={styles['review-card__quote']} aria-hidden="true">“</span>
-                          <p className={styles['review-card__stars']}>★★★★</p>
-                          <p className={styles['review-card__text']}>"Je suis végétarienne, l'Aubergine Grillée c'est la meilleure que j'ai goûtée. Fraîche, légère, et on sent que les ingrédients sont locaux."</p>
-                          <div className={styles['review-card__author']}>
-                              <div className={styles['review-card__avatar']}>L</div>
-                              <div className={styles['review-card__author__name']}>
-                                  <small>Léa M. - Aubergine Grillée.</small>
-                                  <small><Check size={13} strokeWidth={3} /> Client vérifié</small>
-                              </div>
-                          </div>
-                      </article>
-                  </div>
+                  {isLoadingTestimonial ? (
+                      <div className={styles['reviews-wrapper']}>
+                          <span className={styles['reviews-wrapper__loader']}></span>
+                      </div>
+                  ) : !isLoadingTestimonial && testimonials.length > 0 ? (
+                      <div className={styles['reviews__grid']}>
+                          {testimonials.slice(0, 3)?.map((t: any) =>
+                              <article key={t.id} className={styles['review']}>
+                                  <span className={styles['review__quote']} aria-hidden="true">“</span>
+
+                                  <div className={styles['review__stars']} aria-label={`${t.rating} sur 5`}>
+                                      {'★'.repeat(t.rating)}
+                                      <span className={styles['review__starsOff']}>
+                                    {'★'.repeat(5 - t.rating)}
+                                </span>
+                                  </div>
+
+                                  <p className={styles['review__text']}>"{t.message}"</p>
+
+                                  <footer className={styles['review__footer']}>
+                                      {t?.pictures.length > 0 ? (
+                                          <div className={styles['review__avatar']}>
+                                              <Image src={t?.pictures[0]?.url} alt={"Image client"} width={40} height={40} />
+                                          </div>
+                                      ) : (
+                                          <div className={styles['review__avatar']}>
+                                              {t.name[0]}
+                                          </div>
+                                      )}
+                                      <div className={styles['review__author']}>
+                                          <span className={styles['review__name']}>{t.name}</span>
+                                          <span className={styles['review__verified']}>✓ Client vérifié</span>
+                                      </div>
+                                      <span className={styles['review__pizza']}>🍕 {t.pizza}</span>
+                                  </footer>
+                              </article>
+                          )}
+                      </div>
+                  ) : (
+                      <div className={styles['review-empty']}>
+                          <p>Aucun témoignage pour le moment.</p>
+                      </div>
+                  )}
                   <Link className={styles['reviews__link']} href={"/testimonials"}>
                       Les avis clients
                   </Link>

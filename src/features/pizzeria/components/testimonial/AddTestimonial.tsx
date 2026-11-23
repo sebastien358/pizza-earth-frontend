@@ -5,10 +5,9 @@ import styles from './AddTestimonial.module.scss';
 import Image from "next/image";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {ReviewFormData, useReviewStore} from "@/store/review.store";
+import {TestimonialFormData, useTestimonialStore} from "@/store/testimonial.store";
 import {ChangeEvent, useEffect, useState} from 'react';
 import {z} from 'zod';
-import {clearTimeout} from "node:timers";
 
 const DELAY_TIMEOUT = 2000
 
@@ -53,7 +52,7 @@ const schema = z.object({
     message: z
         .string()
         .min(10, { message: '30 caractères minimum' })
-        .max(300, { message: '300 caractères maximum' }),
+        .max(255, { message: '300 caractères maximum' }),
 });
 
 export default function AddTestimonial() {
@@ -111,14 +110,13 @@ export default function AddTestimonial() {
 
     {/* Store Review */}
 
-    const { reviewAdd, resetSuccessMessage, resetErrorMessage, successMessage, errorMessage } = useReviewStore()
+    const { testimonialAdd, resetSuccessMessage, resetErrorMessage, successMessage, errorMessage } = useTestimonialStore()
 
     {/* Gestion Validation Form */}
 
-    async function onSubmit(data: ReviewFormData) {
+    async function onSubmit(data: TestimonialFormData) {
         try {
-            //await reviewAdd(data)
-            console.log(data)
+            await testimonialAdd(data)
             handleResetSuccess()
         } catch (err: any) {
             handleResetError()

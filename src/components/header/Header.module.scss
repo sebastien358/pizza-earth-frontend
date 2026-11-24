@@ -512,7 +512,8 @@ $breakpoint-xs: 400px;
 
     @include respond(sm) {
       top: 52px;
-      left: -213px;
+      left: -174px;
+      width: 240px;
     }
 
     &::before {
@@ -559,6 +560,10 @@ $breakpoint-xs: 400px;
     padding: 6px;
     border-radius: 10px;
     background-color: $color-cream;
+
+    @include respond(sm) {
+      gap: 6px;
+    }
   }
 
   &__cart__item__row {
@@ -588,9 +593,15 @@ $breakpoint-xs: 400px;
     font-weight: 700;
     font-size: 12px;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-width: 140px;
 
     @include respond(sm) {
-      font-size: 11px;
+      max-width: 90px;
+      font-size: 10px;
     }
   }
 
@@ -600,7 +611,7 @@ $breakpoint-xs: 400px;
     opacity: .6;
 
     @include respond(sm) {
-      font-size: 12px;
+      font-size: 10px;
     }
   }
 
@@ -611,7 +622,7 @@ $breakpoint-xs: 400px;
     white-space: nowrap;
 
     @include respond(sm) {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 
@@ -626,7 +637,7 @@ $breakpoint-xs: 400px;
     color: $color-text;
 
     @include respond(sm) {
-      font-size: 12px;
+      font-size: 11px;
     }
   }
 
@@ -639,6 +650,10 @@ $breakpoint-xs: 400px;
     color: $color-white;
     font-size: 13px;
     font-weight: 700;
+
+    @include respond(sm) {
+      font-size: 11px;
+    }
 
     &:hover {
       background-color: $color-white;
@@ -684,7 +699,7 @@ $breakpoint-xs: 400px;
     position: absolute;
     background-color: $color-white;
     right: -12px;
-    top: 45px;
+    top: 53px;
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -696,12 +711,9 @@ $breakpoint-xs: 400px;
     border: 1px solid #f0f0f0;
 
     @include respond(sm) {
-      top: 52px;
+      width: 170px;
+      top: 53px;
       right: -6px;
-    }
-
-    @include respond(xs) {
-      right: -8px;
     }
   }
 
@@ -719,6 +731,11 @@ $breakpoint-xs: 400px;
     margin-top: 8px;
     justify-content: center;
     width: 100%;
+
+    @include respond(sm) {
+      @include btn($fontSize: 9px, $padding: 10px);
+      margin-top: 2px;
+    }
   }
 
   ///// buton du commande

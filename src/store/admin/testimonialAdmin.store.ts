@@ -1,6 +1,11 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosAdminTestimonials, axiosAdminTestimonialSearch} from "@/shared/services/admin/testimonialAdmin.service";
+import {
+    axiosTestimonialIsVisible,
+    axiosTestimonialRemove,
+    axiosTestimonials,
+    axiosTestimonialSearch
+} from "@/shared/services/admin/testimonialAdmin.service";
 
 export interface TestimonialState {
     testimonials: any[]
@@ -17,6 +22,8 @@ export interface TestimonialState {
     previousPage: () => Promise<void>
     followingPage: () => Promise<void>
     testimonialSearch: (term: string) => Promise<void>
+    testimonialIsVisible: (id: number) => Promise<void>
+    testimonialDelete: (id: number) => Promise<void>
 }
 
 export const useTestimonialAdminStore = create<TestimonialState>()(
@@ -44,7 +51,7 @@ export const useTestimonialAdminStore = create<TestimonialState>()(
             get().getLimitTestimonials()
             try {
                 set({ isLoading: true })
-                const data = await axiosAdminTestimonials(get().current, get().limit)
+                const data = await axiosTestimonials(get().current, get().limit)
                 set({ testimonials: data.testimonials,
                     countTestimonials: data.count,
                     averageRating: data.averageRating,
@@ -85,8 +92,31 @@ export const useTestimonialAdminStore = create<TestimonialState>()(
                     return
                 }
                 set({ term: trimmed, isLoading: true })
-                const newTestimonial = await axiosAdminTestimonialSearch(get().term ?? "")
+                const newTestimonial = await axiosTestimonialSearch(get().term ?? "")
                 set({ testimonials: newTestimonial, isLoading: false })
+            } catch (err: any) {
+                console.error(err)
+                throw err
+            }
+        },
+
+        testimonialIsVisible: async (id: number) => {
+            try {
+                const data = await axiosTestimonialIsVisible(id)
+                set((state) => ({
+                    testimonials: state.testimonials.map((t) =>
+                        t.id === id ? { ...t, isPublished: data.isPublished } : t)
+                }))
+            } catch (err: any) {
+                console.error(err)
+                throw err
+            }
+        },
+
+        testimonialDelete: async (id: number) => {
+            try {
+                await axiosTestimonialRemove(id)
+                set((state) => ({ testimonials: state.testimonials.filter((t) => t.id !== id) }))
             } catch (err: any) {
                 console.error(err)
                 throw err

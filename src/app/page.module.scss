@@ -1298,6 +1298,12 @@ $breakpoint-xs: 400px;
   @include respond(md) { padding: 24px 20px; }
   @include respond(sm) { padding: 20px 16px; }
 
+  transition: all 200ms ease;
+
+  &:hover {
+    transform: scale(1.015);
+  }
+
   &__number {
     text-align: end;
     font-size: 36px;

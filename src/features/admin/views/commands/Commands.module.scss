@@ -11,16 +11,24 @@ $green: #1a7a1a;
 
 .orders {
   background: $cream;
-  padding: 32px;
   min-height: 100vh;
   color: $brown;
+  padding: 30px 50px;
 
-  @media (max-width: 768px) {
-    padding: 16px;
+  @media (max-width: 1600px) {
+    padding: 30px 20px;
   }
 
-  @media (max-width: 480px) {
-    padding: 12px;
+  @media (max-width: 1200px) {
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 900px) {
+    padding: 30px 20px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 30px 16px;
   }
 }
 
@@ -101,19 +109,30 @@ $green: #1a7a1a;
 
 .orders__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+
+  @media (max-width: 1600px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.1rem;
+  }
 
   @media (max-width: 1200px) {
-    gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   @media (max-width: 900px) {
-    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   @media (max-width: 600px) {
-    gap: 12px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.8rem;
   }
 }
 

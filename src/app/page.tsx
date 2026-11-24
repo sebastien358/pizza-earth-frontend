@@ -244,16 +244,11 @@ export default function Home() {
                           {testimonials.slice(0, 3)?.map((t: any) =>
                               <article key={t.id} className={styles['review']}>
                                   <span className={styles['review__quote']} aria-hidden="true">“</span>
-
                                   <div className={styles['review__stars']} aria-label={`${t.rating} sur 5`}>
                                       {'★'.repeat(t.rating)}
-                                      <span className={styles['review__starsOff']}>
-                                    {'★'.repeat(5 - t.rating)}
-                                </span>
+                                      <span className={styles['review__starsOff']}>{'★'.repeat(5 - t.rating)}</span>
                                   </div>
-
                                   <p className={styles['review__text']}>"{t.message}"</p>
-
                                   <footer className={styles['review__footer']}>
                                       {t.pictures?.length > 0 ? (
                                           <div className={styles['review__avatar']}>

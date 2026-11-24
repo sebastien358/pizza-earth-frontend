@@ -13,7 +13,21 @@ export default function Reviews() {
 
     {/* Store Testimonial */}
 
-    const { testimonialList, previousPage, followingPage, testimonialSearch, testimonials, isLoading, countTestimonials, averageRating, current, pages, term } = useTestimonialAdminStore()
+    const {
+        testimonialList,
+        previousPage,
+        followingPage,
+        testimonialSearch,
+        testimonialIsVisible,
+        testimonialDelete,
+        testimonials,
+        isLoading,
+        countTestimonials,
+        averageRating,
+        current,
+        pages,
+        term
+    } = useTestimonialAdminStore()
 
     useEffect(() => {
         testimonialList()
@@ -23,7 +37,7 @@ export default function Reviews() {
 
     async function publishTestimonial(id: number) {
         try {
-            console.log(id)
+            await testimonialIsVisible(id)
         } catch (err: any) {
             console.error(err)
             throw err
@@ -34,7 +48,7 @@ export default function Reviews() {
 
     async function deleteTestimonial(id: number) {
         try {
-            console.log(id)
+            await testimonialDelete(id)
         } catch (err: any) {
             console.error(err)
             throw err
@@ -75,10 +89,10 @@ export default function Reviews() {
                                     </div>
                                     <div className={styles['review__toggle']}>
                                         <label className={styles['publish']}>
-                                            <span>{t.isVisible ? 'En ligne' : 'Brouillon'}</span>
+                                            <span>{t.isPublished ? 'En ligne' : 'Brouillon'}</span>
                                             <input
                                                 type="checkbox"
-                                                checked={t.isVisible}
+                                                checked={t.isPublished}
                                                 onChange={() => publishTestimonial(t.id)}
                                             />
                                             <span className={styles['slider']} />

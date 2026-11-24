@@ -17,7 +17,7 @@ export default function LegalNotice() {
                         <h2>Éditeur du site</h2>
                         <p>Nom : Sébastien Petit</p>
                         <p>Adresse : 7 Bis Rue Dul Val Ferrant, 27330 Bois-Anzeray</p>
-                        <p>Email : sebastienpetit27330@gmail.com</p>
+                        <p>Email : sebastien.0027@gmail.com</p>
                         <p>Téléphone : 0780468148</p>
                         <p>Statut : Auto-entrepreneur - SIRET : XXXXXXXXXXXXXX</p>
                     </article>

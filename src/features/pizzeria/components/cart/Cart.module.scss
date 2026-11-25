@@ -5,9 +5,10 @@ $green: #2ECC71;
 $red: #D00;
 
 .container {
+  margin: 0 auto;
+
   max-width: 1100px;
   width: 100%;
-  margin: 0 auto;
   padding: 50px 0;
   overflow: auto;
   height: 100vh;
@@ -28,6 +29,7 @@ $red: #D00;
 }
 
 .cart {
+  margin-top: 75px;
   background: #FF5A00;
 
   &__badge {

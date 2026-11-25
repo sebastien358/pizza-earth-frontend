@@ -75,16 +75,14 @@ export const useProductAdminStore = create<ProductState>()(
         errorMessage: null,
 
         getLimitOrders: () => {
-            if (window.innerWidth >= 1600) {
-                set({ limit: 9 })
-            } else if (window.innerWidth >= 1200) {
-                set({ limit: 6 })
+            if (window.innerWidth >= 2000) {
+                set({ limit: 10 })
             } else if (window.innerWidth >= 900) {
                 set({ limit: 6 })
             } else if (window.innerWidth >= 700) {
                 set({ limit: 4 })
             } else {
-                set({ limit: 4 })
+                set({ limit: 3 })
             }
         },
 
@@ -92,8 +90,19 @@ export const useProductAdminStore = create<ProductState>()(
             get().getLimitOrders()
             try {
                 set({ isLoading: true })
-                const data = await axiosProductsList(get().current, get().limit)
-                set({ products: data.products, countProducts: data.count, pages: data.pages, isLoading: false })
+                let data = await axiosProductsList(get().current, get().limit)
+
+                if (get().current > data.pages && data.pages > 0) {
+                    set({ current: data.pages })
+                    data = await axiosProductsList(get().current, get().limit)
+                }
+
+                set({
+                    products: data.products,
+                    countProducts: data.count,
+                    pages: data.pages,
+                    isLoading: false
+                })
             } catch (err: any) {
                 set({ isLoading: false})
                 console.error(err)
@@ -260,7 +269,7 @@ export const useProductAdminStore = create<ProductState>()(
         resetErrorMessage: () => set({ errorMessage: null }),
 
         resetProduct: async () => {
-            set({ term: "" })
+            set({ term: "", current: 1 })
             await get().productsList()
         }
 

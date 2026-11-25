@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosOrderList, axiosOrderNew, axiosOrderSearch} from "@/shared/services/user/order.service";
+import {axiosOrderList, axiosOrderNew} from "@/shared/services/user/order.service";
 import {useCartStore} from "@/store/cart.store";
 
 export interface OrderFormData {
@@ -28,7 +28,7 @@ export interface OrderState {
     current: number
     limit: number
     pages: number
-    countOrders: number
+    countUserOrders: number
     successMessage: string | null
     errorMessage: string | null
 
@@ -39,6 +39,7 @@ export interface OrderState {
     orderNew: (data: OrderFormData) => Promise<void>
     resetSuccessMessage: () => void
     resetErrorMessage: () => void
+    resetOrderUser: () => void
 }
 
 export const useOrderStore = create<OrderState>()(
@@ -48,21 +49,19 @@ export const useOrderStore = create<OrderState>()(
         current: 1,
         limit: 0,
         pages: 0,
-        countOrders: 0,
+        countUserOrders: 0,
         successMessage: null,
         errorMessage: null,
 
         getLimitOrders: () => {
-            if (window.innerWidth >= 1600) {
-                set({ limit: 9 })
-            } else if (window.innerWidth >= 1200) {
-                set({ limit: 6 })
+            if (window.innerWidth >= 2000) {
+                set({ limit: 10 })
             } else if (window.innerWidth >= 900) {
                 set({ limit: 6 })
             } else if (window.innerWidth >= 700) {
                 set({ limit: 4 })
             } else {
-                set({ limit: 4 })
+                set({ limit: 3 })
             }
         },
 
@@ -70,8 +69,19 @@ export const useOrderStore = create<OrderState>()(
             get().getLimitOrders()
             try {
                 set({ isLoading: true })
-                const data = await axiosOrderList(get().current, get().limit)
-                set({ orders: data.orders, countOrders: data.count, pages: data.pages, isLoading: false })
+                let data = await axiosOrderList(get().current, get().limit)
+
+                if (get().current > data.pages && data.pages > 0) {
+                    set({ current: data.pages })
+                    data = await axiosOrderList(get().current, get().limit)
+                }
+
+                set({
+                    orders: data.orders,
+                    countUserOrders: data.count,
+                    pages: data.pages,
+                    isLoading: false
+                })
             } catch (err: any) {
                 set({ isLoading: false })
                 console.error(err)
@@ -130,6 +140,11 @@ export const useOrderStore = create<OrderState>()(
         resetSuccessMessage: () => set({ successMessage: null }),
 
         resetErrorMessage: () => set({ errorMessage: null }),
+
+        resetOrderUser: async () => {
+            set({ current: 1 })
+            await get().orderList()
+        }
 
     }), {
         name: 'order-state',

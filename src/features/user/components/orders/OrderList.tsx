@@ -10,7 +10,7 @@ export default function OrderList() {
 
     {/* Store Order */}
 
-    const { orderList, previousPage, followingPage, orders, isLoading, current, countOrders, pages } = useOrderStore()
+    const { orderList, previousPage, followingPage, orders, isLoading, current, countUserOrders, pages } = useOrderStore()
 
     useEffect(() => {
         orderList()
@@ -20,7 +20,7 @@ export default function OrderList() {
         <main className={styles['orders']}>
             <div className={styles['orders__header']}>
                 <h1 className={styles['orders__title']}>Les Commandes</h1>
-                <p className={styles['orders__subtitle']}>{countOrders} commande{countOrders > 1 ? 's' : ''}</p>
+                <p className={styles['orders__subtitle']}>{countUserOrders} commande{countUserOrders > 1 ? 's' : ''}</p>
             </div>
 
             {isLoading ? (
@@ -69,15 +69,16 @@ export default function OrderList() {
                                 </div>
                             </article>
                         ))}
-
                     </div>
-
-                    <Pagination
-                        current={current}
-                        pages={pages}
-                        previousPage={previousPage}
-                        followingPage={followingPage}
-                    />
+                    {/* Pagination */}
+                    {pages > 1 && (
+                        <Pagination
+                            current={current}
+                            pages={pages}
+                            previousPage={previousPage}
+                            followingPage={followingPage}
+                        />
+                    )}
                 </>
             ) : (
                 <div className={styles.empty}>

@@ -9,7 +9,17 @@ $breakpoint-sm: 600px;
 $breakpoint-xs: 400px;
 
 $color-primary: #FF5A00;
+$color-primary-dark: #b84712;
+$color-primary-darker: #9C2A00;
+$color-cream: #FFF5E6;
+$color-cream-light: #FFF8EC;
 $color-white: #FFFFFF;
+$color-text: #2B1200;
+$color-text-light: #6B4A2F;
+$color-star: #F5A623;
+$color-yellow: #FFD93D;
+$color-brown: #5C2E0E;
+
 $bg-footer: #3B1E0F;
 
 $breakpoint-sm: 600px;
@@ -69,8 +79,7 @@ $breakpoint-sm: 600px;
   }
 }
 
-
-@mixin btn(
+@mixin btn-pizzas (
   $bg: $color-white,
   $color: $color-primary,
   $hover-bg: $bg-footer,
@@ -107,6 +116,98 @@ $breakpoint-sm: 600px;
   }
 }
 
+@mixin btn-dashboard ($padding: 12px, $fontSize: 12px) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: $color-text;
+  color: $color-white;
+  border: none;
+  font-weight: 800;
+  padding: $padding;
+  font-size: $fontSize;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  box-shadow: 0 6px 20px rgba($bg-footer, 0.15);
+  border-radius: 999px;
+  width: 120px;
+
+  &:hover:not(:disabled) {
+    background: $bg-footer;
+    color: $color-white;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+/* ======== Button Dashboard =======*/
+
+.pagination-dashboard {
+  margin: 20px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include respond(sm) {
+    margin-top: 15px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 16px;
+
+    @include respond(md) {
+      gap: 10px;
+    }
+
+    @include respond(sm) {
+      gap: 5px;
+    }
+  }
+
+  &__previous {
+    @include btn-dashboard();
+    @include respond(sm) {
+      @include btn-dashboard($padding: 11px, $fontSize: 11px);
+    }
+
+    &:hover:not(:disabled) {
+      transform: translateX(-3px);
+    }
+  }
+
+  &__following {
+    @include btn-dashboard();
+
+    @include respond(sm) { @include btn-dashboard($padding: 11px, $fontSize: 11px); }
+    &:hover:not(:disabled) {
+      transform: translateX(3px);
+    }
+  }
+
+  &__number span {
+    color: $color-text;
+    font-size: 13px;
+    font-weight: 300;
+    text-align: center;
+    display: inline-block;
+
+    @include respond(sm) {
+      font-size: 12px;
+    }
+  }
+}
+
+/* ======== Button Pizzas =======*/
+
 .pagination {
   margin-top: 30px;
   display: flex;
@@ -137,7 +238,7 @@ $breakpoint-sm: 600px;
   }
 
   &__previous {
-    @include btn();
+    @include btn-pizzas();
     @include respond(sm) { @include btn($padding: 11px, $fontSize: 11px); }
 
     &:hover:not(:disabled) {
@@ -146,7 +247,7 @@ $breakpoint-sm: 600px;
   }
 
   &__following {
-    @include btn();
+    @include btn-pizzas();
     @include respond(sm) { @include btn($padding: 11px, $fontSize: 11px); }
 
     &:hover:not(:disabled) {

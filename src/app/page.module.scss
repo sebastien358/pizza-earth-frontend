@@ -1572,8 +1572,16 @@ $breakpoint-xs: 400px;
     pointer-events: none;
   }
 
-  &__stars { color: $color-yellow; letter-spacing: 2px; font-size: 22px; }
-  &__starsOff { color: #e8dccd; font-size: 22px; }
+  &__stars { color: $color-yellow; letter-spacing: 2px; font-size: 22px;
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
+  }
+  &__starsOff { color: #e8dccd; font-size: 22px;
+    @media (max-width: 600px) {
+      font-size: 18px;
+    }
+  }
 
   &__text {
     flex: 1;

@@ -77,7 +77,7 @@ $breakpoint-xs: 400px;
 .reviews {
   background: $cream;
   padding: 30px 50px;
-  height: 100vh;
+  min-height: 100vh;
 
   @media (max-width: 1600px) {
     padding: 30px 20px;
@@ -89,10 +89,12 @@ $breakpoint-xs: 400px;
 
   @media (max-width: 900px) {
     padding: 30px 20px;
+    min-height: calc(100vh - 90px);
   }
 
   @media (max-width: 600px) {
     padding: 30px 16px;
+    min-height: 100vh;
   }
 
   &__header {
@@ -187,7 +189,7 @@ $breakpoint-xs: 400px;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     align-items: stretch;
     flex-wrap: wrap;
     gap: 1.2rem;

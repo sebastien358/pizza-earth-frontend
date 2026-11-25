@@ -112,20 +112,24 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: auto;
+
     border-bottom: 1px solid #333;
-    padding: 10px 15px;
+    padding: 0 15px;
     justify-content: space-between;
     flex-wrap: wrap;
     overflow-x: visible;
     gap: 12px;
 
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: 90px;
     &__burger svg {
       width: 20px;
       height: 20px;
       cursor: pointer;
     }
-
 
     &__container {
       display: flex;
@@ -175,15 +179,26 @@
   RESPONSIVE MOBILE
 ===============*/
 
+$color-primary: #FF5A00;
+
 @media (max-width: 700px) {
   .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
-
-    padding: 15px 10px 15px 10px;
+    padding: 0 10px;
+    height: 70px;
 
     &__container__nav {
       display: none;
+    }
+
+    .active {
+      color: $color-primary;
     }
 
    &__total {
@@ -204,14 +219,14 @@
 
     &__burger__menu {
       background-color: white;
-      padding: 10px 15px 10px 10px;
+      padding: 10px 15px 10px 15px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 12px;
       position: absolute;
       border-radius: 10px;
-      top: 47px;
+      top: 51px;
       left: -8px;
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 

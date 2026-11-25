@@ -24,6 +24,7 @@ export interface TestimonialState {
     testimonialSearch: (term: string) => Promise<void>
     testimonialIsVisible: (id: number) => Promise<void>
     testimonialDelete: (id: number) => Promise<void>
+    resetTestimonials: () => void
 }
 
 export const useTestimonialAdminStore = create<TestimonialState>()(
@@ -33,14 +34,16 @@ export const useTestimonialAdminStore = create<TestimonialState>()(
         countTestimonials: 0,
         averageRating: 0,
         current: 1,
-        limit: 3,
+        limit: 0,
         pages: 0,
         term: "",
 
         getLimitTestimonials: () => {
-            if (window.innerWidth >= 1600) {
+            if (window.innerWidth >= 2000) {
+                set({ limit: 10 })
+            } else if (window.innerWidth >= 900) {
                 set({ limit: 6 })
-            } else if (window.innerWidth >= 600) {
+            } else if (window.innerWidth >= 700) {
                 set({ limit: 4 })
             } else {
                 set({ limit: 3 })
@@ -51,8 +54,15 @@ export const useTestimonialAdminStore = create<TestimonialState>()(
             get().getLimitTestimonials()
             try {
                 set({ isLoading: true })
-                const data = await axiosTestimonials(get().current, get().limit)
-                set({ testimonials: data.testimonials,
+                let data = await axiosTestimonials(get().current, get().limit)
+
+                if (get().current > data.pages && data.pages > 0) {
+                    set({ current: data.pages })
+                    data = await axiosTestimonials(get().current, get().limit)
+                }
+
+                set({
+                    testimonials: data.testimonials,
                     countTestimonials: data.count,
                     averageRating: data.averageRating,
                     pages: data.pages,
@@ -116,11 +126,16 @@ export const useTestimonialAdminStore = create<TestimonialState>()(
         testimonialDelete: async (id: number) => {
             try {
                 await axiosTestimonialRemove(id)
-                set((state) => ({ testimonials: state.testimonials.filter((t) => t.id !== id) }))
+                await get().testimonialList()
             } catch (err: any) {
                 console.error(err)
                 throw err
             }
+        },
+
+        resetTestimonials: async () => {
+            set({ term: "", current: 1 })
+            await get().testimonialList()
         }
 
     }), {

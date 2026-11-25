@@ -2,29 +2,32 @@
 
 import styles from './Sidebar.module.scss'
 
+import {useTestimonialAdminStore} from "@/store/admin/testimonialAdmin.store";
 import NavLink from "@/components/nav-link/NavLink";
 import {usePathname} from "next/navigation";
 import {useProductAdminStore} from "@/store/admin/productAdmin.store";
 import {useAuthStore} from "@/store/auth.store";
 import {useOrderAdminStore} from "@/store/admin/orderAdmin.store";
-import {useOrderStore} from "@/store/user/order.store";
+
 import {useState} from "react";
 import {Menu} from "lucide-react";
+import {useOrderStore} from "@/store/user/order.store";
 
 export default function Sidebar() {
 
     {/* Store Auth */}
+    const { isAdmin, isUser, user } = useAuthStore()
 
-    const { isAdmin, isUser } = useAuthStore()
-
-    {/* Store Admin Product - Order */}
-
+    {/* Store Admin Product */}
     const { resetProduct, countProducts } = useProductAdminStore()
 
-    const { totalRevenue } = useOrderAdminStore()
+    {/* Store Admin Order */}
+    const { resetOrders, totalRevenue, countOrders } = useOrderAdminStore()
+
+    {/* Store Admin Testimonial */}
+    const { resetTestimonials, countTestimonials } = useTestimonialAdminStore()
 
     {/* Gestion Routes Admin */}
-
     const adminLinks = [
         { name: 'Accueil', path: '/' },
         { name: 'Commandes', path: '/admin/commands' },
@@ -34,7 +37,8 @@ export default function Sidebar() {
     ]
 
     const adminPageConfig = {
-        '/admin/commands': { reset: null, count: 0 },
+        '/admin/commands': { reset: resetOrders, count: countOrders },
+        '/admin/testimonials': { reset: resetTestimonials, count: countTestimonials },
         '/admin/products': { reset: resetProduct, count: countProducts }
     }
 
@@ -42,22 +46,19 @@ export default function Sidebar() {
     const isActiveAdmin = adminPageConfig[pathname as keyof typeof adminPageConfig]
 
     {/* Store User Order */}
-
-    const { countOrders } = useOrderStore()
+    const { resetOrderUser, countUserOrders } = useOrderStore()
 
     {/* Gestion Routes User */}
-
     const userLinks = [
         { name: 'Accueil', path: '/' },
         { name: 'Commandes', path: '/user/orders' }
     ]
 
     const userPageConfig = {
-        '/user/orders': { reset: null, count: countOrders }
+        '/user/orders': { reset: resetOrderUser, count: countUserOrders },
     }
 
-    {/* Gtestion du menu version mobile */}
-
+    {/* Gestion du menu version mobile */}
     const [open, setOpen] = useState<boolean>(false)
 
     //////
@@ -101,7 +102,7 @@ export default function Sidebar() {
             {/* Liens Sidebar */}
 
             <div className={styles['admin-sidebar__container']}>
-                <h2>{isAdmin() ? 'Admin' : 'Client'}</h2>
+                <h2>{isAdmin() ? 'PIZZA EARTH' : `${user?.firstname} ${user?.lastname}`}</h2>
                 {isAdmin() && (
                     <div className={styles['admin-sidebar__total']}>
                         <span>Total du jour</span>

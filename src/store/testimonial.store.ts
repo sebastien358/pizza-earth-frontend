@@ -107,8 +107,8 @@ export const useTestimonialStore = create<TestimonialState>()(
                     formData.append('picture', data.picture)
                 }
 
-                const newReview = await axiosTestimonialAdd(formData)
-                set({ testimonials: [...get().testimonials, newReview], successMessage: 'Ton avis a été envoyé, la Terre te dit merci.' })
+                await axiosTestimonialAdd(formData)
+                set({ successMessage: 'Ton avis a été envoyé, la Terre te dit merci.' })
             } catch (err: any) {
                 set({ errorMessage: 'Oups, ton avis n\'a pas pu être envoyé' })
                 throw err

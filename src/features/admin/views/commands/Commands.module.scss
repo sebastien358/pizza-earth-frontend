@@ -25,9 +25,11 @@ $green: #1a7a1a;
 
   @media (max-width: 900px) {
     padding: 30px 20px;
+    min-height: calc(100vh - 90px);
   }
 
   @media (max-width: 600px) {
+    min-height: 100vh;
     padding: 30px 16px;
   }
 }
@@ -109,7 +111,7 @@ $green: #1a7a1a;
 
 .orders__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1.2rem;
 
   @media (max-width: 1600px) {

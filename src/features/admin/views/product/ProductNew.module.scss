@@ -40,11 +40,11 @@ $breakpoint-xs: 400px;
   padding: 20px 20px;
 
   @include respond(md) {
-    padding: 60px 20px 0 20px;
+    padding: 60px 20px 60x 20px;
   }
 
   @include respond(sm) {
-    padding: 30px 16px 0 16px;
+    padding: 30px 16px 30px 16px;
   }
 
   &__form {

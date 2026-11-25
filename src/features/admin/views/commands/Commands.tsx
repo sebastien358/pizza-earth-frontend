@@ -26,7 +26,20 @@ export default function Commands() {
 
     {/* Store Admin Order */}
 
-    const { orderList, orderSearch, orderChangeStatus, orderDelete, previousPage, followingPage, orders, term, current, pages, isLoading } = useOrderAdminStore()
+    const {
+        orderList,
+        orderSearch,
+        orderChangeStatus,
+        orderDelete,
+        previousPage,
+        followingPage,
+        orders,
+        term,
+        current,
+        pages,
+        isLoading,
+        countOrders
+    } = useOrderAdminStore()
 
     useEffect(() => {
         orderList()
@@ -73,7 +86,7 @@ export default function Commands() {
         <main className={styles['orders']}>
             <div className={styles['orders__header']}>
                 <h1 className={styles['orders__title']}>Les Commandes</h1>
-                <p className={styles['orders__subtitle']}>{orders.length} commande{orders.length > 1 ? 's' : ''}</p>
+                <p className={styles['orders__subtitle']}>{countOrders} commande{orders.length > 1 ? 's' : ''}</p>
             </div>
 
             <div className={styles['orders__search']}>

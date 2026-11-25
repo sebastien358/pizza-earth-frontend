@@ -37,6 +37,7 @@ export interface OrderState {
     orderSearch: (term: string) => Promise<void>
     orderDelete: (id: number) => Promise<void>
     orderChangeStatus: (id: number, status: string) => Promise<void>
+    resetOrders: () => void
 }
 
 export const useOrderAdminStore = create<OrderState>()(
@@ -56,16 +57,14 @@ export const useOrderAdminStore = create<OrderState>()(
         },
 
         getLimitOrders: () => {
-            if (window.innerWidth >= 1600) {
-                set({ limit: 9 })
-            } else if (window.innerWidth >= 1200) {
-                set({ limit: 6 })
+            if (window.innerWidth >= 2000) {
+                set({ limit: 10 })
             } else if (window.innerWidth >= 900) {
                 set({ limit: 6 })
             } else if (window.innerWidth >= 700) {
                 set({ limit: 4 })
             } else {
-                set({ limit: 4 })
+                set({ limit: 3 })
             }
         },
 
@@ -73,8 +72,19 @@ export const useOrderAdminStore = create<OrderState>()(
             get().getLimitOrders()
             try {
                 set({ isLoading: true })
-                const data = await axiosOrderList(get().current, get().limit)
-                set({ orders: data.orders, countOrders: data.count, pages: data.pages, isLoading: false })
+                let data = await axiosOrderList(get().current, get().limit)
+
+                if (get().current > data.pages && data.pages > 0) {
+                    set({ current: data.pages })
+                    data = await axiosOrderList(get().current, get().limit)
+                }
+
+                set({
+                    orders: data.orders,
+                    countOrders: data.count,
+                    pages: data.pages,
+                    isLoading: false
+                })
                 get().orderTotalRevenue()
             } catch (err: any) {
                 set({ isLoading: false })
@@ -120,7 +130,9 @@ export const useOrderAdminStore = create<OrderState>()(
                     await get().orderList()
                     return
                 }
+
                 if (trimmed) set({ isLoading: true, term: trimmed })
+
                 const data = await axiosOrderSearch(get().term ?? "")
                 set({ orders: data.orders, isLoading: false })
             } catch (err: any) {
@@ -133,9 +145,7 @@ export const useOrderAdminStore = create<OrderState>()(
         orderDelete: async (id: number) => {
             try {
                 await axiosOrderDelete(id)
-                set((state) => ({
-                    orders: state.orders.filter((o) => o.id !== id)
-                }))
+                await get().orderList()
             } catch (err: any) {
                 console.error(err)
                 throw err
@@ -150,7 +160,12 @@ export const useOrderAdminStore = create<OrderState>()(
                 console.error(err)
                 throw err
             }
-        }
+        },
+
+        resetOrders: async () => {
+            set({ term: "", current: 1 })
+            await get().orderList()
+        },
 
     }), {
         name: 'order-admin-state',

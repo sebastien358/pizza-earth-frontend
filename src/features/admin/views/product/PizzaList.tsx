@@ -3,12 +3,12 @@
 import styles from "./PizzaList.module.scss";
 
 import {useProductAdminStore} from "@/store/admin/productAdmin.store";
-import {useEffect, useMemo} from "react";
 import {useCategoryStore} from "@/store/category.store";
-import Link from "next/link";
-import Image from "next/image";
 import InputSearch from "@/components/input-search/InputSearch";
 import Pagination from "@/components/pagination/Pagination";
+import {useEffect, useMemo} from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductList() {
 
@@ -20,11 +20,22 @@ export default function ProductList() {
         categoryList()
     }, [categoryList]);
 
-    console.log(categories)
-
     {/* Store Product */}
 
-    const { productsList, productSearch, previousPage, followingPage, term, current, pages, publishedProduct, deleteProduct, products, isLoading } = useProductAdminStore()
+    const {
+        productsList,
+        productSearch,
+        previousPage,
+        followingPage,
+        publishedProduct,
+        deleteProduct,
+        countProducts,
+        products,
+        isLoading,
+        term,
+        current,
+        pages
+    } = useProductAdminStore()
 
     useEffect(() => {
         productsList()
@@ -67,7 +78,7 @@ export default function ProductList() {
                 <div className={styles.header}>
                     <div>
                         <h1>Les Pizzas</h1>
-                        <p>{products.length} pizzas</p>
+                        <p>{countProducts} pizzas</p>
                     </div>
                     <Link href={"/admin/products/form"} className={styles.addBtn}>+ Ajout Pizza</Link>
                 </div>

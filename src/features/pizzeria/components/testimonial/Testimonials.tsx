@@ -9,7 +9,7 @@ import {useEffect} from "react";
 import Image from "next/image";
 
 export default function Reviews() {
-    const { testimonialsList, previousPage, followingPage, testimonials, current, pages, countTestimonials, averageRating } = useTestimonialStore()
+    const { testimonialsList, previousPage, followingPage, testimonials, current, pages, countTestimonials, averageRating, isLoadingTestimonial } = useTestimonialStore()
 
     useEffect(() => {
         testimonialsList()
@@ -35,39 +35,50 @@ export default function Reviews() {
                     </div>
                 </header>
 
-                <ul className={styles['reviews__list']}>
-                    {testimonials?.map((r: any) => (
-                        <li key={r.id} className={styles['review']}>
-                            <span className={styles['review__quote']} aria-hidden="true">“</span>
+                {isLoadingTestimonial ? (
+                    <div className={styles['reviews-wrapper']}>
+                        <span className={styles['reviews-wrapper__loader']}></span>
+                    </div>
+                ) : !isLoadingTestimonial && testimonials.length > 0 ? (
 
-                            <div className={styles['review__stars']} aria-label={`${r.rating} sur 5`}>
-                                {'★'.repeat(r.rating)}
-                                <span className={styles['review__starsOff']}>
+                    <ul className={styles['reviews__list']}>
+                        {testimonials?.map((r: any) => (
+                            <li key={r.id} className={styles['review']}>
+                                <span className={styles['review__quote']} aria-hidden="true">“</span>
+
+                                <div className={styles['review__stars']} aria-label={`${r.rating} sur 5`}>
+                                    {'★'.repeat(r.rating)}
+                                    <span className={styles['review__starsOff']}>
                                     {'★'.repeat(5 - r.rating)}
                                 </span>
-                            </div>
-
-                            <p className={styles['review__text']}>{r.message}</p>
-
-                            <footer className={styles['review__footer']}>
-                                {r.pictures?.length > 0 ? (
-                                    <div className={styles['review__avatar']}>
-                                        <Image src={r?.pictures?.[0]?.url} alt={"Image client"} width={40} height={40} />
-                                    </div>
-                                ) : (
-                                    <div className={styles['review__avatar']}>
-                                        {r.name?.[0] ?? '?'}
-                                    </div>
-                                )}
-                                <div className={styles['review__author']}>
-                                    <span className={styles['review__name']}>{r.name}</span>
-                                    <span className={styles['review__verified']}>✓ Client vérifié</span>
                                 </div>
-                                <span className={styles['review__pizza']}>🍕 {r.pizza}</span>
-                            </footer>
-                        </li>
-                    ))}
-                </ul>
+
+                                <p className={styles['review__text']}>{r.message}</p>
+
+                                <footer className={styles['review__footer']}>
+                                    {r.pictures?.length > 0 ? (
+                                        <div className={styles['review__avatar']}>
+                                            <Image src={r?.pictures?.[0]?.url} alt={"Image client"} width={40} height={40} />
+                                        </div>
+                                    ) : (
+                                        <div className={styles['review__avatar']}>
+                                            {r.name?.[0] ?? '?'}
+                                        </div>
+                                    )}
+                                    <div className={styles['review__author']}>
+                                        <span className={styles['review__name']}>{r.name}</span>
+                                        <span className={styles['review__verified']}>✓ Client vérifié</span>
+                                    </div>
+                                    <span className={styles['review__pizza']}>🍕 {r.pizza}</span>
+                                </footer>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <div className={styles['review__empty']}>
+                        <p>Aucune commande dans ce status pour le moment.</p>
+                    </div>
+                )}
                 {pages > 1 && (
                     <Pagination
                         current={current}

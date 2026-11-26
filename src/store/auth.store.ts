@@ -2,6 +2,15 @@ import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
 import {axiosLogin, axiosMe, axiosRegister, axiosUserExisted} from "@/shared/services/auth.service";
 
+export interface RequestFormData {
+    email: string
+}
+
+export interface ResetFormData {
+    password: string
+    passwordConfirm: string
+}
+
 export interface LoginFormData {
     email: string
     password: string
@@ -40,6 +49,8 @@ export interface AuthState {
     login: (data: LoginFormData) => Promise<void>
     infoMe: () => Promise<void>
     registration: (data: RegisterFormData) => Promise<void>
+    requestPassword: (data: RequestFormData) => Promise<void>
+    resetPassword: (data: ResetFormData) => Promise<void>
     isAdmin: () => boolean
     isUser: () => boolean
     logout: () => void
@@ -109,6 +120,26 @@ export const useAuthStore =  create<AuthState>()(
                 } else {
                     set({ errorMessage: 'Une erreur est survenue'})
                 }
+                throw err
+            }
+        },
+
+        requestPassword: async (data: RequestFormData) => {
+            try {
+                console.log(data)
+                set({ successMessage: 'Un mail de résilation vous a été envoyé'})
+            } catch (err: any) {
+                set({ errorMessage: 'Une erreur est survenue'})
+                throw err
+            }
+        },
+
+        resetPassword: async (data: ResetFormData) => {
+            try {
+                console.log(data)
+                set({ successMessage: 'Ton mot de passe a bien été modifié, tu peux te connecter.' })
+            } catch (err: any) {
+                set({ errorMessage: 'Une erreur est survenue'})
                 throw err
             }
         },

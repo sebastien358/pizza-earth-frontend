@@ -105,7 +105,7 @@ export default function Login() {
                                 <input {...register('remember')} type="checkbox" name="terms" />
                                 <span>Se souvenir de moi</span>
                             </label>
-                            <a href="/mot-de-passe-oublie">Mot de passe oublié ?</a>
+                            <Link href="/reset-password">Mot de passe oublié ?</Link>
                         </div>
 
                         {successMessage && <p className={styles['success-message']}>{successMessage}</p>}

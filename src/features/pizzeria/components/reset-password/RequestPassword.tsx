@@ -19,11 +19,11 @@ export default function RequestPassword() {
         resolver: zodResolver(schema)
     })
 
-    const { resetSuccessMessage, resetErrorMessage, successMessage, errorMessage } = useAuthStore()
+    const { requestPassword, resetSuccessMessage, resetErrorMessage, successMessage, errorMessage } = useAuthStore()
 
     async function onSubmit(data: RequestFormData) {
         try {
-            console.log(data)
+            await requestPassword(data)
             handleSuccess()
         } catch (err: any) {
             handleError()

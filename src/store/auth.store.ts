@@ -1,6 +1,12 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosLogin, axiosMe, axiosRegister, axiosUserExisted} from "@/shared/services/auth.service";
+import {
+    axiosLogin,
+    axiosMe,
+    axiosRegister,
+    axiosRequestPassword, axiosResetPassword,
+    axiosUserExisted
+} from "@/shared/services/auth.service";
 
 export interface RequestFormData {
     email: string
@@ -50,7 +56,7 @@ export interface AuthState {
     infoMe: () => Promise<void>
     registration: (data: RegisterFormData) => Promise<void>
     requestPassword: (data: RequestFormData) => Promise<void>
-    resetPassword: (data: ResetFormData) => Promise<void>
+    resetPassword: (data: ResetFormData, token: string) => Promise<void>
     isAdmin: () => boolean
     isUser: () => boolean
     logout: () => void
@@ -112,7 +118,7 @@ export const useAuthStore =  create<AuthState>()(
         registration: async (data: RegisterFormData) => {
             try {
                 await axiosRegister(data)
-                set({ successMessage: 'L\inscription a réussie', errorMessage: null })
+                set({ successMessage: 'L\'inscription a réussie ✨', errorMessage: null })
             } catch (err: any) {
                 const apiError = err.response.data
                 if (apiError.type === 'ERROR_USER_EXISTING') {
@@ -126,20 +132,30 @@ export const useAuthStore =  create<AuthState>()(
 
         requestPassword: async (data: RequestFormData) => {
             try {
-                console.log(data)
+                await axiosRequestPassword(data)
                 set({ successMessage: 'Un mail de résilation vous a été envoyé'})
             } catch (err: any) {
-                set({ errorMessage: 'Une erreur est survenue'})
+                const apiError = err.response.data
+                if (apiError.type === "ERROR_REQUEST_PASSWORD") {
+                    set({ errorMessage: apiError.message })
+                } else {
+                    set({ errorMessage: 'Une erreur est survenue'})
+                }
                 throw err
             }
         },
 
-        resetPassword: async (data: ResetFormData) => {
+        resetPassword: async (data: ResetFormData, token: string) => {
             try {
-                console.log(data)
-                set({ successMessage: 'Ton mot de passe a bien été modifié, tu peux te connecter.' })
+                await axiosResetPassword(data, token)
+                set({ successMessage: 'Ton mot de passe a bien été modifié ✨' })
             } catch (err: any) {
-                set({ errorMessage: 'Une erreur est survenue'})
+                const apiError = err.response.data
+                if (apiError.type === "ERROR_RESET_PASSWORD") {
+                    set({ errorMessage: apiError.message })
+                } else {
+                    set({ errorMessage: 'Une erreur est survenue'})
+                }
                 throw err
             }
         },

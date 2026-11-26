@@ -22,7 +22,7 @@ export default function Login() {
 
     {/* Store Auth */}
 
-    const { isAdmin, isUser, login, successMessage, errorMessage, resetSuccessMessage, resetErrorMessage } = useAuthStore()
+    const { isAdmin, isUser, userExisted, login, successMessage, errorMessage, resetSuccessMessage, resetErrorMessage } = useAuthStore()
 
     {/* Store Cart */}
 
@@ -38,6 +38,7 @@ export default function Login() {
 
     async function onSubmit(data: LoginFormData) {
         try {
+            await userExisted(data)
             await login(data)
             handleSuccess()
         } catch (err: any) {

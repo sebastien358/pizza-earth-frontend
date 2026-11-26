@@ -27,6 +27,19 @@ axios.interceptors.response.use(
     }
 )
 
+export async function axiosUserExisted(data: LoginFormData) {
+    try {
+        const response = await axios.post(`${BASE_URL}/api/existed`, data)
+        if (response.status >= 200 && response.status < 300) {
+            return response.data
+        }
+        throw new Error(`Erreur vérification d'un compte utulisateur : ${response.status}`)
+    } catch (err: any) {
+        console.error(err)
+        throw err
+    }
+}
+
 export async function axiosMe() {
     try {
         const response = await axios.get(`${BASE_URL}/api/user/me`)

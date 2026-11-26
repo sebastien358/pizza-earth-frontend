@@ -48,7 +48,6 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
     font-weight: 500;
     margin: 0 auto;
   }
-
 }
 
 .container { width: 100%; max-width: 1100px; margin: 0 auto; }
@@ -106,9 +105,9 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
     padding: 2.5rem 0 2.5rem 0;
   }
 
-  .container { position: relative; z-index: 1; }
+  &__container { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto }
 
-  .eyebrow {
+  &__eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -126,7 +125,7 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
     }
   }
 
-  h1 {
+  &__title {
     margin: 0;
     font-size: clamp(2.8rem, 8vw, 4.8rem);
     font-weight: 700;
@@ -154,24 +153,26 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
       font-size: 0.9rem;
     }
   }
-}
 
-.stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.75rem;
-  margin: 1.75rem 0 0;
-  padding: 0;
-  list-style: none;
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
 
-  @media (max-width: 1200px) {
-    justify-content: center;
+    @media (max-width: 1200px) {
+      justify-content: center;
+    }
+
+    strong { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
+    small { font-size: 0.7rem; opacity: 0.9; }
   }
-
-  strong { display: block; font-size: 1.3rem; font-weight: 700; line-height: 1.1; }
-  small { font-size: 0.7rem; opacity: 0.9; }
 }
 
+
+// ---------- Stripe ----------
 .strip {
   padding: 0.55rem 1rem;
   background: $strip;
@@ -191,9 +192,8 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
   }
 }
 
-// ---------- En-tête de section (comme l’accueil) ----------
-.catalog {
-  font-family: 'Fredoka', sans-serif;
+// ---------- Pizzas Head ----------
+.pizza {
   padding: 4rem 0;
 
   @media (max-width: 1200px) {
@@ -207,238 +207,292 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
   @media (max-width: 600px) {
     padding: 2rem 16px;
   }
-}
 
-.section-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 1.75rem;
-  gap: 2rem;
-
-  &__eyebrow { margin: 0 0 0.35rem; color: $orange; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-  h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1;}
-  &__text {
-    max-width: 32ch;
-    margin: 0;
-    font-size: 0.92rem;
-    opacity: 0.75;
+  &__container {
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
-  @include md { flex-direction: column; align-items: center ;text-align: center; justify-content: center; gap: 0.75rem;
+  &__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 1.75rem;
+    gap: 2rem;
 
-  }
-}
+    &__eyebrow { margin: 0 0 0.35rem; color: $orange; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.1;}
+    &__text {
+      max-width: 32ch;
+      margin: 0;
+      font-size: 0.92rem;
+      opacity: 0.75;
+    }
 
-// ---------- Filtres ----------
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-
-  @media (max-width: 600px) {
-    justify-content: center;
-  }
-
-  button {
-    font-size: 14px;
-
-    @media (max-width: 600px) {
-      font-size: 11px;
+    @include md { flex-direction: column; align-items: center ;text-align: center; justify-content: center; gap: 0.75rem;
     }
   }
-}
 
-.chip {
-  cursor: pointer;
-  padding: 0.5rem 1.15rem;
-  border: 0;
-  border-radius: $radius-pill;
-  background: $white;
-  box-shadow: 0 1px 2px rgba($brown, 0.08);
-  font-size: 0.88rem;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-
-  &:hover { color: $orange; }
-  &.is-active { background: $brown; color: $white; }
-}
-
-// ---------- Grille ----------
-
-.grid-card {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  width: 100%;
-  list-style: none;
-
-  @include lg { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-  @include md { grid-template-columns: 1fr; }
-}
-
-
-.empty { padding: 3rem 0; text-align: center; opacity: 0.7; }
-
-// ---------- Carte (même composant que "Articles populaires") ----------
-.card {
-  display: flex;
-  flex-direction: column;
-  padding: 0.55rem;
-  border-radius: $radius;
-  box-shadow: $shadow;
-  transition: transform 0.3s, box-shadow 0.3s;
-  width: 100%;
-
-  &:hover { transform: translateY(-4px); box-shadow: 0 2px 6px rgba($brown, 0.06), 0 16px 34px rgba($brown, 0.14); }
-
-  &__media {
-    position: relative;
-    overflow: hidden;
-    border-radius: $radius-sm;
-    background: $cream;
+  &__filters {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
 
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      transition: transform 0.6s;
-      mix-blend-mode: multiply;
-      position: relative;
-      aspect-ratio: 4 / 3.2;
-      margin: 0 auto;
+    @media (max-width: 600px) {
+      justify-content: center;
+    }
 
-      @media (max-width: 1200px) {
-        width: 310px;
-        height: auto;
-        aspect-ratio: 1.6 / 1.3;
+    button {
+      font-size: 14px;
+
+      @media (max-width: 600px) {
+        font-size: 11px;
       }
     }
 
-    .info {
-      font-size: 12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: black;
-      opacity: 0.75;
-      color: #fff;
-      font-weight: 700;
-      top: 10px;
-      left: 10px;
-      position: absolute;
-      width: 55px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .chip {
+      cursor: pointer;
+      padding: 0.5rem 1.15rem;
+      border: 0;
+      border-radius: $radius-pill;
+      background: $white;
+      box-shadow: 0 1px 2px rgba($brown, 0.08);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+
+      &:hover { color: $orange; }
+      &.is-active { background: $brown; color: $white; }
+    }
+  }
+}
+
+// ---------- Pizzas Grille ----------
+
+.pizza-card {
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    list-style: none;
+
+    @include lg {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    @include md {
+      grid-template-columns: 1fr;
     }
   }
 
-  &:hover &__media img { transform: scale(1.05); }
+  &__card {
+    display: flex;
+    flex-direction: column;
+    padding: 0.55rem;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    &:hover {
+      transform: scale(1.025);
+    }
+  }
 
-  &__body {
+  &__media {
+    position: relative;
+  }
+
+  &__image {
+    position: relative;
+    background: $cream;
+    aspect-ratio: 4 / 3.2;
+    width: 100%;
+  }
+
+  &__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+    mix-blend-mode: multiply;
+  }
+
+  &__image img:hover {
+    transform: scale(1.05);
+  }
+
+  &__info {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: black;
+    opacity: 0.75;
+    color: #fff;
+    font-weight: 700;
+    top: 20px;
+    left: 20px;
+    position: absolute;
+    width: 55px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
     display: flex;
     flex-direction: column;
     flex: 1;
     padding: 0.9rem 0.6rem 0.6rem;
 
-    h3 { margin: 0 0 5px 0; font-size: 1.1rem; font-weight: 600; }
-    p { margin: 0; min-height: 2.9em; font-size: 0.85rem; opacity: 0.75; }
+    h3 {
+      margin: 0 0 5px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+
+      @media (max-width: 600px) {
+        font-size: 0.95rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      min-height: 2.9em;
+      font-size: 0.85rem;
+      opacity: 0.80;
+
+      @media (max-width: 600px) {
+        font-size: 0.78rem;
+      }
+    }
+
+    .separator {
+      margin: 0 0 1rem 0;
+      border-bottom: 1px solid $grey;
+      width: 100%;
+    }
   }
 
-  &__foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-  .price { font-size: 1.15rem; font-weight: 700; }
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
 
-  .separator {
-    margin: 0 0 1rem 0;
-    border-bottom: 1px solid $grey; width: 100%; }
+    .price {
+      font-size: 1.15rem;
+      font-weight: 700;
+
+      @media (max-width: 600px) {
+        font-size: 1rem;
+      }
+    }
+
+    .choose {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: $orange;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+
+      @media (max-width: 600px) {
+        font-size: 0.80rem;
+      }
+
+      &:hover {
+        color: $orange-dark;
+
+        svg {
+          transform: translateX(3px);
+        }
+      }
+
+      svg {
+        transition: transform 0.2s;
+      }
+    }
+  }
+
+  &__empty {
+    padding: 24rem 0 22rem 0;
+    text-align: center;
+    opacity: 0.7;
+    @media (max-width: 600px) {
+      padding: 9rem 0 9rem 0;
+    }
+
+    p {
+      font-size: 1rem;
+      @media (max-width: 600px) {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  &__lazyLoad {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 600px) {
+      margin-top: 15px;
+    }
+
+    .btn-load {
+      cursor: pointer;
+      border-radius: 6px;
+      background-color: $orange;
+      color: $white;
+      border: none;
+      font-weight: 900;
+      font-size: 11px;
+      padding: 14px 11px;
+      transition: all 200ms ease;
+
+      @media (max-width: 600px) {
+        padding: 12px 11px;
+      }
+
+      &:hover {
+        background-color: $orange-dark;
+        transform: translateY(-2px);
+      }
+    }
+  }
 }
 
-.choose {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: $orange;
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-decoration: none;
-  &:hover { color: $orange-dark; svg { transform: translateX(3px); } }
-  svg { transition: transform 0.2s; }
-}
 
+// ---------- Loader ----------
 
-// ---------- Button Load ----------
-.lazy-load {
-  font-family: 'Fredoka', sans-serif;
-  margin-top: 20px;
+.pizza-wrapper {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 24rem 0 22rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 600px) {
-    margin-top: 15px;
+    padding: 9rem 0 9rem 0;
   }
 
-  .btn-load {
-    cursor: pointer;
-    border-radius: 6px;
-    background-color: $orange;
-    color: $white;
-    border: none;
-    font-weight: 900;
-    font-size: 11px;
-    padding: 14px 11px;
-    transition: all 200ms ease;
-
-    @media (max-width: 600px) {
-      padding: 12px 11px;
-    }
-
-    &:hover { background-color: $orange-dark; transform: translateY(-2px); }
+  &__loader {
+    --color-1: #ff5a00;
+    --size: 1px;
+    width: calc(27 * var(--size));
+    height: calc(27 * var(--size));
+    border: calc(4 * var(--size)) solid var(--color-1);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
   }
-}
-
-.empty {
-  grid-column: 1 / -1;
-  background: #fff;
-  border-radius: 16px;
-  padding: 40px 20px;
-  text-align: center;
-  color: rgba($brown, 0.6);
-
-  p {
-    margin: 0;
-    font-size: 16px;
-  }
-}
-
-// ---------- Loader ----------
-
-.loader-container {
-  grid-column: 1 / -1;
-  width: 100%;
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loader {
-  --color-1: #ff5a00;
-  --size: 1px;
-  width: calc(27 * var(--size));
-  height: calc(27 * var(--size));
-  border: calc(4 * var(--size)) solid var(--color-1);
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
 }
 
 @keyframes rotation {
@@ -459,7 +513,7 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
   flex-wrap: wrap;
   gap: 1.5rem;
   margin-top: 4.5rem;
-  padding: 2.25rem 2.5rem;
+  padding: 2.7rem 2.5rem;
   border-radius: $radius;
   background: $brown;
   color: $white;
@@ -495,7 +549,7 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
 
   h2 {
     margin: 0;
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 600;
 
     @media (max-width: 1200px) {
@@ -507,7 +561,7 @@ $shadow: 0 2px 6px rgba($brown, 0.06), 0 10px 24px rgba($brown, 0.08);
     }
   }
 
-  p { margin: 0.3rem 0 0 0; font-size: 0.92rem; opacity: 0.8;
+  p { margin: 0.8rem 0 0 0; font-size: 1rem; opacity: 0.8;
 
     @media (max-width: 1200px) {
       margin: 0.5rem 0 0 0;

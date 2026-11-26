@@ -8,13 +8,16 @@ import Link from "next/link";
 import Image from "next/image";
 import {useAuthStore} from "@/store/auth.store";
 import {useCartStore} from "@/store/cart.store";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function Header() {
 
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => setMounted(true), [])
+
     {/* Store Auth */}
 
-    const { isAdmin, isUser , logout} = useAuthStore()
+    const { isAdmin, isUser , logout } = useAuthStore()
 
     {/* Store Auth */}
 
@@ -41,6 +44,11 @@ export default function Header() {
         logout()
     }
 
+    const cartCount = mounted ? cart.length : 0
+    const total = mounted ? totalCart() : 0
+    const admin = mounted ? isAdmin() : false
+    const user = mounted ? isUser() : false
+
     return (
         <header className={styles['header']}>
             <section className={styles['header__inner']}>
@@ -63,18 +71,19 @@ export default function Header() {
                     <NavLink href="/" dropdown>Menu</NavLink>
                     <NavLink href="/pizzas" dropdown>Pizzas</NavLink>
                     <NavLink href="/emplacement" dropdown>Emplacements</NavLink>
-                    {/* <Link href="#apropos">À propos</Link> */}
+                    <NavLink href="/contact" dropdown>Contact</NavLink>
+                    <NavLink href="/about" dropdown>À propos</NavLink>
 
                     <div className={styles['auth']}>
                         <LogIn className={styles['logo-login']} strokeWidth={3} size={17}/>
                         <nav className={`${styles['auth__menu']}`}>
-                            {isAdmin() ? (
+                            {admin ? (
                                 <>
                                     <Link href="/admin/commands">Commandes</Link>
                                     <Link onClick={() => logout()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                 </>
 
-                            ) : isUser() ? (
+                            ) : user ? (
                                 <>
                                     <Link href="/user/orders">Commandes</Link><Link onClick={() => logout()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                 </>
@@ -90,12 +99,12 @@ export default function Header() {
                     <div className={styles['shopping-cart']}>
                         <div className={styles['shopping-cart__trigger']}>
                             <Link href={"#"}><ShoppingCart size={17} /></Link>
-                            <span className={styles['shopping-cart__badge']}>{cart.length}</span>
+                            <span className={styles['shopping-cart__badge']}>{cartCount}</span>
                         </div>
 
                         <div className={styles['shopping-cart__menu']}>
                             <ul className={styles['shopping-cart__list']}>
-                                {cart.length > 0 ? (
+                                {cartCount > 0 ? (
                                     <>
                                         {cart.map((c) =>
                                             <li key={c.id} className={styles['shopping-cart__item']}>
@@ -116,7 +125,7 @@ export default function Header() {
                             </ul>
                             <div className={styles['shopping-cart__item__total']}>
                                 <span>Total</span>
-                                <strong>{totalCart()} €</strong>
+                                <strong>{total} €</strong>
                             </div>
                             <Link href="/cart" className={styles['shopping-cart__item__cta']}>
                                 Voir le panier →
@@ -136,13 +145,13 @@ export default function Header() {
                     <button className={styles['header-mobile__cart']} onClick={() => openMenuCart()}>
                         <ShoppingBag size={24} />
                         <span className={styles['header-mobile__cart__badge']}>
-                            {cart.length}
+                            {cartCount}
                         </span>
 
                         {menuCart && (
                             <section className={styles['header-mobile__cart__menu']}>
                                 <ul className={styles['header-mobile__cart__list']}>
-                                    {cart.length > 0 ? (
+                                    {cartCount> 0 ? (
                                         <>
                                             {cart.map((c) =>
                                                 <li key={c.id} className={styles['header-mobile__cart__item']}>
@@ -168,7 +177,7 @@ export default function Header() {
                                 </ul>
                                 <div className={styles['header-mobile__cart__item__total']}>
                                     <span>Total</span>
-                                    <strong>{totalCart().toFixed(2)} €</strong>
+                                    <strong>{total.toFixed(2)} €</strong>
                                 </div>
                                 <Link href="/cart" className={styles['header-mobile__cart__item__cta']}>
                                     Voir le panier →
@@ -188,15 +197,16 @@ export default function Header() {
                                 <NavLink href="/" dropdown>Menu</NavLink>
                                 <NavLink href="/pizzas" dropdown>Pizzas</NavLink>
                                 <NavLink href="/emplacement" dropdown>Emplacements</NavLink>
-                                {/* <Link href="#apropos">À propos</Link> */}
+                                <NavLink href="/contact" dropdown>Contact</NavLink>
+                                <NavLink href="/about" dropdown>À propos</NavLink>
 
-                                {isAdmin() ? (
+                                {admin ? (
                                     <>
                                         <Link href="/admin/commands">Commandes</Link>
                                         <Link onClick={() => logout()} className={styles['logout']} href="/login">Se Déconnecter</Link>
                                     </>
 
-                                ) : isUser() ? (
+                                ) : user ? (
                                     <>
                                         <Link href="/user/orders">Commandes</Link>
                                         <Link onClick={() => disconnected()} className={styles['logout']} href="/login">Se Déconnecter</Link>

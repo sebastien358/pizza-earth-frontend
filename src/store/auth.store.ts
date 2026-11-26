@@ -1,6 +1,6 @@
 import {create} from "zustand/react";
 import {persist} from "zustand/middleware";
-import {axiosLogin, axiosMe, axiosRegister} from "@/shared/services/auth.service";
+import {axiosLogin, axiosMe, axiosRegister, axiosUserExisted} from "@/shared/services/auth.service";
 
 export interface LoginFormData {
     email: string
@@ -34,8 +34,9 @@ export interface AuthState {
     successMessage: string | null
     errorMessage: string | null
     hasHydrated: boolean
-    setHasHydrated: (state: boolean) => void
 
+    setHasHydrated: (state: boolean) => void
+    userExisted: (data: LoginFormData) => Promise<void>
     login: (data: LoginFormData) => Promise<void>
     infoMe: () => Promise<void>
     registration: (data: RegisterFormData) => Promise<void>
@@ -55,6 +56,20 @@ export const useAuthStore =  create<AuthState>()(
         hasHydrated: false,
 
         setHasHydrated: (state) => set({ hasHydrated: state }),
+
+        userExisted: async (data: LoginFormData) => {
+            try {
+                await axiosUserExisted(data)
+            } catch (err: any) {
+                const apiError = err.response.data
+                if (apiError.type === 'ERROR_USER_EXISTING') {
+                    set({ errorMessage: apiError.message })
+                } else {
+                    set({ errorMessage: 'Une erreur est survenue'})
+                }
+                throw err
+            }
+        },
 
         login: async (data: LoginFormData) => {
             try {
@@ -88,7 +103,12 @@ export const useAuthStore =  create<AuthState>()(
                 await axiosRegister(data)
                 set({ successMessage: 'L\inscription a réussie', errorMessage: null })
             } catch (err: any) {
-                set({ errorMessage: 'L\'inscription a échouée'})
+                const apiError = err.response.data
+                if (apiError.type === 'ERROR_USER_EXISTING') {
+                    set({ errorMessage: apiError.message })
+                } else {
+                    set({ errorMessage: 'Une erreur est survenue'})
+                }
                 throw err
             }
         },

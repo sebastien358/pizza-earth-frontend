@@ -1,0 +1,370 @@
+$color-primary: #FF5A00;
+$color-primary-dark: #b84712;
+$color-primary-darker: #9C2A00;
+$color-cream: #FFF5E6;
+$color-cream-light: #FFF8EC;
+$color-white: #FFFFFF;
+$color-text: #2B1200;
+$color-text-light: #6B4A2F;
+$color-star: #F5A623;
+$color-yellow: #FFD93D;
+$color-brown: #5C2E0E;
+
+$bg-white: white;
+$bg-footer: #3B1E0F;
+
+$font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+$shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+$container: 1100px;
+
+$breakpoint-macbook: 1600px;
+$breakpoint-lg: 1200px;
+$breakpoint-md: 900px;
+$breakpoint-sm: 600px;
+$breakpoint-xs: 400px;
+
+@mixin respond($bp) {
+  @if $bp == macbook {
+    @media (max-width: $breakpoint-macbook) { @content; }
+  }
+  @if $bp == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @if $bp == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @if $bp == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @if $bp == xs {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+}
+
+@mixin wrap {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @include respond(sm) { padding: 0 16px; }
+}
+
+@mixin pill($bg, $color, $border: transparent) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: $bg;
+  color: $color;
+  border: 2px solid $border;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+  &:hover { transform: translateY(-3px); }
+  @include respond(sm) { padding: 12px 22px; font-size: 14px; }
+}
+
+.contact {
+  margin-top: 75px;
+  background: $color-cream;
+  color: $color-text;
+  font-family: 'Fredoka', $font-main;
+}
+
+// ---------- HERO ----------
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: $color-primary;
+  color: $color-white;
+  padding: 100px 0 140px;
+
+  @include respond(md) { padding: 70px 0 110px; text-align: center; }
+  @include respond(sm) { padding: 50px 0 90px; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -140px;
+    right: -120px;
+    width: 460px;
+    height: 460px;
+    border-radius: 50%;
+    background: rgba($color-white, 0.08);
+
+    @include respond(sm) { width: 300px; height: 300px; top: -100px; right: -100px; }
+  }
+
+  &__inner { @include wrap; position: relative; z-index: 1; }
+
+  &__eyebrow {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba($color-white, 0.2);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    @include respond(sm) { font-size: 11px; padding: 5px 12px; }
+  }
+
+  &__title {
+    max-width: 640px;
+    margin: 20px 0 16px;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    line-height: 1.05;
+
+    @include respond(md) { margin-left: auto; margin-right: auto; }
+    @include respond(sm) { margin-top: 16px; margin-bottom: 12px; }
+  }
+
+  &__accent { color: $color-yellow; }
+
+  &__text {
+    max-width: 480px;
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.6;
+
+    @include respond(md) { margin-left: auto; margin-right: auto; }
+    @include respond(sm) { font-size: 16px; }
+  }
+}
+
+// ---------- INFOS + FORMULAIRE ----------
+.main {
+  margin-top: -70px;
+  position: relative;
+  z-index: 2;
+
+  @include respond(sm) { margin-top: -50px; }
+
+  &__inner {
+    @include wrap;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    align-items: start;
+
+    @include respond(md) { grid-template-columns: 1fr; }
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: $color-white;
+    border-radius: $radius-md;
+    box-shadow: $shadow-card;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover { transform: translateY(-4px); box-shadow: $shadow-hover; }
+
+    @include respond(sm) { padding: 14px 16px; gap: 12px; &:hover { transform: none; } }
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: $color-cream;
+    color: $color-primary;
+    border-radius: 50%;
+
+    @include respond(sm) { width: 42px; height: 42px; }
+  }
+
+  &__body { display: flex; flex-direction: column; min-width: 0; }
+  &__title { font-size: 16px; color: $color-text; }
+
+  &__value {
+    font-size: 14px;
+    color: $color-text-light;
+    overflow-wrap: anywhere;
+  }
+}
+
+.hours {
+  padding: 24px;
+  background: $bg-footer;
+  color: $color-white;
+  border-radius: $radius-md;
+
+  @include respond(sm) { padding: 20px 16px; }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 18px;
+
+    svg { color: $color-primary; }
+  }
+
+  &__list { list-style: none; margin: 0; padding: 0; }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid rgba($color-white, 0.12);
+
+    &:last-child { border-bottom: none; }
+    span:last-child { font-weight: 800; color: $color-yellow; }
+  }
+}
+
+.form {
+  padding: 36px 32px 32px;
+  background: $color-white;
+  border-top: 5px solid $color-primary;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+
+  @include respond(md) { padding: 28px 22px; text-align: center; }
+  @include respond(sm) { padding: 24px 16px; border-radius: $radius-md; }
+
+  &__eyebrow {
+    color: $color-primary;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 6px 0 24px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: $color-text;
+
+    @include respond(sm) { margin-bottom: 18px; }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left; // les champs restent alignés à gauche
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @include respond(sm) { grid-template-columns: 1fr; }
+  }
+
+  &__field { display: flex; flex-direction: column; gap: 6px; }
+  &__label { font-size: 13px; font-weight: 800; color: $color-text; }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: 14px 16px;
+    font: inherit;
+    font-size: 15px;
+    color: $color-text;
+    background: $color-cream;
+    border: 2px solid transparent;
+    border-radius: $radius-sm;
+    transition: border-color 0.2s ease, background 0.2s ease;
+
+    &::placeholder { color: $color-text-light; opacity: 0.7; }
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      background: $color-white;
+    }
+  }
+
+  &__textarea { resize: vertical; min-height: 130px; }
+
+  &__submit {
+    @include pill($color-primary, $color-white);
+    margin-top: 4px;
+    box-shadow: 0 6px 20px rgba($color-primary, 0.3);
+
+    &:hover { background: $bg-footer; }
+
+    @include respond(sm) { width: 100%; }
+  }
+
+  &__success {
+    padding: 22px;
+    margin: 0;
+    background: $color-cream;
+    color: $color-text;
+    font-weight: 600;
+    line-height: 1.6;
+    border-radius: $radius-md;
+  }
+}
+
+// ---------- CTA EMPLACEMENT ----------
+.visit {
+  @include wrap;
+  padding-top: 70px;
+  padding-bottom: 100px;
+
+  @include respond(md) { padding-top: 50px; padding-bottom: 70px; }
+  @include respond(sm) { padding-bottom: 50px; }
+
+  &__card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 36px 40px;
+    background: $color-primary;
+    color: $color-white;
+    border-radius: $radius-lg;
+
+    @include respond(md) { flex-direction: column; text-align: center; padding: 30px 22px; }
+    @include respond(sm) { padding: 26px 16px; border-radius: $radius-md; }
+  }
+
+  &__title { margin: 0 0 4px; font-size: clamp(1.4rem, 3vw, 2rem); }
+  &__sub { margin: 0; opacity: 0.95; }
+
+  &__btn {
+    @include pill($color-white, $color-primary);
+    &:hover { background: $bg-footer; color: $color-white; }
+
+    @include respond(sm) { width: 100%; }
+  }
+}

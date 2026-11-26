@@ -277,7 +277,7 @@ $breakpoint-xs: 400px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    text-align: left; // les champs restent alignés à gauche
+    text-align: left;
   }
 
   &__row {
@@ -289,6 +289,11 @@ $breakpoint-xs: 400px;
   }
 
   &__field { display: flex; flex-direction: column; gap: 6px; }
+  &__field .error-field { font-size: 0.9rem; color: $color-text;
+    @include respond(sm) {
+      font-size: 0.8rem;
+    }
+  }
   &__label { font-size: 13px; font-weight: 800; color: $color-text; }
 
   &__input,
@@ -328,10 +333,30 @@ $breakpoint-xs: 400px;
     padding: 22px;
     margin: 0;
     background: $color-cream;
-    color: $color-text;
+    color: green;
     font-weight: 600;
     line-height: 1.6;
     border-radius: $radius-md;
+    font-size: 1rem;
+
+    @include respond(sm) {
+      font-size: 0.9rem;
+    }
+  }
+
+  &__error {
+    padding: 22px;
+    margin: 0;
+    background: $color-cream;
+    color: $color-primary;
+    font-weight: 600;
+    line-height: 1.6;
+    border-radius: $radius-md;
+    font-size: 1rem;
+
+    @include respond(sm) {
+      font-size: 0.9rem;
+    }
   }
 }
 

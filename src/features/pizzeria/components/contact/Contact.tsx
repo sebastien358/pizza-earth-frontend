@@ -1,9 +1,15 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { MapPin, Phone, Mail, Clock, Send, ArrowRight } from 'lucide-react';
 import styles from './Contact.module.scss';
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod"
+import {ContactFormData, useContactSTore} from "@/store/contact.store";
+
+const DELAY_TIMEOUT = 2000
 
 const INFOS = [
     { icon: MapPin, title: 'Adresse', value: '12 Rue des Lilas, 27250 Rugles' },
@@ -13,21 +19,61 @@ const INFOS = [
 
 // À adapter avec tes vrais horaires
 const HOURS = [
-    { days: 'Mardi – jeudi', time: '18h – 22h' },
-    { days: 'Vendredi – samedi', time: '18h – 23h' },
-    { days: 'Dimanche', time: '18h – 22h' },
+    { days: 'Lundi – jeudi', time: '11h30h – 22h00' },
+    { days: 'Vendredi – samedi', time: '11h30h – 23h00' },
+    { days: 'Dimanche', time: '12h00 – 21h30' },
 ];
 
 const SUBJECTS = ['Question sur une commande', 'Réclamation', 'Partenariat', 'Autre'];
 
-export default function Contact() {
-    const [sent, setSent] = useState(false);
+const schema = z.object({
+    name: z.string().trim().min(3, "3 caractères minimum").max(50, { message: "50 caractères max" }),
+    email: z.email({ message: "Email invalide" }),
+    subject: z.string().min(1, { message: "Choisis un sujet" }),
+    message: z.string().trim().min(30, { message: "30 caractères minimum" }).max(300, { message: "300 caractères max" }),
+})
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // TODO: appel API
+export default function Contact() {
+
+    {/* Gestion Form */}
+
+    const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({
+        resolver: zodResolver(schema)
+    })
+
+    {/* Store Contact */}
+
+    const { contactAdd, resetSuccessMessage, resetErrorMessage, successMessage, errorMessage } = useContactSTore()
+
+    {/* Gestion Message De Confirmation */}
+
+    const [sent, setSent] = useState<boolean>(false);
+
+    {/* Gestion Soumission Du Formulaire */}
+
+    async function onSubmit(data: ContactFormData) {
+        try {
+            await contactAdd(data)
+            handleSuccess()
+        } catch (err: any) {
+            handleError()
+        }
+    }
+
+    function handleSuccess() {
         setSent(true);
-    };
+        setTimeout(() => {
+            resetSuccessMessage()
+            setSent(false);
+            reset()
+        }, DELAY_TIMEOUT)
+    }
+
+    function handleError() {
+        setTimeout(() => {
+            resetErrorMessage()
+        }, DELAY_TIMEOUT)
+    }
 
     return (
         <main className={styles['contact']}>
@@ -78,37 +124,39 @@ export default function Contact() {
                         <h2 className={styles['form__title']}>Envoyer un message</h2>
 
                         {sent ? (
-                            <p className={styles['form__success']}>
-                                Message envoyé. Nous vous répondons dans les plus brefs délais.
-                            </p>
+                            <>
+                                <p className={styles['form__success']}>{successMessage}</p>
+                                <p className={styles['form__error']}>{errorMessage}</p>
+                            </>
                         ) : (
-                            <form className={styles['form__body']} onSubmit={onSubmit}>
+                            <form className={styles['form__body']} onSubmit={handleSubmit(onSubmit)}>
                                 <div className={styles['form__row']}>
                                     <div className={styles['form__field']}>
                                         <label className={styles['form__label']} htmlFor="contact-name">Nom</label>
-                                        <input id="contact-name" type="text" className={styles['form__input']} placeholder="Sophie L." maxLength={50} required />
+                                        <input {...register('name')} id="contact-name" type="text" className={styles['form__input']} placeholder="Sophie L." />
+                                        {errors && <small className={styles['error-field']}>{errors?.name?.message}</small>}
                                     </div>
                                     <div className={styles['form__field']}>
                                         <label className={styles['form__label']} htmlFor="contact-email">E-mail</label>
-                                        <input id="contact-email" type="email" className={styles['form__input']} placeholder="sophie@email.com" required />
+                                        <input {...register('email')}  id="contact-email" type="email" className={styles['form__input']} placeholder="sophie@email.com" />
+                                        {errors && <small className={styles['error-field']}>{errors?.email?.message}</small>}
                                     </div>
                                 </div>
-
                                 <div className={styles['form__field']}>
                                     <label className={styles['form__label']} htmlFor="contact-subject">Sujet</label>
-                                    <select id="contact-subject" className={styles['form__input']} required defaultValue="">
+                                    <select {...register('subject')} id="contact-subject" className={styles['form__input']} defaultValue="">
                                         <option value="" disabled>Choisissez un sujet</option>
                                         {SUBJECTS.map((s) => <option key={s}>{s}</option>)}
                                     </select>
+                                    {errors && <small className={styles['error-field']}>{errors?.subject?.message}</small>}
                                 </div>
-
                                 <div className={styles['form__field']}>
                                     <label className={styles['form__label']} htmlFor="contact-message">Message</label>
-                                    <textarea id="contact-message" className={styles['form__textarea']} rows={5} minLength={10} maxLength={500} placeholder="Votre message…" required />
+                                    <textarea {...register('message')} id="contact-message" className={styles['form__textarea']} rows={5} minLength={10} placeholder="Votre message…" />
+                                    {errors && <small className={styles['error-field']}>{errors?.message?.message}</small>}
                                 </div>
-
-                                <button type="submit" className={styles['form__submit']}>
-                                    <Send size={18} /> Envoyer le message
+                                <button type="submit" className={styles['form__submit']} disabled={isSubmitting}>
+                                    <Send size={18} /> {isSubmitting ? 'Chargement…' :  'Envoyer le message' }
                                 </button>
                             </form>
                         )}

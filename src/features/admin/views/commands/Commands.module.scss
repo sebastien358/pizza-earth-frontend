@@ -146,10 +146,11 @@ $green: #1a7a1a;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .orders__card__top {
-  order: 1;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -181,24 +182,30 @@ $green: #1a7a1a;
   color: $brown;
 }
 
+.orders__card__intent {
+  padding-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #635bff;
+  word-break: break-all;
+}
+
 .orders__card__name {
-  order: 2;
   font-family: 'Fraunces', Georgia, serif;
   font-size: 22px;
   font-weight: 900;
   color: $brown;
-  margin: 0 0 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed $border;
 }
 
 .orders__card__meta {
-  order: 3;
   font-size: 13px;
   color: $brown-light;
-  margin: 0;
+  margin: 4px 0;
 }
 
 .orders__card__address {
-  order: 4;
   font-size: 13px;
   color: $brown-light;
   margin: 0 0 12px;
@@ -207,7 +214,6 @@ $green: #1a7a1a;
 }
 
 .orders__card__note {
-  order: 5;
   font-size: 13px;
   color: $brown;
   background: #fffbe8;
@@ -217,7 +223,6 @@ $green: #1a7a1a;
 }
 
 .orders__card__items {
-  order: 6;
   margin-bottom: 14px;
   display: flex;
   flex-direction: column;
@@ -245,7 +250,7 @@ $green: #1a7a1a;
 /* ===== FOOTER = TOTAL + DATE ===== */
 /* C'est bien orders__footer, pas orders__card__footer */
 .orders__footer {
-  order: 7;
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -277,7 +282,7 @@ $green: #1a7a1a;
 
 /* ===== BOUTONS ===== */
 .orders__card__actions {
-  order: 8;
+
   display: flex;
   gap: 10px;
   padding-top: 12px;

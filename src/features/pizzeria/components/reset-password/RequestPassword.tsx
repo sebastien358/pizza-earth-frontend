@@ -6,6 +6,7 @@ import {RequestFormData, useAuthStore} from "@/store/auth.store";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod"
+import {useRouter} from "next/navigation";
 
 const DELAY_TIMEOUT = 2000
 
@@ -30,9 +31,13 @@ export default function RequestPassword() {
         }
     }
 
+    const router = useRouter()
+
     function handleSuccess() {
         setTimeout(() => {
             resetSuccessMessage()
+            router.push('/')
+            reset()
         }, DELAY_TIMEOUT)
     }
 

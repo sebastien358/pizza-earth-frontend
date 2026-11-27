@@ -32,6 +32,7 @@ export default function Sidebar() {
         { name: 'Accueil', path: '/' },
         { name: 'Commandes', path: '/admin/commands' },
         { name: 'Témoignages', path: '/admin/testimonials' },
+        { name: 'Contacts', path: '/admin/contacts' },
         { name: 'Pizzas', path: '/admin/products' },
         { name: 'Ajout Pizza', path: '/admin/products/form' }
     ]
@@ -39,6 +40,7 @@ export default function Sidebar() {
     const adminPageConfig = {
         '/admin/commands': { reset: resetOrders, count: countOrders },
         '/admin/testimonials': { reset: resetTestimonials, count: countTestimonials },
+        '/admin/contacts': { reset: null, count: 0 },
         '/admin/products': { reset: resetProduct, count: countProducts }
     }
 

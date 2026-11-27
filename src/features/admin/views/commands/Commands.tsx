@@ -45,6 +45,8 @@ export default function Commands() {
         orderList()
     }, [orderList]);
 
+    console.log(orders)
+
     const [selectedSlug, setSelectedSlug] = useState<string>('tous')
 
     function onClickStatus(status: string) {
@@ -114,16 +116,32 @@ export default function Commands() {
                     <div className={styles['orders__grid']}>
                         {filteredOrders.map((order: any) => (
                             <article key={order.id} className={styles['orders__card']}>
+
+
+
                                 <div className={styles['orders__card__top']}>
-                                <span className={`${styles['orders__card__status']} ${styles[`orders__card__status--${order.status}`]}`}>
-                                  {order.status === 'pending' ? 'En attente' : order.status === 'validated' ? 'Validée' : 'Annulée'}
-                                </span>
-                                    <span className={styles['orders__card__mode']}>
-                                    {order.deliveryMode === 'delivery' ? 'Livraison' : 'Retrait'}
-                                </span>
+                                    <span className={`${styles['orders__card__status']} ${styles[`orders__card__status--${order.status}`]}`}>
+                                      {order.status === 'pending' ? 'En attente' : order.status === 'validated' ? 'Validée' : 'Annulée'}
+                                    </span>
+                                        <span className={styles['orders__card__mode']}>
+                                        {order.deliveryMode === 'delivery' ? 'Livraison' : 'Retrait'}
+                                    </span>
                                 </div>
 
+
+
                                 <h2 className={styles['orders__card__name']}>{order.name}</h2>
+
+                                <p className={styles['orders__card__intent']}>Stripe : {order.paymentIntentId}</p>
+                                <p className={styles['orders__card__meta']}>{order.email} - {order.phone}</p>
+                                {order.complementAddress && (
+                                    <p className={styles['orders__card__address']}>{order.complementAddress}</p>
+                                )}
+                                <p className={styles['orders__card__address']}>{order.address} - {order.postalCode} {order.city}</p>
+                                {order.deliveryInstructions && (
+                                    <p className={styles['orders__card__note']}>📝 {order.deliveryInstructions}</p>
+                                )}
+
 
                                 <div className={styles['orders__card__items']}>
                                     {order.orderItems.map((item: any) => (
@@ -134,24 +152,12 @@ export default function Commands() {
                                     ))}
                                 </div>
 
-                                <p className={styles['orders__card__meta']}>{order.email} - {order.phone}</p>
-                                <p className={styles['orders__card__address']}>
-                                    {order.address} - {order.postalCode} {order.city}
-                                </p>
-                                {order.complementAddress && (
-                                    <p className={styles['orders__card__address']}>{order.complementAddress}</p>
-                                )}
-                                {order.deliveryInstructions && (
-                                    <p className={styles['orders__card__note']}>📝 {order.deliveryInstructions}</p>
-                                )}
-
                                 <div className={styles['orders__footer']}>
                                     <span className={styles['orders__card__total']}>Total : {order.total.toFixed(2)}€</span>
                                     <span className={styles['orders__card__date']}>{new Date(order.createdAt).toLocaleDateString('fr-FR')} - N°{order.id}</span>
                                 </div>
 
                                 <div className={styles['orders__card__actions']}>
-
                                     <select onChange={(e) => changeStatus(order.id, e)} className={`${styles['orders__card__select']} ${styles[`orders__card__select--${order.status}`]}`} value={order.status}>
                                         {selectedStatus.map((select) =>
                                             <option key={select.slug} value={select.slug}>{select.name}</option>
